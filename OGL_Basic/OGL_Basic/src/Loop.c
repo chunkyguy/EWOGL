@@ -17,5 +17,8 @@ void Init() {
 	glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
 }
 
+void Update(int dt) {
+}
+
 void Render() {
 }

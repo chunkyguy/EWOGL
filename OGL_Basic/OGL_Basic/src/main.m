@@ -28,12 +28,17 @@ int AllocateRenderbufferStorage(void *context, void *layer) {
 	Framebuffer framebuffer_;
 	RenderbufferStorage renderbuffer_storage_;
 	EAGLContext *context_;
+	CFTimeInterval time_;
 	BOOL setup_;
 }
+@property (strong, nonatomic) CADisplayLink *link;
 -(void)render;
+-(void) loop;
 @end
 
 @implementation AppView
+@synthesize link;
+
 + (Class) layerClass {
 	return [CAEAGLLayer class];
 }
@@ -64,7 +69,11 @@ int AllocateRenderbufferStorage(void *context, void *layer) {
 	
 	status = CreateFramebuffer(&renderbuffer_storage_, &framebuffer_)?YES:NO;
 	NSAssert(status, @"Creating framebuffer failed");
-	
+
+	time_ = 0.0;
+	self.link = [[UIScreen mainScreen] displayLinkWithTarget:self selector:@selector(loop)];
+	[self.link addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
+
 	return self;
 }
 
@@ -106,7 +115,11 @@ int AllocateRenderbufferStorage(void *context, void *layer) {
 	glBindFramebuffer(GL_FRAMEBUFFER, framebuffer_.buffer);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	//render
+	//update + render
+	CFTimeInterval time = self.link.timestamp;
+	CFTimeInterval dt = time - time_;
+	time_ = time;
+	Update(dt * 1000);
 	Render();
 	
 	//pass to EGL
@@ -118,13 +131,18 @@ int AllocateRenderbufferStorage(void *context, void *layer) {
 		NSLog(@"%x error", err);
 	}
 }
+
+-(void) loop {
+	[self render];
+}
+
 @end
 
 /**************************************************************************************************************
  *	MARK:	App
  ***************************************************************************************************************/
-@interface App : UIResponder <UIApplicationDelegate> {
-}
+@interface App : UIResponder <UIApplicationDelegate>
+
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) AppView *mainview;
 @end
@@ -143,6 +161,7 @@ int AllocateRenderbufferStorage(void *context, void *layer) {
 	[self.window addSubview:self.mainview];
 	
     [self.window makeKeyAndVisible];
+		
     return YES;
 }
 
@@ -173,7 +192,6 @@ int AllocateRenderbufferStorage(void *context, void *layer) {
 - (void)applicationWillTerminate:(UIApplication *)application {
 	// Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
-
 @end
 
 /**************************************************************************************************************

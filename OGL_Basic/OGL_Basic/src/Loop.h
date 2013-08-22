@@ -10,6 +10,7 @@
 #define OGL_Basic_Loop_h
 
 void Init();
+void Update(int dt);
 void Render();
 
 #endif
