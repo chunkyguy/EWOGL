@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1956E8AD17C528E500975E36 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1956E8AA17C528E500975E36 /* main.m */; };
-		1956E8AE17C528E500975E36 /* Triangle.c in Sources */ = {isa = PBXBuildFile; fileRef = 1956E8AB17C528E500975E36 /* Triangle.c */; };
+		196DA7E217C63F35006D1CE9 /* Loop.c in Sources */ = {isa = PBXBuildFile; fileRef = 196DA7E117C63F35006D1CE9 /* Loop.c */; };
 		1980C93C17C4465200CC388F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1980C93B17C4465200CC388F /* UIKit.framework */; };
 		1980C93E17C4465200CC388F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1980C93D17C4465200CC388F /* Foundation.framework */; };
 		1980C94017C4465200CC388F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1980C93F17C4465200CC388F /* CoreGraphics.framework */; };
@@ -18,12 +18,13 @@
 		1980C95217C4465200CC388F /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1980C95117C4465200CC388F /* Default-568h@2x.png */; };
 		1980C95917C4481700CC388F /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1980C95817C4481700CC388F /* QuartzCore.framework */; };
 		1980C95B17C4481D00CC388F /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1980C95A17C4481D00CC388F /* OpenGLES.framework */; };
+		19BD928917C593960047F4ED /* Framebuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 19BD928817C593960047F4ED /* Framebuffer.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		1956E8AA17C528E500975E36 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		1956E8AB17C528E500975E36 /* Triangle.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Triangle.c; sourceTree = "<group>"; };
-		1956E8AC17C528E500975E36 /* Triangle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Triangle.h; sourceTree = "<group>"; };
+		196DA7E117C63F35006D1CE9 /* Loop.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Loop.c; sourceTree = "<group>"; };
+		196DA7E317C63F42006D1CE9 /* Loop.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Loop.h; sourceTree = "<group>"; };
 		1980C93817C4465200CC388F /* OGL_Basic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OGL_Basic.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1980C93B17C4465200CC388F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		1980C93D17C4465200CC388F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -36,6 +37,8 @@
 		1980C95117C4465200CC388F /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		1980C95817C4481700CC388F /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		1980C95A17C4481D00CC388F /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		19BD928817C593960047F4ED /* Framebuffer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Framebuffer.c; sourceTree = "<group>"; };
+		19BD928A17C595E10047F4ED /* Framebuffer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Framebuffer.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,8 +61,10 @@
 			isa = PBXGroup;
 			children = (
 				1956E8AA17C528E500975E36 /* main.m */,
-				1956E8AB17C528E500975E36 /* Triangle.c */,
-				1956E8AC17C528E500975E36 /* Triangle.h */,
+				19BD928817C593960047F4ED /* Framebuffer.c */,
+				19BD928A17C595E10047F4ED /* Framebuffer.h */,
+				196DA7E117C63F35006D1CE9 /* Loop.c */,
+				196DA7E317C63F42006D1CE9 /* Loop.h */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -181,7 +186,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				1956E8AD17C528E500975E36 /* main.m in Sources */,
-				1956E8AE17C528E500975E36 /* Triangle.c in Sources */,
+				19BD928917C593960047F4ED /* Framebuffer.c in Sources */,
+				196DA7E217C63F35006D1CE9 /* Loop.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

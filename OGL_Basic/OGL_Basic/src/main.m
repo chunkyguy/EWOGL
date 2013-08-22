@@ -13,36 +13,24 @@
 #import <OpenGLES/ES1/gl.h>
 #import <OpenGLES/ES1/glext.h>
 
-// How many times a second to refresh the screen
-#define kRenderingFrequency 60.0
+#include "Framebuffer.h"
+#include "Loop.h"
 
-// For setting up perspective, define near, far, and angle of view
-#define kZNear			0.01
-#define kZFar			1000.0
-#define kFieldOfView	45.0
+int AllocateRenderbufferStorage(void *context, void *layer) {
+	return [(EAGLContext*)context renderbufferStorage:GL_RENDERBUFFER_OES fromDrawable:(id<EAGLDrawable>)layer]?1:0;
+}
 
-// Macros
-#define DEGREES_TO_RADIANS(__ANGLE__) ((__ANGLE__) / 180.0 * M_PI)
 
 /**************************************************************************************************************
  *	MARK:	App
  ***************************************************************************************************************/
 @interface AppView : UIView <UIApplicationDelegate> {
-	// The pixel dimensions of the backbuffer
-	GLint backingWidth_;
-	GLint backingHeight_;
-	
+	Framebuffer framebuffer_;
+	RenderbufferStorage renderbuffer_storage_;
 	EAGLContext *context_;
-	GLuint viewRenderbuffer_, viewFramebuffer_;
-	GLuint depthRenderbuffer_;
-	NSTimer *animationTimer_;
-	NSTimeInterval animationInterval_;
-	
 	BOOL setup_;
 }
--(void)startAnimation;
--(void)stopAnimation;
--(void)drawView;
+-(void)render;
 @end
 
 @implementation AppView
@@ -69,19 +57,20 @@
 	
 	BOOL status = [EAGLContext setCurrentContext:context_];
 	NSAssert(status, @"Setting current context failed");
+
+	renderbuffer_storage_.callback = &AllocateRenderbufferStorage;
+	renderbuffer_storage_.context = 	context_;
+	renderbuffer_storage_.layer = self.layer;
 	
-	status = [self createFramebuffer];
+	status = CreateFramebuffer(&renderbuffer_storage_, &framebuffer_)?YES:NO;
 	NSAssert(status, @"Creating framebuffer failed");
 	
-	// Default the animation interval to 1/60th of a second.
-	animationInterval_ = 1.0 / kRenderingFrequency;
-
 	return self;
 }
 
 - (void)dealloc {
-	[self stopAnimation];
-	
+	DestroyFramebuffer(&framebuffer_);
+
 	if([EAGLContext currentContext] == context_)	{
 		[EAGLContext setCurrentContext:nil];
 	}
@@ -98,110 +87,37 @@
 // the same size as our display area.
 -(void)layoutSubviews {
 	[EAGLContext setCurrentContext:context_];
-	[self destroyFramebuffer];
-	[self createFramebuffer];
-	[self drawView];
-}
-
-- (BOOL)createFramebuffer
-{
-	// Generate IDs for a framebuffer object and a color renderbuffer
-	glGenFramebuffersOES(1, &viewFramebuffer_);
-	glBindFramebufferOES(GL_FRAMEBUFFER_OES, viewFramebuffer_);
-	NSAssert(viewFramebuffer_, @"Unable to create framebuffer");
-
-	glGenRenderbuffersOES(1, &viewRenderbuffer_);
-	glBindRenderbufferOES(GL_RENDERBUFFER_OES, viewRenderbuffer_);
-	NSAssert(viewRenderbuffer_, @"Unable to create renderbuffer");
-
-	// This call associates the storage for the current render buffer with the EAGLDrawable (our CAEAGLLayer)
-	// allowing us to draw into a buffer that will later be rendered to screen whereever the layer is (which corresponds with our view).
-	BOOL status = [context_ renderbufferStorage:GL_RENDERBUFFER_OES fromDrawable:(id<EAGLDrawable>)self.layer];
-	NSAssert(status, @"Unable to get renderbuffer storage");
+	DestroyFramebuffer(&framebuffer_);
+	BOOL status = CreateFramebuffer(&renderbuffer_storage_, &framebuffer_)?YES:NO;
+	NSAssert(status, @"Creating framebuffer failed");
 	
-	glFramebufferRenderbufferOES(GL_FRAMEBUFFER_OES, GL_COLOR_ATTACHMENT0_OES, GL_RENDERBUFFER_OES, viewRenderbuffer_);
-	
-	glGetRenderbufferParameterivOES(GL_RENDERBUFFER_OES, GL_RENDERBUFFER_WIDTH_OES, &backingWidth_);
-	glGetRenderbufferParameterivOES(GL_RENDERBUFFER_OES, GL_RENDERBUFFER_HEIGHT_OES, &backingHeight_);
-	
-	// For this sample, we also need a depth buffer, so we'll create and attach one via another renderbuffer.
-	glGenRenderbuffersOES(1, &depthRenderbuffer_);
-	glBindRenderbufferOES(GL_RENDERBUFFER_OES, depthRenderbuffer_);
-	glRenderbufferStorageOES(GL_RENDERBUFFER_OES, GL_DEPTH_COMPONENT16_OES, backingWidth_, backingHeight_);
-	glFramebufferRenderbufferOES(GL_FRAMEBUFFER_OES, GL_DEPTH_ATTACHMENT_OES, GL_RENDERBUFFER_OES, depthRenderbuffer_);
-	
-	if(glCheckFramebufferStatusOES(GL_FRAMEBUFFER_OES) != GL_FRAMEBUFFER_COMPLETE_OES)	{
-		NSLog(@"failed to make complete framebuffer object %x", glCheckFramebufferStatusOES(GL_FRAMEBUFFER_OES));
-		return NO;
-	}
-	
-	return YES;
-}
-
-// Clean up any buffers we have allocated.
-- (void)destroyFramebuffer {
-	glDeleteFramebuffersOES(1, &viewFramebuffer_);
-	viewFramebuffer_ = 0;
-	glDeleteRenderbuffersOES(1, &viewRenderbuffer_);
-	viewRenderbuffer_ = 0;
-	
-	if(depthRenderbuffer_)	{
-		glDeleteRenderbuffersOES(1, &depthRenderbuffer_);
-		depthRenderbuffer_ = 0;
-	}
-}
-
-- (void)startAnimation {
-	animationTimer_ = [NSTimer scheduledTimerWithTimeInterval:animationInterval_ target:self selector:@selector(drawView) userInfo:nil repeats:YES];
-}
-
-- (void)stopAnimation {
-	[animationTimer_ invalidate];
-	animationTimer_ = nil;
-}
-
-- (void)setAnimationInterval:(NSTimeInterval)interval {
-	animationInterval_ = interval;
-	
-	if(animationTimer_)	{
-		[self stopAnimation];
-		[self startAnimation];
-	}
+	[self render];
 }
 
 // Updates the OpenGL view when the timer fires
-- (void)drawView {
-	// Make sure that you are drawing to the current context
-	[EAGLContext setCurrentContext:context_];
-	
-	// If our drawing delegate needs to have the view setup, then call -setupView: and flag that it won't need to be called again.
-	if(!setup_)
-	{
-		[self setup];
+- (void)render {
+	//init if not already
+	if(!setup_)	{
+		Init();
 		setup_ = YES;
 	}
 	
-	glBindFramebufferOES(GL_FRAMEBUFFER_OES, viewFramebuffer_);
+	//clear framebuffer
+	glBindFramebuffer(GL_FRAMEBUFFER, framebuffer_.buffer);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	//render
+	Render();
 	
-	[self render];
-	
-	glBindRenderbufferOES(GL_RENDERBUFFER_OES, viewRenderbuffer_);
+	//pass to EGL
+	glBindRenderbuffer(GL_RENDERBUFFER, framebuffer_.renderbuffer[0]);
 	[context_ presentRenderbuffer:GL_RENDERBUFFER_OES];
 	
 	GLenum err = glGetError();
-	if(err)
+	if(err) {
 		NSLog(@"%x error", err);
+	}
 }
-
--(void) setup {
-	
-}
-
--(void) render {
-	glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-}
-
 @end
 
 /**************************************************************************************************************
