@@ -10,14 +10,14 @@
 #import <QuartzCore/QuartzCore.h>
 #import <OpenGLES/EAGLDrawable.h>
 #import <OpenGLES/EAGL.h>
-#import <OpenGLES/ES1/gl.h>
-#import <OpenGLES/ES1/glext.h>
+#import <OpenGLES/ES2/gl.h>
+#import <OpenGLES/ES2/glext.h>
 
 #include "Framebuffer.h"
 #include "Loop.h"
 
 int AllocateRenderbufferStorage(void *context, void *layer) {
-	return [(EAGLContext*)context renderbufferStorage:GL_RENDERBUFFER_OES fromDrawable:(id<EAGLDrawable>)layer]?1:0;
+	return [(EAGLContext*)context renderbufferStorage:GL_RENDERBUFFER fromDrawable:(id<EAGLDrawable>)layer]?1:0;
 }
 
 
@@ -111,7 +111,7 @@ int AllocateRenderbufferStorage(void *context, void *layer) {
 	
 	//pass to EGL
 	glBindRenderbuffer(GL_RENDERBUFFER, framebuffer_.renderbuffer[0]);
-	[context_ presentRenderbuffer:GL_RENDERBUFFER_OES];
+	[context_ presentRenderbuffer:GL_RENDERBUFFER];
 	
 	GLenum err = glGetError();
 	if(err) {
