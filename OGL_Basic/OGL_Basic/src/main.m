@@ -15,11 +15,41 @@
 
 #include "Framebuffer.h"
 #include "Loop.h"
+#include "Shader.h"
+#include "Constants.h"
 
+/**************************************************************************************************************
+ *	MARK:	Callbacks + Functions
+ ***************************************************************************************************************/
 int AllocateRenderbufferStorage(void *context, void *layer) {
 	return [(EAGLContext*)context renderbufferStorage:GL_RENDERBUFFER fromDrawable:(id<EAGLDrawable>)layer]?1:0;
 }
 
+void BindAttributes(Program *program) {
+	// Bind the custom vertex attribute "myVertex" to location VERTEX_ARRAY
+	glBindAttribLocation(program->program, VERTEX_ARRAY, "a_Position");
+}
+
+void BindUniforms(Program *program) {
+	// Matrix used for projection model view (PMVMatrix)
+	float pfIdentity[] = {
+		1.0f,0.0f,0.0f,0.0f,
+		0.0f,1.0f,0.0f,0.0f,
+		0.0f,0.0f,1.0f,0.0f,
+		0.0f,0.0f,0.0f,1.0f
+	};
+	
+	/*
+	 Bind the projection model view matrix (PMVMatrix) to
+	 the associated uniform variable in the shader
+	 */
+	
+	// First gets the location of that variable in the shader using its name
+	int mvp_loc = glGetUniformLocation(program->program, "u_Mvp");
+	
+	// Then passes the matrix to that variable
+	glUniformMatrix4fv(mvp_loc, 1, GL_FALSE, pfIdentity);
+}
 
 /**************************************************************************************************************
  *	MARK:	App
@@ -27,10 +57,11 @@ int AllocateRenderbufferStorage(void *context, void *layer) {
 @interface AppView : UIView <UIApplicationDelegate> {
 	Framebuffer framebuffer_;
 	RenderbufferStorage renderbuffer_storage_;
-	EAGLContext *context_;
+	Program program_;
 	CFTimeInterval time_;
 	BOOL setup_;
 }
+@property (strong, nonatomic) EAGLContext *context;
 @property (strong, nonatomic) CADisplayLink *link;
 -(void)render;
 -(void) loop;
@@ -47,29 +78,38 @@ int AllocateRenderbufferStorage(void *context, void *layer) {
 	self = [super initWithFrame:frame];
 	NSAssert(self, @"Unable to init AppView");
 	
+	/* Init EAGL */
 	CAEAGLLayer *eaglLayer = (CAEAGLLayer*) self.layer;
 	
 	// Configure it so that it is opaque, does not retain the contents of the backbuffer when displayed, and uses RGBA8888 color.
 	eaglLayer.opaque = YES;
 	eaglLayer.drawableProperties = [NSDictionary dictionaryWithObjectsAndKeys:
-									[NSNumber numberWithBool:FALSE], kEAGLDrawablePropertyRetainedBacking,
+									[NSNumber numberWithBool:NO], kEAGLDrawablePropertyRetainedBacking,
 									kEAGLColorFormatRGBA8, kEAGLDrawablePropertyColorFormat,
 									nil];
 	
-	// Create our EAGLContext, and if successful make it current and create our framebuffer.
-	context_ = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES1];
-	NSAssert(context_, @"Creating context failed");
+	/* Create context for rendering OpenGL ES 2*/
+	self.context = [[[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2] autorelease];
+	NSAssert(self.context, @"Creating context failed");
 	
-	BOOL status = [EAGLContext setCurrentContext:context_];
+	BOOL status = [EAGLContext setCurrentContext:self.context];
 	NSAssert(status, @"Setting current context failed");
 
+	// Create framebuffer
 	renderbuffer_storage_.callback = &AllocateRenderbufferStorage;
-	renderbuffer_storage_.context = 	context_;
+	renderbuffer_storage_.context = 	self.context;
 	renderbuffer_storage_.layer = self.layer;
 	
-	status = CreateFramebuffer(&renderbuffer_storage_, &framebuffer_)?YES:NO;
+	framebuffer_ = CreateFramebuffer(&renderbuffer_storage_);
 	NSAssert(status, @"Creating framebuffer failed");
-
+	
+	// Set viewport
+	glViewport(0, 0, (GLsizei)frame.size.width, (GLsizei)frame.size.height);
+	
+	// Load shader
+	program_ = CompileShader("Shader.vsh", "Shader.fsh", &BindAttributes);
+	
+	// Set loop
 	time_ = 0.0;
 	self.link = [[UIScreen mainScreen] displayLinkWithTarget:self selector:@selector(loop)];
 	[self.link addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
@@ -80,12 +120,10 @@ int AllocateRenderbufferStorage(void *context, void *layer) {
 - (void)dealloc {
 	DestroyFramebuffer(&framebuffer_);
 
-	if([EAGLContext currentContext] == context_)	{
+	if([EAGLContext currentContext] == self.context)	{
 		[EAGLContext setCurrentContext:nil];
 	}
-	
-	[context_ release];
-	context_ = nil;
+	self.context = nil;
 	
     [super dealloc];
 }
@@ -95,10 +133,9 @@ int AllocateRenderbufferStorage(void *context, void *layer) {
 // This is the perfect opportunity to also update the framebuffer so that it is
 // the same size as our display area.
 -(void)layoutSubviews {
-	[EAGLContext setCurrentContext:context_];
+	[EAGLContext setCurrentContext:self.context];
 	DestroyFramebuffer(&framebuffer_);
-	BOOL status = CreateFramebuffer(&renderbuffer_storage_, &framebuffer_)?YES:NO;
-	NSAssert(status, @"Creating framebuffer failed");
+	framebuffer_ = CreateFramebuffer(&renderbuffer_storage_);
 	
 	[self render];
 }
@@ -115,16 +152,19 @@ int AllocateRenderbufferStorage(void *context, void *layer) {
 	glBindFramebuffer(GL_FRAMEBUFFER, framebuffer_.buffer);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	//update + render
+	//update
 	CFTimeInterval time = self.link.timestamp;
 	CFTimeInterval dt = time - time_;
-	time_ = time;
 	Update(dt * 1000);
+	time_ = time;
+
+	// render
+	BindUniforms(&program_);
 	Render();
 	
 	//pass to EGL
 	glBindRenderbuffer(GL_RENDERBUFFER, framebuffer_.renderbuffer[0]);
-	[context_ presentRenderbuffer:GL_RENDERBUFFER];
+	[self.context presentRenderbuffer:GL_RENDERBUFFER];
 	
 	GLenum err = glGetError();
 	if(err) {

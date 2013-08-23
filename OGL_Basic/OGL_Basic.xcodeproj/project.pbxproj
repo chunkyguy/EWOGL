@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		1956E8AD17C528E500975E36 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1956E8AA17C528E500975E36 /* main.m */; };
 		196DA7E217C63F35006D1CE9 /* Loop.c in Sources */ = {isa = PBXBuildFile; fileRef = 196DA7E117C63F35006D1CE9 /* Loop.c */; };
+		196DA7E917C64D78006D1CE9 /* Shader.c in Sources */ = {isa = PBXBuildFile; fileRef = 196DA7E817C64D78006D1CE9 /* Shader.c */; };
+		196DA7F017C64ED6006D1CE9 /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 196DA7EF17C64ED6006D1CE9 /* Utilities.m */; };
+		196DA7F217C66450006D1CE9 /* Shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 196DA7E417C64B53006D1CE9 /* Shader.vsh */; };
+		196DA7F317C66450006D1CE9 /* Shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 196DA7E617C64B60006D1CE9 /* Shader.fsh */; };
 		1980C93C17C4465200CC388F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1980C93B17C4465200CC388F /* UIKit.framework */; };
 		1980C93E17C4465200CC388F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1980C93D17C4465200CC388F /* Foundation.framework */; };
 		1980C94017C4465200CC388F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1980C93F17C4465200CC388F /* CoreGraphics.framework */; };
@@ -25,6 +29,13 @@
 		1956E8AA17C528E500975E36 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		196DA7E117C63F35006D1CE9 /* Loop.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Loop.c; sourceTree = "<group>"; };
 		196DA7E317C63F42006D1CE9 /* Loop.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Loop.h; sourceTree = "<group>"; };
+		196DA7E417C64B53006D1CE9 /* Shader.vsh */ = {isa = PBXFileReference; explicitFileType = sourcecode.glsl; fileEncoding = 4; path = Shader.vsh; sourceTree = "<group>"; };
+		196DA7E617C64B60006D1CE9 /* Shader.fsh */ = {isa = PBXFileReference; explicitFileType = sourcecode.glsl; fileEncoding = 4; path = Shader.fsh; sourceTree = "<group>"; };
+		196DA7E817C64D78006D1CE9 /* Shader.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Shader.c; sourceTree = "<group>"; };
+		196DA7EA17C64D8B006D1CE9 /* Shader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Shader.h; sourceTree = "<group>"; };
+		196DA7EE17C64ED6006D1CE9 /* Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = "<group>"; };
+		196DA7EF17C64ED6006D1CE9 /* Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utilities.m; sourceTree = "<group>"; };
+		196DA7F417C682BB006D1CE9 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		1980C93817C4465200CC388F /* OGL_Basic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OGL_Basic.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1980C93B17C4465200CC388F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		1980C93D17C4465200CC388F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -65,6 +76,13 @@
 				19BD928A17C595E10047F4ED /* Framebuffer.h */,
 				196DA7E117C63F35006D1CE9 /* Loop.c */,
 				196DA7E317C63F42006D1CE9 /* Loop.h */,
+				196DA7E417C64B53006D1CE9 /* Shader.vsh */,
+				196DA7E617C64B60006D1CE9 /* Shader.fsh */,
+				196DA7E817C64D78006D1CE9 /* Shader.c */,
+				196DA7EA17C64D8B006D1CE9 /* Shader.h */,
+				196DA7EE17C64ED6006D1CE9 /* Utilities.h */,
+				196DA7EF17C64ED6006D1CE9 /* Utilities.m */,
+				196DA7F417C682BB006D1CE9 /* Constants.h */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -171,6 +189,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				196DA7F217C66450006D1CE9 /* Shader.vsh in Resources */,
+				196DA7F317C66450006D1CE9 /* Shader.fsh in Resources */,
 				1980C94617C4465200CC388F /* InfoPlist.strings in Resources */,
 				1980C94E17C4465200CC388F /* Default.png in Resources */,
 				1980C95017C4465200CC388F /* Default@2x.png in Resources */,
@@ -188,6 +208,8 @@
 				1956E8AD17C528E500975E36 /* main.m in Sources */,
 				19BD928917C593960047F4ED /* Framebuffer.c in Sources */,
 				196DA7E217C63F35006D1CE9 /* Loop.c in Sources */,
+				196DA7E917C64D78006D1CE9 /* Shader.c in Sources */,
+				196DA7F017C64ED6006D1CE9 /* Utilities.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

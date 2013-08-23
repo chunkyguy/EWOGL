@@ -24,7 +24,20 @@ struct RenderbufferStorage_ {
 };
 typedef struct RenderbufferStorage_ RenderbufferStorage;
 
-int CreateFramebuffer(RenderbufferStorage *renderbuffer_storage, Framebuffer *frame_buffer);
+/**
+ *	Create a framebuffer.
+ *
+ *	@param	renderbuffer_storage	 The color renderbuffer storage callback.
+ *
+ *	@return	Framebuffer object.
+ */
+Framebuffer CreateFramebuffer(RenderbufferStorage *renderbuffer_storage);
+
+/**
+ *	Destroy a framebuffer object.
+ *
+ *	@param	frame_buffer	 The reference to framebuffer object.
+ */
 void DestroyFramebuffer(Framebuffer *frame_buffer);
 
 #endif
