@@ -9,8 +9,30 @@
 #ifndef OGL_Basic_Loop_h
 #define OGL_Basic_Loop_h
 
+#include "Shader.h"
+
+/**
+ *	Bind all shader attributes constants. This callback is invoked while the Shader is compiling.
+ *
+ *	@param	program	The Program reference.
+ */
+void BindAttributes(Program *program);
+
+/**
+ *	Init all stuff.
+ */
 void Init();
+
+/**
+ *	Update physics and data.
+ *
+ *	@param	dt	delta time in ms.
+ */
 void Update(int dt);
-void Render();
+
+/**
+ *	All draw commands should go here.
+ */
+void Render(const Program program);
 
 #endif

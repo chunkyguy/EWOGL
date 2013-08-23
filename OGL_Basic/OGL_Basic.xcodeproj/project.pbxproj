@@ -48,6 +48,7 @@
 		1980C95117C4465200CC388F /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		1980C95817C4481700CC388F /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		1980C95A17C4481D00CC388F /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		1991377417C7451300F73897 /* main.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = main.h; sourceTree = "<group>"; };
 		19BD928817C593960047F4ED /* Framebuffer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Framebuffer.c; sourceTree = "<group>"; };
 		19BD928A17C595E10047F4ED /* Framebuffer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Framebuffer.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -72,6 +73,7 @@
 			isa = PBXGroup;
 			children = (
 				1956E8AA17C528E500975E36 /* main.m */,
+				1991377417C7451300F73897 /* main.h */,
 				19BD928817C593960047F4ED /* Framebuffer.c */,
 				19BD928A17C595E10047F4ED /* Framebuffer.h */,
 				196DA7E117C63F35006D1CE9 /* Loop.c */,

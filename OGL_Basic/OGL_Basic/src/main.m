@@ -6,67 +6,26 @@
 //  Copyright (c) 2013 whackylabs. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import <QuartzCore/QuartzCore.h>
 #import <OpenGLES/EAGLDrawable.h>
 #import <OpenGLES/EAGL.h>
 #import <OpenGLES/ES2/gl.h>
 #import <OpenGLES/ES2/glext.h>
 
-#include "Framebuffer.h"
+#import "main.h"
+
 #include "Loop.h"
-#include "Shader.h"
 #include "Constants.h"
 
 /**************************************************************************************************************
  *	MARK:	Callbacks + Functions
  ***************************************************************************************************************/
 int AllocateRenderbufferStorage(void *context, void *layer) {
-	return [(EAGLContext*)context renderbufferStorage:GL_RENDERBUFFER fromDrawable:(id<EAGLDrawable>)layer]?1:0;
-}
-
-void BindAttributes(Program *program) {
-	// Bind the custom vertex attribute "myVertex" to location VERTEX_ARRAY
-	glBindAttribLocation(program->program, VERTEX_ARRAY, "a_Position");
-}
-
-void BindUniforms(Program *program) {
-	// Matrix used for projection model view (PMVMatrix)
-	float pfIdentity[] = {
-		1.0f,0.0f,0.0f,0.0f,
-		0.0f,1.0f,0.0f,0.0f,
-		0.0f,0.0f,1.0f,0.0f,
-		0.0f,0.0f,0.0f,1.0f
-	};
-	
-	/*
-	 Bind the projection model view matrix (PMVMatrix) to
-	 the associated uniform variable in the shader
-	 */
-	
-	// First gets the location of that variable in the shader using its name
-	int mvp_loc = glGetUniformLocation(program->program, "u_Mvp");
-	
-	// Then passes the matrix to that variable
-	glUniformMatrix4fv(mvp_loc, 1, GL_FALSE, pfIdentity);
+	return [(EAGLContext*)context renderbufferStorage:GL_RENDERBUFFER fromDrawable:(id<EAGLDrawable>)layer] ? T: F;
 }
 
 /**************************************************************************************************************
  *	MARK:	App
  ***************************************************************************************************************/
-@interface AppView : UIView <UIApplicationDelegate> {
-	Framebuffer framebuffer_;
-	RenderbufferStorage renderbuffer_storage_;
-	Program program_;
-	CFTimeInterval time_;
-	BOOL setup_;
-}
-@property (strong, nonatomic) EAGLContext *context;
-@property (strong, nonatomic) CADisplayLink *link;
--(void)render;
--(void) loop;
-@end
-
 @implementation AppView
 @synthesize link;
 
@@ -79,8 +38,7 @@ void BindUniforms(Program *program) {
 	NSAssert(self, @"Unable to init AppView");
 	
 	/* Init EAGL */
-	CAEAGLLayer *eaglLayer = (CAEAGLLayer*) self.layer;
-	
+	CAEAGLLayer *eaglLayer = (CAEAGLLayer*) self.layer;	
 	// Configure it so that it is opaque, does not retain the contents of the backbuffer when displayed, and uses RGBA8888 color.
 	eaglLayer.opaque = YES;
 	eaglLayer.drawableProperties = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -128,10 +86,6 @@ void BindUniforms(Program *program) {
     [super dealloc];
 }
 
-// Draw lifecycle
-// If our view is resized, we'll be asked to layout subviews.
-// This is the perfect opportunity to also update the framebuffer so that it is
-// the same size as our display area.
 -(void)layoutSubviews {
 	[EAGLContext setCurrentContext:self.context];
 	DestroyFramebuffer(&framebuffer_);
@@ -140,7 +94,6 @@ void BindUniforms(Program *program) {
 	[self render];
 }
 
-// Updates the OpenGL view when the timer fires
 - (void)render {
 	//init if not already
 	if(!setup_)	{
@@ -159,8 +112,7 @@ void BindUniforms(Program *program) {
 	time_ = time;
 
 	// render
-	BindUniforms(&program_);
-	Render();
+	Render(program_);
 	
 	//pass to EGL
 	glBindRenderbuffer(GL_RENDERBUFFER, framebuffer_.renderbuffer[0]);
@@ -181,12 +133,6 @@ void BindUniforms(Program *program) {
 /**************************************************************************************************************
  *	MARK:	App
  ***************************************************************************************************************/
-@interface App : UIResponder <UIApplicationDelegate>
-
-@property (strong, nonatomic) UIWindow *window;
-@property (strong, nonatomic) AppView *mainview;
-@end
-
 @implementation App
 @synthesize window;
 @synthesize mainview;
