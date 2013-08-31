@@ -10,5 +10,5 @@
 #define Camera_Mesh_h
 #include "Types.h"
 
-void Render_Mesh(const Mesh mesh, const Program program);
+void Render_Mesh(const Mesh mesh, const Program program, const Camera camera);
 #endif

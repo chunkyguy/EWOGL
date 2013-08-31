@@ -8,9 +8,9 @@
 #include "std_incl.h"
 #include "Renderer.h"
 
-void Render_Mesh(const Mesh mesh, const Program program) {
+void Render_Mesh(const Mesh mesh, const Program program, const Camera camera) {
 	/* Matrices used */
-	GLKMatrix4 pMat = GLKMatrix4MakePerspective(GLKMathDegreesToRadians(45.0f), 1.0f, 0.1f, 100.0f);
+	GLKMatrix4 pMat = GLKMatrix4MakePerspective(GLKMathDegreesToRadians(camera.fov), camera.aspect_ratio, 0.1f, 100.0f);
 	GLKMatrix4 tMat = GLKMatrix4MakeTranslation(0.0f, 0.0f, -5.0f);
 	GLKMatrix4 rMat = GLKMatrix4MakeRotation(GLKMathDegreesToRadians(45.0f), 1.0f, 1.0f, 1.0f);
 	GLKMatrix4 mvMat = GLKMatrix4Multiply(tMat, rMat);

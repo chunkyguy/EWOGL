@@ -10,36 +10,32 @@
 #define Camera_Types_h
 
 // The Framebuffer object
-struct Framebuffer_ {
+typedef struct {
 	GLuint buffer;
 	GLuint renderbuffer[2];
 	GLint width;
 	GLint height;
-};
-typedef struct Framebuffer_ Framebuffer;
+}Framebuffer;
 
 // Callback to allocate the color renderbuffer storage.
-struct RenderbufferStorage_ {
+typedef struct {
 	int(*callback)(void *context, void *layer);
 	void *context;
 	void *layer;
-};
-typedef struct RenderbufferStorage_ RenderbufferStorage;
+}RenderbufferStorage;
 
 // Screen size
-struct ScreenSize_ {
+typedef struct {
 	GLsizei width;
 	GLsizei height;
-};
-typedef struct ScreenSize_ ScreenSize;
+}ScreenSize;
 
 // Compiled shader program
-struct Program_ {
+typedef struct {
 	GLuint vert_shader;
 	GLuint frag_shader;
 	GLuint program;
-};
-typedef struct Program_ Program;
+}Program;
 
 // Renderable Mesh
 typedef struct {
@@ -47,4 +43,10 @@ typedef struct {
 	GLuint vbo;
 	int tri_count;	// Number of triangles.
 } Mesh;
+
+typedef struct {
+	float fov;
+	float aspect_ratio;
+	GLKVector3 position;
+} Camera;
 #endif

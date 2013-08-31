@@ -15,6 +15,7 @@
 
 Program program_;
 Mesh cube_;
+Camera camera_;
 
 void BindAttributes(Program *program) {
 	// Bind the custom vertex attribute "a_Position" to location VERTEX_ARRAY
@@ -23,9 +24,13 @@ void BindAttributes(Program *program) {
 }
 
 void SetUp(GLsizei width, GLsizei height) {
-	//	// Set viewport
+	// Set viewport
 	glViewport(0, 0, width, height);
 
+	// Set camera
+	camera_.fov = 45.0f;
+	camera_.aspect_ratio = (width > height) ? (float)height/(float)(width): (float)width/(float)(height);
+	
 	// Load shader
 	program_ = CompileShader("Shader.vsh", "Shader.fsh", &BindAttributes);
 	
@@ -48,6 +53,6 @@ void Load() {
 void Update(int dt) {
 	// Render
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	Render_Mesh(cube_, program_);
+	Render_Mesh(cube_, program_, camera_);
 }
 
