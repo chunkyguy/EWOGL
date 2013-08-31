@@ -10,6 +10,12 @@
 #define OGL_Basic_Loop_h
 
 #include "Shader.h"
+/**
+ *	Preheat assets required in the loop.
+ */
+void SetUp();
+
+void TearDown();
 
 /**
  *	Bind all shader attributes constants. This callback is invoked while the Shader is compiling.
@@ -21,12 +27,7 @@ void BindAttributes(Program *program);
 /**
  *	Init all stuff.
  */
-void Init();
-
-/**
- *	Destroy all stuff
- */
-void Destroy();
+void Load();
 
 /**
  *	Update physics and data.
@@ -34,10 +35,5 @@ void Destroy();
  *	@param	dt	delta time in ms.
  */
 void Update(int dt);
-
-/**
- *	All draw commands should go here.
- */
-void Render(const Program program);
 
 #endif

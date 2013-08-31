@@ -9,12 +9,7 @@
 #ifndef OGL_Basic_Shader_h
 #define OGL_Basic_Shader_h
 
-struct Program_ {
-	GLuint vert_shader;
-	GLuint frag_shader;
-	GLuint program;
-};
-typedef struct Program_ Program;
+#include "Types.h"
 
 typedef void(*BindAttribs)(Program *program);
 

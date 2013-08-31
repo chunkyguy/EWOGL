@@ -22,7 +22,6 @@
 int AllocateRenderbufferStorage(void *context, void *layer) {
 	return [(EAGLContext*)context renderbufferStorage:GL_RENDERBUFFER fromDrawable:(id<EAGLDrawable>)layer] ? T: F;
 }
-
 /**************************************************************************************************************
  *	MARK:	App
  ***************************************************************************************************************/
@@ -52,33 +51,23 @@ int AllocateRenderbufferStorage(void *context, void *layer) {
 	
 	BOOL status = [EAGLContext setCurrentContext:self.context];
 	NSAssert(status, @"Setting current context failed");
-
+	
 	// Create framebuffer
-	renderbuffer_storage_.callback = &AllocateRenderbufferStorage;
-	renderbuffer_storage_.context = 	self.context;
-	renderbuffer_storage_.layer = self.layer;
-	
-	framebuffer_ = CreateFramebuffer(&renderbuffer_storage_);
-	NSAssert(status, @"Creating framebuffer failed");
-	
-	// Set viewport
-	glViewport(0, 0, (GLsizei)frame.size.width, (GLsizei)frame.size.height);
-	
-	// Load shader
-	program_ = CompileShader("Shader.vsh", "Shader.fsh", &BindAttributes);
-	
+	[self createFramebuffer];
+		
 	// Set loop
 	time_ = 0.0;
-	self.link = [[UIScreen mainScreen] displayLinkWithTarget:self selector:@selector(loop)];
+	SetUp((GLsizei)frame.size.width, (GLsizei)frame.size.height);
+	self.link = [[UIScreen mainScreen] displayLinkWithTarget:self selector:@selector(render)];
 	[self.link addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
 
 	return self;
 }
 
 - (void)dealloc {
-	Destroy();
-	DestroyFramebuffer(&framebuffer_);
-
+	TearDown();
+	[self destroyFramebuffer];
+	
 	if([EAGLContext currentContext] == self.context)	{
 		[EAGLContext setCurrentContext:nil];
 	}
@@ -89,44 +78,88 @@ int AllocateRenderbufferStorage(void *context, void *layer) {
 
 -(void)layoutSubviews {
 	[EAGLContext setCurrentContext:self.context];
-	DestroyFramebuffer(&framebuffer_);
-	framebuffer_ = CreateFramebuffer(&renderbuffer_storage_);
+	[self destroyFramebuffer];
+	[self createFramebuffer];
 	
 	[self render];
 }
 
+
 - (void)render {
 	//init if not already
-	if(!setup_)	{
-		Init();
-		setup_ = YES;
+	if(!load_)	{
+		Load();
+		load_ = YES;
 	}
-	
-	//clear framebuffer
-	glBindFramebuffer(GL_FRAMEBUFFER, framebuffer_.buffer);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+	//clear framebuffer
+	glBindFramebuffer(GL_FRAMEBUFFER, frame_buffer_.buffer);
+	
 	//update
 	CFTimeInterval time = self.link.timestamp;
 	CFTimeInterval dt = time - time_;
 	Update(dt * 1000);
 	time_ = time;
-
-	// render
-	Render(program_);
 	
-	//pass to EGL
-	glBindRenderbuffer(GL_RENDERBUFFER, framebuffer_.renderbuffer[0]);
+	//pass the color renderbuffer to EGL
+	glBindRenderbuffer(GL_RENDERBUFFER, frame_buffer_.renderbuffer[0]);
 	[self.context presentRenderbuffer:GL_RENDERBUFFER];
-	
+
+	// check for errors
 	GLenum err = glGetError();
-	if(err) {
-		NSLog(@"%x error", err);
+	NSAssert(!err, @"%x error", err);
+}
+
+/********************************************************************************
+ MARK: Framebuffer
+ *******************************************************************************/
+/**
+ *	Create a framebuffer.
+ *
+ *	@param	renderbuffer_storage	 The color renderbuffer storage callback.
+ *
+ *	@return	Framebuffer object.
+ */
+-(void) createFramebuffer {
+	// Allocate a framebuffer
+	glGenFramebuffers(1, &(frame_buffer_.buffer));
+	glBindFramebuffer(GL_FRAMEBUFFER, frame_buffer_.buffer);
+	assert(frame_buffer_.buffer);	/* Unable to create framebuffer */
+	
+	// Allocate renderbuffers
+	glGenRenderbuffers(2, frame_buffer_.renderbuffer);
+	
+	//	Attach a color renderbuffer
+	glBindRenderbuffer(GL_RENDERBUFFER, frame_buffer_.renderbuffer[0]);
+	assert(frame_buffer_.renderbuffer[0]);	/* Unable to create renderbuffer */
+	//	Get storage of color renderbuffer from EGL context
+	BOOL status = [self.context renderbufferStorage:GL_RENDERBUFFER fromDrawable:(id<EAGLDrawable>)self.layer];
+	assert(status);		/* Unable to get renderbuffer storage */
+	//bind color renderbuffer
+	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, frame_buffer_.renderbuffer[0]);
+	
+	//	Get size of color buffer. Should be same every other renderbuffer
+	glGetRenderbufferParameteriv(GL_RENDERBUFFER, GL_RENDERBUFFER_WIDTH, &(frame_buffer_.width));
+	glGetRenderbufferParameteriv(GL_RENDERBUFFER, GL_RENDERBUFFER_HEIGHT, &(frame_buffer_.height));
+	
+	// Attach depth renderbuffer
+	glBindRenderbuffer(GL_RENDERBUFFER, frame_buffer_.renderbuffer[1]);
+	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT16, frame_buffer_.width, frame_buffer_.height);
+	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, frame_buffer_.renderbuffer[1]);
+	
+	if(glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)	{
+		assert(0); /* failed to make complete framebuffer object */
 	}
 }
 
--(void) loop {
-	[self render];
+/**
+ *	Clean up any buffers we have allocated.
+ *
+ *	@param	frame_buffer	 The reference to framebuffer object.
+ */
+-(void) destroyFramebuffer {
+	glDeleteRenderbuffers(2, frame_buffer_.renderbuffer);
+	glDeleteFramebuffers(1, &(frame_buffer_.buffer));
 }
 
 @end

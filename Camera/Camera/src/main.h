@@ -9,7 +9,6 @@
 #ifndef OGL_Basic_main_h
 #define OGL_Basic_main_h
 
-#include "Shader.h"
 
 /**************************************************************************************************************
  *	MARK:	Callbacks + Functions
@@ -31,14 +30,12 @@ int AllocateRenderbufferStorage(void *context, void *layer);
 #import <QuartzCore/QuartzCore.h>
 #import <Foundation/Foundation.h>
 
-#import "Framebuffer.h"
+#import "Types.h"
 
 @interface AppView : UIView <UIApplicationDelegate> {
-	Framebuffer framebuffer_;
-	RenderbufferStorage renderbuffer_storage_;
-	Program program_;
+	Framebuffer frame_buffer_;
 	CFTimeInterval time_;
-	BOOL setup_;
+	BOOL load_;
 }
 @property (strong, nonatomic) EAGLContext *context;
 @property (strong, nonatomic) CADisplayLink *link;
@@ -74,11 +71,6 @@ int AllocateRenderbufferStorage(void *context, void *layer);
  *	Issue the render command.
  */
 -(void)render;
-
-/**
- *	Issue the loop command.
- */
--(void) loop;
 
 @end
 
