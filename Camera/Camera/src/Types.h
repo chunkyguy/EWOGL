@@ -49,4 +49,19 @@ typedef struct {
 	float fov; // Field of view.
 	float aspect_ratio;
 } Camera;
+
+/**	@struct Transform
+ Handle transformations of a coordinate system
+ Every object has its own coordinate system in reference to some parent coordinate system.
+ At the root level there is the Device's coordinate system (the world space) which is located at {0, 0, Screen::z}
+ */
+struct Transform_ {
+	/** Get position in object space. */
+	GLKVector3 position; //{x, y, z}
+	GLKVector4 rotation;	//{x, y, z, angle}
+	GLKVector3 scale;	//{x, y, z}
+	const struct Transform_ *parent;
+};
+typedef struct Transform_ Transform;
+
 #endif

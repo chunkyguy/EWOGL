@@ -7,13 +7,12 @@
 //
 #include "std_incl.h"
 #include "Renderer.h"
+#include "Transform.h"
 
-void Render_Mesh(const Mesh mesh, const Program program, const Camera camera) {
+void Render_Mesh(const Mesh mesh, const Transform transform, const Program program, const Camera camera) {
 	/* Matrices used */
 	GLKMatrix4 pMat = GLKMatrix4MakePerspective(GLKMathDegreesToRadians(camera.fov), camera.aspect_ratio, 0.1f, 100.0f);
-	GLKMatrix4 tMat = GLKMatrix4MakeTranslation(0.0f, 0.0f, -5.0f);
-	GLKMatrix4 rMat = GLKMatrix4MakeRotation(GLKMathDegreesToRadians(45.0f), 1.0f, 1.0f, 1.0f);
-	GLKMatrix4 mvMat = GLKMatrix4Multiply(tMat, rMat);
+	GLKMatrix4 mvMat = Transform_GetMV(&transform);
 	GLKMatrix3 nMat = GLKMatrix3InvertAndTranspose(GLKMatrix4GetMatrix3(mvMat), 0);
 	GLKMatrix4 mvpMat = GLKMatrix4Multiply(pMat, mvMat);
 	

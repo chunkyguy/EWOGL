@@ -12,9 +12,15 @@
 #include "Constants.h"
 #include "Mesh.h"
 #include "Renderer.h"
+#include "Transform.h"
 
+typedef struct {
+	Mesh mesh;
+	Transform transform;
+}Cube;
+
+Cube cube_;
 Program program_;
-Mesh cube_;
 Camera camera_;
 
 void BindAttributes(Program *program) {
@@ -41,18 +47,25 @@ void TearDown() {
 	glDisableVertexAttribArray(kAttribPosition);
 	glDisableVertexAttribArray(kAttribNormal);
 	
-	TearDown_Mesh(cube_);
+	TearDown_Mesh(cube_.mesh);
 }
 
 void Load() {
 	glEnable(GL_DEPTH_TEST);
 
-	cube_ = CubeMesh();
+	cube_.mesh = CubeMesh();
+	cube_.transform = Transform_Create(GLKVector3Make(0.0f, 0.0f, -5.0f),
+									   GLKVector4Make(1.0f, 1.0f, 1.0f, GLKMathDegreesToRadians(45.0f)),
+									   GLKVector3Make(1.0f, 1.0f, 1.0f),
+									   NULL);
 }
 
 void Update(int dt) {
+	//update
+	cube_.transform.rotation.w += 0.01f;
+	
 	// Render
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	Render_Mesh(cube_, program_, camera_);
+	Render_Mesh(cube_.mesh, cube_.transform, program_, camera_);
 }
 
