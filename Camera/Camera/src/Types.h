@@ -44,9 +44,9 @@ typedef struct {
 	int tri_count;	// Number of triangles.
 } Mesh;
 
+// Camera
 typedef struct {
-	float fov;
+	float fov; // Field of view.
 	float aspect_ratio;
-	GLKVector3 position;
 } Camera;
 #endif

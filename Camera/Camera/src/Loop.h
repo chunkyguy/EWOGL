@@ -11,10 +11,16 @@
 
 #include "Shader.h"
 /**
- *	Preheat assets required in the loop.
+ *	SetUp all data when the framebuffer is reallocated.
+ *
+ *	@param	width	The width of new framebuffer.
+ *	@param	height	The height of new framebuffer.
  */
-void SetUp();
+void SetUp(GLsizei width, GLsizei height);
 
+/**
+ *	Release all resources.
+ */
 void TearDown();
 
 /**
@@ -25,7 +31,7 @@ void TearDown();
 void BindAttributes(Program *program);
 
 /**
- *	Init all stuff.
+ *	Load all stuff. The VBO, textures, anything that can be loaded independently of the framebuffer.
  */
 void Load();
 
