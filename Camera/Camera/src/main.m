@@ -5,11 +5,10 @@
 //  Created by Sid on 21/08/13.
 //  Copyright (c) 2013 whackylabs. All rights reserved.
 //
+#include "std_incl.h"
 
 #import <OpenGLES/EAGLDrawable.h>
 #import <OpenGLES/EAGL.h>
-#import <OpenGLES/ES2/gl.h>
-#import <OpenGLES/ES2/glext.h>
 
 #import "main.h"
 

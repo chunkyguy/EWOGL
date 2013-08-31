@@ -5,7 +5,8 @@
 //  Created by Sid on 22/08/13.
 //  Copyright (c) 2013 whackylabs. All rights reserved.
 //
-#import <assert.h>
+#include "std_incl.h"
+
 #import <string.h>
 #import <Foundation/Foundation.h>
 

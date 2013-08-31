@@ -41,4 +41,10 @@ struct Program_ {
 };
 typedef struct Program_ Program;
 
+// Renderable Mesh
+typedef struct {
+	GLuint vao;
+	GLuint vbo;
+	int tri_count;	// Number of triangles.
+} Mesh;
 #endif

@@ -6,10 +6,7 @@
 //  Copyright (c) 2013 whackylabs. All rights reserved.
 //
 
-#include <stdio.h>
-#include <assert.h>
-#include <OpenGLES/ES2/gl.h>
-
+#include "std_incl.h"
 #include "Shader.h"
 #include "Utilities.h"
 #include "Constants.h"

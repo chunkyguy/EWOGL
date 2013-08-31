@@ -6,17 +6,15 @@
 //  Copyright (c) 2013 whackylabs. All rights reserved.
 //
 
-#include <stdio.h>
-#include <assert.h>
-#include <OpenGLES/ES2/gl.h>
-#include <OpenGLES/ES2/glext.h>
-#include <GLKit/GLKMath.h>
+#include "std_incl.h"
 
 #include "Loop.h"
 #include "Constants.h"
-#include "Cube.h"
+#include "Mesh.h"
+#include "Renderer.h"
 
 Program program_;
+Mesh cube_;
 
 void BindAttributes(Program *program) {
 	// Bind the custom vertex attribute "a_Position" to location VERTEX_ARRAY
@@ -38,19 +36,18 @@ void TearDown() {
 	glDisableVertexAttribArray(kAttribPosition);
 	glDisableVertexAttribArray(kAttribNormal);
 	
-	Cube_TearDown();
+	TearDown_Mesh(cube_);
 }
 
 void Load() {
 	glEnable(GL_DEPTH_TEST);
 
-	Cube_Load();
+	cube_ = CubeMesh();
 }
 
 void Update(int dt) {
 	// Render
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-	Cube_Render(program_);
+	Render_Mesh(cube_, program_);
 }
 

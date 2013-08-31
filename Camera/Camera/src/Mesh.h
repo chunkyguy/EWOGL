@@ -8,7 +8,9 @@
 
 #ifndef Camera_Cube_h
 #define Camera_Cube_h
-void Cube_Load();
-void Cube_TearDown();
-void Cube_Render(const Program program);
+#include "Types.h"
+
+Mesh CubeMesh();
+
+void TearDown_Mesh(const Mesh mesh);
 #endif

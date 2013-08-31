@@ -6,19 +6,11 @@
 //  Copyright (c) 2013 whackylabs. All rights reserved.
 //
 
-#include <stdio.h>
-#include <assert.h>
-#include <OpenGLES/ES2/gl.h>
-#include <OpenGLES/ES2/glext.h>
-#include <GLKit/GLKMath.h>
-
+#include "std_incl.h"
+#include "Mesh.h"
 #include "Constants.h"
-#include "Types.h"
 
-GLuint	vbo_;
-GLuint	vao_;
-
-void Cube_Load() {
+Mesh CubeMesh() {
 	GLfloat g_CubeVertexData[216] = {
 		// Data layout for each line below is:
 		// positionX, positionY, positionZ,     normalX, normalY, normalZ,
@@ -65,15 +57,18 @@ void Cube_Load() {
 		-0.5f, 0.5f, -0.5f,        0.0f, 0.0f, -1.0f
 	};
 
+	Mesh cube;
+	cube.tri_count = 36;
+	
 	/* Generate + bind the VAO */
-	glGenVertexArraysOES(1, &vao_);
-	assert(vao_);
-	glBindVertexArrayOES(vao_);
+	glGenVertexArraysOES(1, &cube.vao);
+	assert(cube.vao);
+	glBindVertexArrayOES(cube.vao);
 	
 	/* Generate + bind the VBO */
-	glGenBuffers(1, &vbo_);
-	assert(vbo_);
-	glBindBuffer(GL_ARRAY_BUFFER, vbo_);
+	glGenBuffers(1, &cube.vbo);
+	assert(cube.vbo);
+	glBindBuffer(GL_ARRAY_BUFFER, cube.vbo);
 	
 	/* Set the buffer's data */
 	glBufferData(GL_ARRAY_BUFFER, sizeof(g_CubeVertexData), g_CubeVertexData, GL_STATIC_DRAW);
@@ -93,45 +88,13 @@ void Cube_Load() {
 	
 	/* Unbind the VAO */
 	glBindVertexArrayOES(0);
-
+	
+	return cube;
 }
 
-void Cube_TearDown() {
-	glDeleteBuffers(1, &vbo_);
-	glDeleteVertexArraysOES(1, &vao_);
-}
-
-void Cube_Render(const Program program) {
-	/* Matrices used */
-	GLKMatrix4 pMat = GLKMatrix4MakePerspective(GLKMathDegreesToRadians(45.0f), 1.0f, 0.1f, 100.0f);
-	GLKMatrix4 tMat = GLKMatrix4MakeTranslation(0.0f, 0.0f, -5.0f);
-	GLKMatrix4 rMat = GLKMatrix4MakeRotation(GLKMathDegreesToRadians(45.0f), 1.0f, 1.0f, 1.0f);
-	GLKMatrix4 mvMat = GLKMatrix4Multiply(tMat, rMat);
-	GLKMatrix3 nMat = GLKMatrix3InvertAndTranspose(GLKMatrix4GetMatrix3(mvMat), 0);
-	GLKMatrix4 mvpMat = GLKMatrix4Multiply(pMat, mvMat);
-	
-	/*	Bind the data to the associated uniform variable in the shader
-	 First gets the location of that variable in the shader using its name
-	 Then passes the matrix to that variable
-	 */
-	int mvp_loc = glGetUniformLocation(program.program, "u_Mvp");
-	glUniformMatrix4fv(mvp_loc, 1, GL_FALSE, mvpMat.m);
-	int n_loc = glGetUniformLocation(program.program, "u_N");
-	glUniformMatrix3fv(n_loc, 1, GL_FALSE, nMat.m);
-	
-	// Bind the VAO
-	glBindVertexArrayOES(vao_);
-	
-	
-	/*
-	 Draws a non-indexed triangle array from the pointers previously given.
-	 This function allows the use of other primitive types : triangle strips, lines, ...
-	 For indexed geometry, use the function glDrawElements() with an index list.
-	 */
-	glDrawArrays(GL_TRIANGLES, 0, 36);
-	
-	// Unbind the VAO
-	glBindVertexArrayOES(0);
+void TearDown_Mesh(const Mesh mesh) {
+	glDeleteBuffers(1, &mesh.vbo);
+	glDeleteVertexArraysOES(1, &mesh.vao);
 }
 
 //EOF
