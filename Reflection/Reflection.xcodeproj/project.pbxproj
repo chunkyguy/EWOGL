@@ -1,0 +1,351 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1997E1A317D44A2600FA4B70 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1997E1A217D44A2600FA4B70 /* UIKit.framework */; };
+		1997E1A517D44A2600FA4B70 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1997E1A417D44A2600FA4B70 /* Foundation.framework */; };
+		1997E1A717D44A2600FA4B70 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1997E1A617D44A2600FA4B70 /* CoreGraphics.framework */; };
+		1997E1A917D44A2600FA4B70 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1997E1A817D44A2600FA4B70 /* GLKit.framework */; };
+		1997E1AB17D44A2600FA4B70 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1997E1AA17D44A2600FA4B70 /* OpenGLES.framework */; };
+		1997E1B117D44A2600FA4B70 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1997E1AF17D44A2600FA4B70 /* InfoPlist.strings */; };
+		1997E1B917D44A2600FA4B70 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 1997E1B817D44A2600FA4B70 /* Default.png */; };
+		1997E1BB17D44A2600FA4B70 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1997E1BA17D44A2600FA4B70 /* Default@2x.png */; };
+		1997E1BD17D44A2600FA4B70 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1997E1BC17D44A2600FA4B70 /* Default-568h@2x.png */; };
+		1997E1E117D44A9A00FA4B70 /* Loop.c in Sources */ = {isa = PBXBuildFile; fileRef = 1997E1CF17D44A9A00FA4B70 /* Loop.c */; };
+		1997E1E217D44A9A00FA4B70 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1997E1D217D44A9A00FA4B70 /* main.m */; };
+		1997E1E317D44A9A00FA4B70 /* Mesh.c in Sources */ = {isa = PBXBuildFile; fileRef = 1997E1D317D44A9A00FA4B70 /* Mesh.c */; };
+		1997E1E417D44A9A00FA4B70 /* Renderer.c in Sources */ = {isa = PBXBuildFile; fileRef = 1997E1D517D44A9A00FA4B70 /* Renderer.c */; };
+		1997E1E517D44A9A00FA4B70 /* Shader.c in Sources */ = {isa = PBXBuildFile; fileRef = 1997E1D717D44A9A00FA4B70 /* Shader.c */; };
+		1997E1E617D44A9A00FA4B70 /* Shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 1997E1D817D44A9A00FA4B70 /* Shader.fsh */; };
+		1997E1E717D44A9A00FA4B70 /* Shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 1997E1DA17D44A9A00FA4B70 /* Shader.vsh */; };
+		1997E1E817D44A9A00FA4B70 /* Transform.c in Sources */ = {isa = PBXBuildFile; fileRef = 1997E1DC17D44A9A00FA4B70 /* Transform.c */; };
+		1997E1E917D44A9A00FA4B70 /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 1997E1E017D44A9A00FA4B70 /* Utilities.m */; };
+		1997E1EB17D44AD200FA4B70 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1997E1EA17D44AD200FA4B70 /* QuartzCore.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		1997E19F17D44A2600FA4B70 /* Reflection.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Reflection.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1997E1A217D44A2600FA4B70 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		1997E1A417D44A2600FA4B70 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		1997E1A617D44A2600FA4B70 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		1997E1A817D44A2600FA4B70 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		1997E1AA17D44A2600FA4B70 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		1997E1AE17D44A2600FA4B70 /* Reflection-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Reflection-Info.plist"; sourceTree = "<group>"; };
+		1997E1B017D44A2600FA4B70 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		1997E1B417D44A2600FA4B70 /* Reflection-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Reflection-Prefix.pch"; sourceTree = "<group>"; };
+		1997E1B817D44A2600FA4B70 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		1997E1BA17D44A2600FA4B70 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		1997E1BC17D44A2600FA4B70 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		1997E1CE17D44A9A00FA4B70 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		1997E1CF17D44A9A00FA4B70 /* Loop.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Loop.c; sourceTree = "<group>"; };
+		1997E1D017D44A9A00FA4B70 /* Loop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Loop.h; sourceTree = "<group>"; };
+		1997E1D117D44A9A00FA4B70 /* main.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = main.h; sourceTree = "<group>"; };
+		1997E1D217D44A9A00FA4B70 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		1997E1D317D44A9A00FA4B70 /* Mesh.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Mesh.c; sourceTree = "<group>"; };
+		1997E1D417D44A9A00FA4B70 /* Mesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mesh.h; sourceTree = "<group>"; };
+		1997E1D517D44A9A00FA4B70 /* Renderer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Renderer.c; sourceTree = "<group>"; };
+		1997E1D617D44A9A00FA4B70 /* Renderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Renderer.h; sourceTree = "<group>"; };
+		1997E1D717D44A9A00FA4B70 /* Shader.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Shader.c; sourceTree = "<group>"; };
+		1997E1D817D44A9A00FA4B70 /* Shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Shader.fsh; sourceTree = "<group>"; };
+		1997E1D917D44A9A00FA4B70 /* Shader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Shader.h; sourceTree = "<group>"; };
+		1997E1DA17D44A9A00FA4B70 /* Shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Shader.vsh; sourceTree = "<group>"; };
+		1997E1DB17D44A9A00FA4B70 /* std_incl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = std_incl.h; sourceTree = "<group>"; };
+		1997E1DC17D44A9A00FA4B70 /* Transform.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Transform.c; sourceTree = "<group>"; };
+		1997E1DD17D44A9A00FA4B70 /* Transform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Transform.h; sourceTree = "<group>"; };
+		1997E1DE17D44A9A00FA4B70 /* Types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Types.h; sourceTree = "<group>"; };
+		1997E1DF17D44A9A00FA4B70 /* Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = "<group>"; };
+		1997E1E017D44A9A00FA4B70 /* Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utilities.m; sourceTree = "<group>"; };
+		1997E1EA17D44AD200FA4B70 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1997E19C17D44A2600FA4B70 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1997E1EB17D44AD200FA4B70 /* QuartzCore.framework in Frameworks */,
+				1997E1A317D44A2600FA4B70 /* UIKit.framework in Frameworks */,
+				1997E1A517D44A2600FA4B70 /* Foundation.framework in Frameworks */,
+				1997E1A717D44A2600FA4B70 /* CoreGraphics.framework in Frameworks */,
+				1997E1A917D44A2600FA4B70 /* GLKit.framework in Frameworks */,
+				1997E1AB17D44A2600FA4B70 /* OpenGLES.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1997E19617D44A2600FA4B70 = {
+			isa = PBXGroup;
+			children = (
+				1997E1AC17D44A2600FA4B70 /* Reflection */,
+				1997E1A117D44A2600FA4B70 /* Frameworks */,
+				1997E1A017D44A2600FA4B70 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		1997E1A017D44A2600FA4B70 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1997E19F17D44A2600FA4B70 /* Reflection.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1997E1A117D44A2600FA4B70 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1997E1EA17D44AD200FA4B70 /* QuartzCore.framework */,
+				1997E1A217D44A2600FA4B70 /* UIKit.framework */,
+				1997E1A417D44A2600FA4B70 /* Foundation.framework */,
+				1997E1A617D44A2600FA4B70 /* CoreGraphics.framework */,
+				1997E1A817D44A2600FA4B70 /* GLKit.framework */,
+				1997E1AA17D44A2600FA4B70 /* OpenGLES.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		1997E1AC17D44A2600FA4B70 /* Reflection */ = {
+			isa = PBXGroup;
+			children = (
+				1997E1CD17D44A9A00FA4B70 /* src */,
+				1997E1AD17D44A2600FA4B70 /* Supporting Files */,
+			);
+			path = Reflection;
+			sourceTree = "<group>";
+		};
+		1997E1AD17D44A2600FA4B70 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				1997E1AE17D44A2600FA4B70 /* Reflection-Info.plist */,
+				1997E1AF17D44A2600FA4B70 /* InfoPlist.strings */,
+				1997E1B417D44A2600FA4B70 /* Reflection-Prefix.pch */,
+				1997E1B817D44A2600FA4B70 /* Default.png */,
+				1997E1BA17D44A2600FA4B70 /* Default@2x.png */,
+				1997E1BC17D44A2600FA4B70 /* Default-568h@2x.png */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		1997E1CD17D44A9A00FA4B70 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				1997E1DB17D44A9A00FA4B70 /* std_incl.h */,
+				1997E1DE17D44A9A00FA4B70 /* Types.h */,
+				1997E1CE17D44A9A00FA4B70 /* Constants.h */,
+				1997E1D117D44A9A00FA4B70 /* main.h */,
+				1997E1D217D44A9A00FA4B70 /* main.m */,
+				1997E1CF17D44A9A00FA4B70 /* Loop.c */,
+				1997E1D017D44A9A00FA4B70 /* Loop.h */,
+				1997E1D317D44A9A00FA4B70 /* Mesh.c */,
+				1997E1D417D44A9A00FA4B70 /* Mesh.h */,
+				1997E1D517D44A9A00FA4B70 /* Renderer.c */,
+				1997E1D617D44A9A00FA4B70 /* Renderer.h */,
+				1997E1D717D44A9A00FA4B70 /* Shader.c */,
+				1997E1D817D44A9A00FA4B70 /* Shader.fsh */,
+				1997E1D917D44A9A00FA4B70 /* Shader.h */,
+				1997E1DA17D44A9A00FA4B70 /* Shader.vsh */,
+				1997E1DC17D44A9A00FA4B70 /* Transform.c */,
+				1997E1DD17D44A9A00FA4B70 /* Transform.h */,
+				1997E1DF17D44A9A00FA4B70 /* Utilities.h */,
+				1997E1E017D44A9A00FA4B70 /* Utilities.m */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1997E19E17D44A2600FA4B70 /* Reflection */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1997E1CA17D44A2600FA4B70 /* Build configuration list for PBXNativeTarget "Reflection" */;
+			buildPhases = (
+				1997E19B17D44A2600FA4B70 /* Sources */,
+				1997E19C17D44A2600FA4B70 /* Frameworks */,
+				1997E19D17D44A2600FA4B70 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Reflection;
+			productName = Reflection;
+			productReference = 1997E19F17D44A2600FA4B70 /* Reflection.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		1997E19717D44A2600FA4B70 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0460;
+				ORGANIZATIONNAME = whackylabs;
+			};
+			buildConfigurationList = 1997E19A17D44A2600FA4B70 /* Build configuration list for PBXProject "Reflection" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 1997E19617D44A2600FA4B70;
+			productRefGroup = 1997E1A017D44A2600FA4B70 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1997E19E17D44A2600FA4B70 /* Reflection */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1997E19D17D44A2600FA4B70 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1997E1E617D44A9A00FA4B70 /* Shader.fsh in Resources */,
+				1997E1E717D44A9A00FA4B70 /* Shader.vsh in Resources */,
+				1997E1B117D44A2600FA4B70 /* InfoPlist.strings in Resources */,
+				1997E1B917D44A2600FA4B70 /* Default.png in Resources */,
+				1997E1BB17D44A2600FA4B70 /* Default@2x.png in Resources */,
+				1997E1BD17D44A2600FA4B70 /* Default-568h@2x.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1997E19B17D44A2600FA4B70 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1997E1E117D44A9A00FA4B70 /* Loop.c in Sources */,
+				1997E1E217D44A9A00FA4B70 /* main.m in Sources */,
+				1997E1E317D44A9A00FA4B70 /* Mesh.c in Sources */,
+				1997E1E417D44A9A00FA4B70 /* Renderer.c in Sources */,
+				1997E1E517D44A9A00FA4B70 /* Shader.c in Sources */,
+				1997E1E817D44A9A00FA4B70 /* Transform.c in Sources */,
+				1997E1E917D44A9A00FA4B70 /* Utilities.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		1997E1AF17D44A2600FA4B70 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1997E1B017D44A2600FA4B70 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		1997E1C817D44A2600FA4B70 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		1997E1C917D44A2600FA4B70 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		1997E1CB17D44A2600FA4B70 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Reflection/Reflection-Prefix.pch";
+				INFOPLIST_FILE = "Reflection/Reflection-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		1997E1CC17D44A2600FA4B70 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Reflection/Reflection-Prefix.pch";
+				INFOPLIST_FILE = "Reflection/Reflection-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1997E19A17D44A2600FA4B70 /* Build configuration list for PBXProject "Reflection" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1997E1C817D44A2600FA4B70 /* Debug */,
+				1997E1C917D44A2600FA4B70 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1997E1CA17D44A2600FA4B70 /* Build configuration list for PBXNativeTarget "Reflection" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1997E1CB17D44A2600FA4B70 /* Debug */,
+				1997E1CC17D44A2600FA4B70 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 1997E19717D44A2600FA4B70 /* Project object */;
+}
