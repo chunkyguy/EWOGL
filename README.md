@@ -16,4 +16,9 @@ A rotatinng cube.
 
 [![Cube](http://img.youtube.com/vi/ItIRYFkJKRs/0.jpg)](http://www.youtube.com/watch?v=ItIRYFkJKRs)
 
+Stencil
+--------
+Experiment to render a cube to a triangle stencil.
+
+![alt text](http://i.imgur.com/ZbcMWDy.png "Stencil")
 
