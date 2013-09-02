@@ -9,15 +9,15 @@ A boilerplate code, that gets the code running. It renders a triangle on screen 
 
 ![alt text](http://i.imgur.com/J1KAjH8.png "Triangle")
 
-Rotating Cube
--------------
+Camera
+-------
 
 A rotatinng cube.
 
 [![Cube](http://img.youtube.com/vi/ItIRYFkJKRs/0.jpg)](http://www.youtube.com/watch?v=ItIRYFkJKRs)
 
-Stencil
---------
+Reflection
+-----------
 Experiment to render a cube to a triangle stencil.
 
 ![alt text](http://i.imgur.com/ZbcMWDy.png "Stencil")
