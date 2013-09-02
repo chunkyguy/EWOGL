@@ -1,7 +1,9 @@
 EWOGL
 =====
 
-My experiments with OpenGL
+My experiments with OpenGL.
+
+[Related article series.](http://whackylabs.com/rants/?p=837)
 
 OGLBasic
 --------
