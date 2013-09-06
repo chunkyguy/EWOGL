@@ -24,3 +24,9 @@ Experiment to render a cube to a triangle stencil.
 
 ![alt text](http://i.imgur.com/ZbcMWDy.png "Stencil")
 
+OBJLoader
+---------
+This experiment loads a mesh from an OBJ file.
+
+![Ninja](http://imgur.com/YGMM3yF.png)
+
