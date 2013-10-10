@@ -13,7 +13,9 @@ void Render_Mesh(const Mesh mesh, const Transform transform, const Program progr
 	/* Matrices used */
 	GLKMatrix4 pMat = GLKMatrix4MakePerspective(GLKMathDegreesToRadians(camera.fov), camera.aspect_ratio, 0.1f, 100.0f);
 	GLKMatrix4 mvMat = Transform_GetMV(&transform);
-	GLKMatrix3 nMat = GLKMatrix3InvertAndTranspose(GLKMatrix4GetMatrix3(mvMat), 0);
+	bool possible;
+	GLKMatrix3 nMat = GLKMatrix3InvertAndTranspose(GLKMatrix4GetMatrix3(mvMat), &possible);
+	assert(possible);
 	GLKMatrix4 mvpMat = GLKMatrix4Multiply(pMat, mvMat);
 	
 	/*	Bind the data to the associated uniform variable in the shader
@@ -28,13 +30,16 @@ void Render_Mesh(const Mesh mesh, const Transform transform, const Program progr
 	// Bind the VAO
 	glBindVertexArrayOES(mesh.vao);
 	
-	
 	/*
-	 Draws a non-indexed triangle array from the pointers previously given.
 	 This function allows the use of other primitive types : triangle strips, lines, ...
 	 For indexed geometry, use the function glDrawElements() with an index list.
+	 Else draws a non-indexed triangle array from the pointers previously given.
 	 */
-	glDrawArrays(GL_TRIANGLES, 0, mesh.tri_count * 3);
+	if (mesh.index_count > 0) {
+		glDrawElements(GL_TRIANGLES, mesh.index_count, GL_UNSIGNED_SHORT, 0);
+	} else {
+		glDrawArrays(GL_TRIANGLES, 0, mesh.vertex_count);
+	}
 	
 	// Unbind the VAO
 	glBindVertexArrayOES(0);

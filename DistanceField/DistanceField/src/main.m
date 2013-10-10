@@ -95,7 +95,7 @@ int AllocateRenderbufferStorage(void *context, void *layer) {
 
 	//clear framebuffer
 	glBindFramebuffer(GL_FRAMEBUFFER, frame_buffer_.buffer);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	//update
 	CFTimeInterval time = self.link.timestamp;

@@ -9,28 +9,19 @@
 #ifndef Camera_Cube_h
 #define Camera_Cube_h
 #include "Types.h"
-/**
- *	Create cube mesh
- *	@return	A cube mesh.
- */
-Mesh CubeMesh();
+Mesh *CreateMesh(Mesh *mesh,
+                 const kCommonMesh mesh_type);
 
-/**
- *	Create a square mesh.
- *	@return	A square mesh.
- */
-Mesh SquareMesh();
-
-/**
- *	Create a triangle mesh.
- *	@return	A triangle mesh.
- */
-Mesh TriangleMesh();
+const Mesh *RenderMesh(const Mesh *mesh,   /*	The mesh to be rendered */
+                const Transform *transform, /*	The transform. */
+                const Shader *shader,	/*	The program in use. */
+                const Perspective *perspective /* The perpective to be applied*/
+);
 
 /**
  *	Release resources for the mesh.
  *
  *	@param	mesh	 The mesh.
  */
-void TearDown_Mesh(const Mesh mesh);
+void ReleaseMesh(Mesh *mesh);
 #endif

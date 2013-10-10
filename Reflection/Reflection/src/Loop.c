@@ -11,107 +11,157 @@
 #include "Loop.h"
 #include "Constants.h"
 #include "Mesh.h"
-#include "Renderer.h"
 #include "Transform.h"
-
-#define kMesh_Cube		0
-#define kMesh_Square		1
-#define kMesh_Triangle	2
-#define kMesh_Total		3
+#include "Console.h"
 
 typedef struct {
-	Mesh *mesh;
-	Transform transform;
+ Mesh *mesh;
+ Transform transform;
 }Object;
 
-Mesh mesh_[kMesh_Total]; // Cube, Square
-Object cube_[2];
-Object mask_;
-Program program_;
-Camera camera_;
+Mesh g_Mesh[2]; // Cube, Square
+Object g_Cube;
+Object g_Mask;
+Shader g_Shader;
+Transform g_WorldTrans;
+Perspective g_Perspective;
 
-void BindAttributes(Program *program) {
-	// Bind the custom vertex attribute "a_Position" to location VERTEX_ARRAY
-	glBindAttribLocation(program->program, kAttribPosition, "a_Position");
-	glBindAttribLocation(program->program, kAttribNormal, "a_Normal");
+void BindAttributes(Shader *shader) {
+ // Bind the custom vertex attribute "a_Position" to location VERTEX_ARRAY
+ glBindAttribLocation(shader->program, kAttribPosition, "a_Position");
+ glBindAttribLocation(shader->program, kAttribNormal, "a_Normal");
 }
 
 void SetUp(GLsizei width, GLsizei height) {
-	// Set viewport
-	glViewport(0, 0, width, height);
+ // Set perpective
+ DefaultPerspective(&g_Perspective);
+ g_Perspective.size.x = width;
+ g_Perspective.size.y = height;
 
-	// Set camera
-	camera_.fov = 45.0f;
-	camera_.aspect_ratio = (width > height) ? (float)height/(float)(width): (float)width/(float)(height);
-	
-	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-	glEnable(GL_DEPTH_TEST);
+ // Set viewport
+ glViewport(0, 0, width, height);
+ 
+ // Set world transform
+ DefaultTransform(&g_WorldTrans);
+ g_WorldTrans.position = GLKVector3Make(0.0f, 0.0f, -(g_Perspective.far-g_Perspective.near)/2.0f);
+ g_WorldTrans.axis = GLKVector3Make(1.0f, 0.0f, 0.0f);
+ g_WorldTrans.angle = 3.0f;
+ 
+ /* Set default gl state*/
+ glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
+ glEnable(GL_DEPTH_TEST);
 }
 
 void TearDown() {
-	glDisableVertexAttribArray(kAttribPosition);
-	glDisableVertexAttribArray(kAttribNormal);
+ glDisableVertexAttribArray(kAttribPosition);
+ glDisableVertexAttribArray(kAttribNormal);
 }
 
 
 void Load() {
-	// Load shader
-	char shaderName_vsh[] = "Shader.vsh";
-	char shaderName_fsh[] = "Shader.fsh";
-	program_ = CompileShader(shaderName_vsh, shaderName_fsh, BindAttributes);
-	mesh_[kMesh_Cube] = CubeMesh();
-	mesh_[kMesh_Square] = SquareMesh();
-	mesh_[kMesh_Triangle] = TriangleMesh();
-	
-	cube_[0].mesh = &mesh_[kMesh_Cube];
-	cube_[0].transform = Transform_Create(GLKVector3Make(0.0f, 1.0f, -5.0f),
-									   GLKVector4Make(1.0f, 1.0f, 1.0f, GLKMathDegreesToRadians(45.0f)),
-									   GLKVector3Make(1.0f, 1.0f, 1.0f),
-									   NULL);
-	cube_[1].mesh = &mesh_[kMesh_Cube];
-	cube_[1].transform = Transform_Create(GLKVector3Make(0.0f, -1.0f, -5.0f),
-										  GLKVector4Make(1.0f, 1.0f, 1.0f, GLKMathDegreesToRadians(45.0f)),
-										  GLKVector3Make(1.0f, 1.0f, 1.0f),
-										  NULL);
-	mask_.mesh = &mesh_[kMesh_Triangle];
-	mask_.transform = Transform_Create(GLKVector3Make(0.0f, -0.55f, -2.5f),
-										   GLKVector4Make(0.0f, 0.0f, 1.0f, GLKMathDegreesToRadians(180.0f)),
-										   GLKVector3Make(1.0f, 1.0f, 1.0f),
-										   NULL);
+ /* Load shader */
+ char shaderName_vsh[] = "Shader.vsh";
+ char shaderName_fsh[] = "Shader.fsh";
+ CompileShader(&g_Shader, shaderName_vsh, shaderName_fsh, BindAttributes);
+ 
+ /* Load mesh */
+ CreateMesh(&g_Mesh[0], kCommonMesh_Cube);
+ CreateMesh(&g_Mesh[1], kCommonMesh_Square);
+ 
+ // Cube
+ g_Cube.mesh = &g_Mesh[0];
+ DefaultTransform(&g_Cube.transform);
+ g_Cube.transform.position.z = 40.0f;
+ g_Cube.transform.axis = GLKVector3Make(0.0f, 1.0f, 0.0f);
+ //g_Cube.transform.scale = GLKVector3Make(10.0f, 10.0f, 10.0f);
+ g_Cube.transform.angle = 0.0f;
+ g_Cube.transform.parent = &g_WorldTrans;
+ 
+ // Mask
+ g_Mask.mesh = &g_Mesh[1];
+ DefaultTransform(&g_Mask.transform);
+ g_Mask.transform.position.z = 40.0f;
+ g_Mask.transform.axis = GLKVector3Make(1.0f, 0.0f, 0.0f);
+ g_Mask.transform.angle = 90.0f;
+ g_Mask.transform.scale = GLKVector3Make(3.0f, 3.0f, 3.0f);
+ g_Mask.transform.parent = &g_WorldTrans;
 }
 
 void Unload() {
-	ReleaseShader(program_);
-	for (int i = 0; i < kMesh_Total; ++i) {
-		TearDown_Mesh(mesh_[i]);
-	}
+ ReleaseShader(&g_Shader);
+ for (int i = 0; i < 2; ++i) {
+  ReleaseMesh(&g_Mesh[i]);
+ }
 }
 
 void Update(int dt) {
-	//update
-	cube_[0].transform.rotation.w += 0.01f;
-	cube_[1].transform.rotation.w += 0.01f;
-	//triangle_.transform.rotation.w += 0.01f;
-	//triangle_.transform.scale = GLKVector3AddScalar(triangle_.transform.scale, sinf(dt*0.0001f));
-	//triangle_.transform = cube_[1].transform;
-	
-	// Render
-	Render_Mesh(*cube_[0].mesh, cube_[0].transform, program_, camera_);
+ //update
+ g_Cube.transform.angle += 1.0f;
 
-//	// Prepare the stencil buffer
-	glEnable(GL_STENCIL_TEST);
-	glStencilOp(GL_REPLACE, GL_REPLACE, GL_REPLACE);
-	glStencilFunc(GL_ALWAYS, 0xff, 0xff);
-	// Render to stencil buffer
-	glDepthMask(GL_FALSE);
-	glColorMask(GL_TRUE, GL_FALSE, GL_TRUE, GL_FALSE);
-	Render_Mesh(*mask_.mesh, mask_.transform, program_, camera_);
-	glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
-	glDepthMask(GL_TRUE);
-	// Render with stencil test
-	glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
-	glStencilFunc(GL_EQUAL, 0xff, 0xff);
-	Render_Mesh(*cube_[1].mesh, cube_[1].transform, program_, camera_);
-	glDisable(GL_STENCIL_TEST);
+ // Render floor
+ // glDisable(GL_DEPTH_TEST);
+ // glEnable(GL_BLEND);
+ // glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+ // RenderMesh(g_Mask.mesh, &g_Mask.transform, &g_Shader, &g_Perspective);
+ // glDisable(GL_BLEND);
+ // glEnable(GL_DEPTH_TEST);
+
+ // Render cube
+ g_Cube.transform.position.y = 1.1f;
+ RenderMesh(g_Cube.mesh, &g_Cube.transform, &g_Shader, &g_Perspective);
+
+ // Prepare the stencil buffer
+ glEnable(GL_STENCIL_TEST);
+ 
+ /* What to do with the test outcome.
+  stencil fail: replace.
+  stencil pass + depth fail: replace
+  stencil+depth pass: replace
+  */
+ glStencilOp(GL_REPLACE, GL_REPLACE, GL_REPLACE);
+ 
+ /*Set test conditions
+  func: For now we need all values to be rendered to the stencil buffer.
+  ref: compare with value 0xff. This is the minimum value that passes the test.
+  mask: Apply AND with 0xff. Pass all values.
+  */
+ glStencilFunc(GL_ALWAYS, 0xff, 0xff);
+ 
+ // Render the mask to stencil buffer
+ /* Turn off depth and color buffers
+  On stencil is enabled now.
+  */
+ glDepthMask(GL_FALSE);
+ glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
+ RenderMesh(g_Mask.mesh, &g_Mask.transform, &g_Shader, &g_Perspective);
+ 
+ /* Turn depth and color buffers back on.
+  */
+ glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
+ glDepthMask(GL_TRUE);
+ 
+ // Render with stencil test
+ /* What to do with the test outcome.
+  stencil fail: keep.
+  stencil pass + depth fail: keep
+  stencil+depth pass: keep
+  */
+ glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
+ 
+ /* Render with test conditions
+  func: Only pass values wtih values equal to stored in stencil buffer
+  ref: The minimum value to pass should be 0xff. only set values.
+  mask: Apply AND with 0xff. Pass all values.
+  */
+ glStencilFunc(GL_EQUAL, 0xff, 0xff);
+ 
+ // Render relfection
+ Transform ref_trans = g_Cube.transform;
+ ref_trans.position.y = -1.1f;
+ RenderMesh(g_Cube.mesh, &ref_trans, &g_Shader, &g_Perspective);
+
+
+ // Disable stencil test
+ glDisable(GL_STENCIL_TEST);
 }
 

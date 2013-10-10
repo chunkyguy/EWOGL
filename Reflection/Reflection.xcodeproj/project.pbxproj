@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		19210D801805414D0028C8A0 /* Ganit.c in Sources */ = {isa = PBXBuildFile; fileRef = 19210D7F1805414D0028C8A0 /* Ganit.c */; };
 		1997E1A317D44A2600FA4B70 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1997E1A217D44A2600FA4B70 /* UIKit.framework */; };
 		1997E1A517D44A2600FA4B70 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1997E1A417D44A2600FA4B70 /* Foundation.framework */; };
 		1997E1A717D44A2600FA4B70 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1997E1A617D44A2600FA4B70 /* CoreGraphics.framework */; };
@@ -19,16 +20,18 @@
 		1997E1E117D44A9A00FA4B70 /* Loop.c in Sources */ = {isa = PBXBuildFile; fileRef = 1997E1CF17D44A9A00FA4B70 /* Loop.c */; };
 		1997E1E217D44A9A00FA4B70 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1997E1D217D44A9A00FA4B70 /* main.m */; };
 		1997E1E317D44A9A00FA4B70 /* Mesh.c in Sources */ = {isa = PBXBuildFile; fileRef = 1997E1D317D44A9A00FA4B70 /* Mesh.c */; };
-		1997E1E417D44A9A00FA4B70 /* Renderer.c in Sources */ = {isa = PBXBuildFile; fileRef = 1997E1D517D44A9A00FA4B70 /* Renderer.c */; };
 		1997E1E517D44A9A00FA4B70 /* Shader.c in Sources */ = {isa = PBXBuildFile; fileRef = 1997E1D717D44A9A00FA4B70 /* Shader.c */; };
 		1997E1E617D44A9A00FA4B70 /* Shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 1997E1D817D44A9A00FA4B70 /* Shader.fsh */; };
 		1997E1E717D44A9A00FA4B70 /* Shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 1997E1DA17D44A9A00FA4B70 /* Shader.vsh */; };
 		1997E1E817D44A9A00FA4B70 /* Transform.c in Sources */ = {isa = PBXBuildFile; fileRef = 1997E1DC17D44A9A00FA4B70 /* Transform.c */; };
 		1997E1E917D44A9A00FA4B70 /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 1997E1E017D44A9A00FA4B70 /* Utilities.m */; };
 		1997E1EB17D44AD200FA4B70 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1997E1EA17D44AD200FA4B70 /* QuartzCore.framework */; };
+		19D971C11806671D006FCE9C /* Console.c in Sources */ = {isa = PBXBuildFile; fileRef = 19D971C01806671D006FCE9C /* Console.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		19210D7F1805414D0028C8A0 /* Ganit.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Ganit.c; sourceTree = "<group>"; };
+		19210D811805415A0028C8A0 /* Ganit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Ganit.h; sourceTree = "<group>"; };
 		1997E19F17D44A2600FA4B70 /* Reflection.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Reflection.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1997E1A217D44A2600FA4B70 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		1997E1A417D44A2600FA4B70 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -48,8 +51,6 @@
 		1997E1D217D44A9A00FA4B70 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		1997E1D317D44A9A00FA4B70 /* Mesh.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Mesh.c; sourceTree = "<group>"; };
 		1997E1D417D44A9A00FA4B70 /* Mesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mesh.h; sourceTree = "<group>"; };
-		1997E1D517D44A9A00FA4B70 /* Renderer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Renderer.c; sourceTree = "<group>"; };
-		1997E1D617D44A9A00FA4B70 /* Renderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Renderer.h; sourceTree = "<group>"; };
 		1997E1D717D44A9A00FA4B70 /* Shader.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Shader.c; sourceTree = "<group>"; };
 		1997E1D817D44A9A00FA4B70 /* Shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Shader.fsh; sourceTree = "<group>"; };
 		1997E1D917D44A9A00FA4B70 /* Shader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Shader.h; sourceTree = "<group>"; };
@@ -61,6 +62,8 @@
 		1997E1DF17D44A9A00FA4B70 /* Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = "<group>"; };
 		1997E1E017D44A9A00FA4B70 /* Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utilities.m; sourceTree = "<group>"; };
 		1997E1EA17D44AD200FA4B70 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		19D971C01806671D006FCE9C /* Console.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Console.c; sourceTree = "<group>"; };
+		19D971C218066728006FCE9C /* Console.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Console.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,16 +147,18 @@
 				1997E1D017D44A9A00FA4B70 /* Loop.h */,
 				1997E1D317D44A9A00FA4B70 /* Mesh.c */,
 				1997E1D417D44A9A00FA4B70 /* Mesh.h */,
-				1997E1D517D44A9A00FA4B70 /* Renderer.c */,
-				1997E1D617D44A9A00FA4B70 /* Renderer.h */,
 				1997E1D717D44A9A00FA4B70 /* Shader.c */,
-				1997E1D817D44A9A00FA4B70 /* Shader.fsh */,
 				1997E1D917D44A9A00FA4B70 /* Shader.h */,
 				1997E1DA17D44A9A00FA4B70 /* Shader.vsh */,
+				1997E1D817D44A9A00FA4B70 /* Shader.fsh */,
 				1997E1DC17D44A9A00FA4B70 /* Transform.c */,
 				1997E1DD17D44A9A00FA4B70 /* Transform.h */,
 				1997E1DF17D44A9A00FA4B70 /* Utilities.h */,
 				1997E1E017D44A9A00FA4B70 /* Utilities.m */,
+				19210D7F1805414D0028C8A0 /* Ganit.c */,
+				19210D811805415A0028C8A0 /* Ganit.h */,
+				19D971C01806671D006FCE9C /* Console.c */,
+				19D971C218066728006FCE9C /* Console.h */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -227,9 +232,10 @@
 			files = (
 				1997E1E117D44A9A00FA4B70 /* Loop.c in Sources */,
 				1997E1E217D44A9A00FA4B70 /* main.m in Sources */,
+				19210D801805414D0028C8A0 /* Ganit.c in Sources */,
 				1997E1E317D44A9A00FA4B70 /* Mesh.c in Sources */,
-				1997E1E417D44A9A00FA4B70 /* Renderer.c in Sources */,
 				1997E1E517D44A9A00FA4B70 /* Shader.c in Sources */,
+				19D971C11806671D006FCE9C /* Console.c in Sources */,
 				1997E1E817D44A9A00FA4B70 /* Transform.c in Sources */,
 				1997E1E917D44A9A00FA4B70 /* Utilities.m in Sources */,
 			);
@@ -344,6 +350,7 @@
 				1997E1CC17D44A2600FA4B70 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

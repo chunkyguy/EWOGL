@@ -1,0 +1,480 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1929544E17DFF52D004E60DF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1929544D17DFF52D004E60DF /* UIKit.framework */; };
+		1929545017DFF52D004E60DF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1929544F17DFF52D004E60DF /* Foundation.framework */; };
+		1929545217DFF52D004E60DF /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1929545117DFF52D004E60DF /* CoreGraphics.framework */; };
+		1929545417DFF52D004E60DF /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1929545317DFF52D004E60DF /* GLKit.framework */; };
+		1929545617DFF52D004E60DF /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1929545517DFF52D004E60DF /* OpenGLES.framework */; };
+		1929545C17DFF52D004E60DF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1929545A17DFF52D004E60DF /* InfoPlist.strings */; };
+		1929546417DFF52D004E60DF /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 1929546317DFF52D004E60DF /* Default.png */; };
+		1929546617DFF52D004E60DF /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1929546517DFF52D004E60DF /* Default@2x.png */; };
+		1929546817DFF52D004E60DF /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1929546717DFF52D004E60DF /* Default-568h@2x.png */; };
+		1929578E17E00021004E60DF /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1929578D17E00021004E60DF /* QuartzCore.framework */; };
+		19295B2017E008C3004E60DF /* libFreetype2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19295B1D17E007A0004E60DF /* libFreetype2.a */; };
+		1986CF1117E13CF80060DFFD /* Loop.c in Sources */ = {isa = PBXBuildFile; fileRef = 1986CEFC17E13CF80060DFFD /* Loop.c */; };
+		1986CF1217E13CF80060DFFD /* Mesh.c in Sources */ = {isa = PBXBuildFile; fileRef = 1986CEFE17E13CF80060DFFD /* Mesh.c */; };
+		1986CF1317E13CF80060DFFD /* Renderer.c in Sources */ = {isa = PBXBuildFile; fileRef = 1986CF0017E13CF80060DFFD /* Renderer.c */; };
+		1986CF1417E13CF80060DFFD /* Shader.c in Sources */ = {isa = PBXBuildFile; fileRef = 1986CF0217E13CF80060DFFD /* Shader.c */; };
+		1986CF1517E13CF80060DFFD /* Transform.c in Sources */ = {isa = PBXBuildFile; fileRef = 1986CF0417E13CF80060DFFD /* Transform.c */; };
+		1986CF1617E13CF80060DFFD /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 1986CF0717E13CF80060DFFD /* Utilities.m */; };
+		1986CF1717E13CF80060DFFD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1986CF0917E13CF80060DFFD /* main.m */; };
+		1986CF1817E13CF80060DFFD /* Shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 1986CF0F17E13CF80060DFFD /* Shader.fsh */; };
+		1986CF1917E13CF80060DFFD /* Shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 1986CF1017E13CF80060DFFD /* Shader.vsh */; };
+		1986CF1C17E13DE50060DFFD /* Font.c in Sources */ = {isa = PBXBuildFile; fileRef = 1986CF1B17E13DE50060DFFD /* Font.c */; };
+		1986CF2217E148850060DFFD /* Eurostile in Resources */ = {isa = PBXBuildFile; fileRef = 1986CF1E17E148850060DFFD /* Eurostile */; };
+		1986CF2317E148850060DFFD /* Eurostile.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1986CF1F17E148850060DFFD /* Eurostile.ttf */; };
+		1986CF2417E148850060DFFD /* EurostileBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1986CF2017E148850060DFFD /* EurostileBold.ttf */; };
+		1986CF2517E148850060DFFD /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1986CF2117E148850060DFFD /* README.txt */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		19295B1C17E007A0004E60DF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 19295B1817E007A0004E60DF /* freetype2.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 6382B1B10FB0FC5100ECAC02;
+			remoteInfo = Freetype2;
+		};
+		19295B1E17E008B1004E60DF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 19295B1817E007A0004E60DF /* freetype2.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 6382B1B00FB0FC5100ECAC02;
+			remoteInfo = Freetype2;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		1917C6BC17E1C45D0099E38E /* Font.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Font.h; sourceTree = "<group>"; };
+		1929544A17DFF52D004E60DF /* DistanceField.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DistanceField.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1929544D17DFF52D004E60DF /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		1929544F17DFF52D004E60DF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		1929545117DFF52D004E60DF /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		1929545317DFF52D004E60DF /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		1929545517DFF52D004E60DF /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		1929545917DFF52D004E60DF /* DistanceField-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "DistanceField-Info.plist"; sourceTree = "<group>"; };
+		1929545B17DFF52D004E60DF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		1929545D17DFF52D004E60DF /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		1929545F17DFF52D004E60DF /* DistanceField-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DistanceField-Prefix.pch"; sourceTree = "<group>"; };
+		1929546317DFF52D004E60DF /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		1929546517DFF52D004E60DF /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		1929546717DFF52D004E60DF /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		1929578D17E00021004E60DF /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		19295B1817E007A0004E60DF /* freetype2.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = freetype2.xcodeproj; path = "freetype2-ios/freetype2.xcodeproj"; sourceTree = "<group>"; };
+		1986CEFA17E13CF80060DFFD /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		1986CEFC17E13CF80060DFFD /* Loop.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Loop.c; sourceTree = "<group>"; };
+		1986CEFD17E13CF80060DFFD /* Loop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Loop.h; sourceTree = "<group>"; };
+		1986CEFE17E13CF80060DFFD /* Mesh.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Mesh.c; sourceTree = "<group>"; };
+		1986CEFF17E13CF80060DFFD /* Mesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mesh.h; sourceTree = "<group>"; };
+		1986CF0017E13CF80060DFFD /* Renderer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Renderer.c; sourceTree = "<group>"; };
+		1986CF0117E13CF80060DFFD /* Renderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Renderer.h; sourceTree = "<group>"; };
+		1986CF0217E13CF80060DFFD /* Shader.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Shader.c; sourceTree = "<group>"; };
+		1986CF0317E13CF80060DFFD /* Shader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Shader.h; sourceTree = "<group>"; };
+		1986CF0417E13CF80060DFFD /* Transform.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Transform.c; sourceTree = "<group>"; };
+		1986CF0517E13CF80060DFFD /* Transform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Transform.h; sourceTree = "<group>"; };
+		1986CF0617E13CF80060DFFD /* Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = "<group>"; };
+		1986CF0717E13CF80060DFFD /* Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utilities.m; sourceTree = "<group>"; };
+		1986CF0817E13CF80060DFFD /* main.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = main.h; sourceTree = "<group>"; };
+		1986CF0917E13CF80060DFFD /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		1986CF0A17E13CF80060DFFD /* std_incl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = std_incl.h; sourceTree = "<group>"; };
+		1986CF0B17E13CF80060DFFD /* Types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Types.h; sourceTree = "<group>"; };
+		1986CF0F17E13CF80060DFFD /* Shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Shader.fsh; sourceTree = "<group>"; };
+		1986CF1017E13CF80060DFFD /* Shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Shader.vsh; sourceTree = "<group>"; };
+		1986CF1B17E13DE50060DFFD /* Font.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Font.c; sourceTree = "<group>"; };
+		1986CF1E17E148850060DFFD /* Eurostile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Eurostile; sourceTree = "<group>"; };
+		1986CF1F17E148850060DFFD /* Eurostile.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Eurostile.ttf; sourceTree = "<group>"; };
+		1986CF2017E148850060DFFD /* EurostileBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = EurostileBold.ttf; sourceTree = "<group>"; };
+		1986CF2117E148850060DFFD /* README.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1929544717DFF52D004E60DF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				19295B2017E008C3004E60DF /* libFreetype2.a in Frameworks */,
+				1929578E17E00021004E60DF /* QuartzCore.framework in Frameworks */,
+				1929544E17DFF52D004E60DF /* UIKit.framework in Frameworks */,
+				1929545017DFF52D004E60DF /* Foundation.framework in Frameworks */,
+				1929545217DFF52D004E60DF /* CoreGraphics.framework in Frameworks */,
+				1929545417DFF52D004E60DF /* GLKit.framework in Frameworks */,
+				1929545617DFF52D004E60DF /* OpenGLES.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1929544117DFF52D004E60DF = {
+			isa = PBXGroup;
+			children = (
+				19295B1817E007A0004E60DF /* freetype2.xcodeproj */,
+				1929545717DFF52D004E60DF /* DistanceField */,
+				1929544C17DFF52D004E60DF /* Frameworks */,
+				1929544B17DFF52D004E60DF /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		1929544B17DFF52D004E60DF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1929544A17DFF52D004E60DF /* DistanceField.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1929544C17DFF52D004E60DF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1929578D17E00021004E60DF /* QuartzCore.framework */,
+				1929544D17DFF52D004E60DF /* UIKit.framework */,
+				1929544F17DFF52D004E60DF /* Foundation.framework */,
+				1929545117DFF52D004E60DF /* CoreGraphics.framework */,
+				1929545317DFF52D004E60DF /* GLKit.framework */,
+				1929545517DFF52D004E60DF /* OpenGLES.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		1929545717DFF52D004E60DF /* DistanceField */ = {
+			isa = PBXGroup;
+			children = (
+				1986CEF917E13CF80060DFFD /* src */,
+				1986CF0C17E13CF80060DFFD /* assets */,
+				1929545817DFF52D004E60DF /* Supporting Files */,
+			);
+			path = DistanceField;
+			sourceTree = "<group>";
+		};
+		1929545817DFF52D004E60DF /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				1929545917DFF52D004E60DF /* DistanceField-Info.plist */,
+				1929545A17DFF52D004E60DF /* InfoPlist.strings */,
+				1929545D17DFF52D004E60DF /* main.m */,
+				1929545F17DFF52D004E60DF /* DistanceField-Prefix.pch */,
+				1929546317DFF52D004E60DF /* Default.png */,
+				1929546517DFF52D004E60DF /* Default@2x.png */,
+				1929546717DFF52D004E60DF /* Default-568h@2x.png */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		19295B1917E007A0004E60DF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				19295B1D17E007A0004E60DF /* libFreetype2.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1986CEF917E13CF80060DFFD /* src */ = {
+			isa = PBXGroup;
+			children = (
+				1986CF1A17E13DD40060DFFD /* font */,
+				1986CEFB17E13CF80060DFFD /* core */,
+				1986CEFA17E13CF80060DFFD /* Constants.h */,
+				1986CF0817E13CF80060DFFD /* main.h */,
+				1986CF0917E13CF80060DFFD /* main.m */,
+				1986CF0A17E13CF80060DFFD /* std_incl.h */,
+				1986CF0B17E13CF80060DFFD /* Types.h */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		1986CEFB17E13CF80060DFFD /* core */ = {
+			isa = PBXGroup;
+			children = (
+				1986CEFC17E13CF80060DFFD /* Loop.c */,
+				1986CEFD17E13CF80060DFFD /* Loop.h */,
+				1986CEFE17E13CF80060DFFD /* Mesh.c */,
+				1986CEFF17E13CF80060DFFD /* Mesh.h */,
+				1986CF0017E13CF80060DFFD /* Renderer.c */,
+				1986CF0117E13CF80060DFFD /* Renderer.h */,
+				1986CF0217E13CF80060DFFD /* Shader.c */,
+				1986CF0317E13CF80060DFFD /* Shader.h */,
+				1986CF0417E13CF80060DFFD /* Transform.c */,
+				1986CF0517E13CF80060DFFD /* Transform.h */,
+				1986CF0617E13CF80060DFFD /* Utilities.h */,
+				1986CF0717E13CF80060DFFD /* Utilities.m */,
+			);
+			path = core;
+			sourceTree = "<group>";
+		};
+		1986CF0C17E13CF80060DFFD /* assets */ = {
+			isa = PBXGroup;
+			children = (
+				1986CF1D17E148850060DFFD /* fonts */,
+				1986CF0D17E13CF80060DFFD /* models */,
+				1986CF0E17E13CF80060DFFD /* shaders */,
+			);
+			path = assets;
+			sourceTree = "<group>";
+		};
+		1986CF0D17E13CF80060DFFD /* models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = models;
+			sourceTree = "<group>";
+		};
+		1986CF0E17E13CF80060DFFD /* shaders */ = {
+			isa = PBXGroup;
+			children = (
+				1986CF0F17E13CF80060DFFD /* Shader.fsh */,
+				1986CF1017E13CF80060DFFD /* Shader.vsh */,
+			);
+			path = shaders;
+			sourceTree = "<group>";
+		};
+		1986CF1A17E13DD40060DFFD /* font */ = {
+			isa = PBXGroup;
+			children = (
+				1986CF1B17E13DE50060DFFD /* Font.c */,
+				1917C6BC17E1C45D0099E38E /* Font.h */,
+			);
+			path = font;
+			sourceTree = "<group>";
+		};
+		1986CF1D17E148850060DFFD /* fonts */ = {
+			isa = PBXGroup;
+			children = (
+				1986CF1E17E148850060DFFD /* Eurostile */,
+				1986CF1F17E148850060DFFD /* Eurostile.ttf */,
+				1986CF2017E148850060DFFD /* EurostileBold.ttf */,
+				1986CF2117E148850060DFFD /* README.txt */,
+			);
+			path = fonts;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1929544917DFF52D004E60DF /* DistanceField */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1929547517DFF52D004E60DF /* Build configuration list for PBXNativeTarget "DistanceField" */;
+			buildPhases = (
+				1929544617DFF52D004E60DF /* Sources */,
+				1929544717DFF52D004E60DF /* Frameworks */,
+				1929544817DFF52D004E60DF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				19295B1F17E008B1004E60DF /* PBXTargetDependency */,
+			);
+			name = DistanceField;
+			productName = DistanceField;
+			productReference = 1929544A17DFF52D004E60DF /* DistanceField.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		1929544217DFF52D004E60DF /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0460;
+				ORGANIZATIONNAME = whackylabs;
+			};
+			buildConfigurationList = 1929544517DFF52D004E60DF /* Build configuration list for PBXProject "DistanceField" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 1929544117DFF52D004E60DF;
+			productRefGroup = 1929544B17DFF52D004E60DF /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 19295B1917E007A0004E60DF /* Products */;
+					ProjectRef = 19295B1817E007A0004E60DF /* freetype2.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				1929544917DFF52D004E60DF /* DistanceField */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		19295B1D17E007A0004E60DF /* libFreetype2.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libFreetype2.a;
+			remoteRef = 19295B1C17E007A0004E60DF /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1929544817DFF52D004E60DF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1986CF1817E13CF80060DFFD /* Shader.fsh in Resources */,
+				1986CF1917E13CF80060DFFD /* Shader.vsh in Resources */,
+				1929545C17DFF52D004E60DF /* InfoPlist.strings in Resources */,
+				1929546417DFF52D004E60DF /* Default.png in Resources */,
+				1929546617DFF52D004E60DF /* Default@2x.png in Resources */,
+				1929546817DFF52D004E60DF /* Default-568h@2x.png in Resources */,
+				1986CF2217E148850060DFFD /* Eurostile in Resources */,
+				1986CF2317E148850060DFFD /* Eurostile.ttf in Resources */,
+				1986CF2417E148850060DFFD /* EurostileBold.ttf in Resources */,
+				1986CF2517E148850060DFFD /* README.txt in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1929544617DFF52D004E60DF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1986CF1117E13CF80060DFFD /* Loop.c in Sources */,
+				1986CF1217E13CF80060DFFD /* Mesh.c in Sources */,
+				1986CF1317E13CF80060DFFD /* Renderer.c in Sources */,
+				1986CF1417E13CF80060DFFD /* Shader.c in Sources */,
+				1986CF1517E13CF80060DFFD /* Transform.c in Sources */,
+				1986CF1617E13CF80060DFFD /* Utilities.m in Sources */,
+				1986CF1717E13CF80060DFFD /* main.m in Sources */,
+				1986CF1C17E13DE50060DFFD /* Font.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		19295B1F17E008B1004E60DF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Freetype2;
+			targetProxy = 19295B1E17E008B1004E60DF /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		1929545A17DFF52D004E60DF /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1929545B17DFF52D004E60DF /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		1929547317DFF52D004E60DF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		1929547417DFF52D004E60DF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		1929547617DFF52D004E60DF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "DistanceField/DistanceField-Prefix.pch";
+				INFOPLIST_FILE = "DistanceField/DistanceField-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		1929547717DFF52D004E60DF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "DistanceField/DistanceField-Prefix.pch";
+				INFOPLIST_FILE = "DistanceField/DistanceField-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1929544517DFF52D004E60DF /* Build configuration list for PBXProject "DistanceField" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1929547317DFF52D004E60DF /* Debug */,
+				1929547417DFF52D004E60DF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1929547517DFF52D004E60DF /* Build configuration list for PBXNativeTarget "DistanceField" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1929547617DFF52D004E60DF /* Debug */,
+				1929547717DFF52D004E60DF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 1929544217DFF52D004E60DF /* Project object */;
+}

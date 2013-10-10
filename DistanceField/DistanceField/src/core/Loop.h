@@ -8,8 +8,8 @@
 
 #ifndef OGL_Basic_Loop_h
 #define OGL_Basic_Loop_h
+#include "Types.h"
 
-#include "Shader.h"
 /**
  *	SetUp all data when the framebuffer is reallocated.
  *
@@ -28,7 +28,7 @@ void TearDown();
  *
  *	@param	program	The Program reference.
  */
-void BindAttributes(Shader *shader);
+void BindAttributes(Program *program);
 
 /**
  *	Load all stuff. The VBO, textures, anything that can be loaded independently of the framebuffer. Only called once at first render.
