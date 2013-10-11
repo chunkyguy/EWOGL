@@ -20,9 +20,9 @@ A rotatinng cube.
 
 Reflection
 -----------
-Experiment to render a cube to a triangle stencil.
+Experiment to render a cube to a stencil buffer.
 
-![alt text](http://i.imgur.com/ZbcMWDy.png "Stencil")
+[![Cube](http://img.youtube.com/vi/v9WT0CBiAsk/0.jpg)](http://www.youtube.com/watch?v=v9WT0CBiAsk)
 
 OBJLoader
 ---------
