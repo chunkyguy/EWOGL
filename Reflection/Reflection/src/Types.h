@@ -55,9 +55,11 @@ typedef enum {
 
 // Renderable Mesh
 typedef struct {
- GLuint vao;
- GLuint vbo;
- int tri_count;	// Number of triangles.
+ GLuint vao;			// Vertex array object
+ GLuint vbo;			// Vertex buffer object
+ int vertex_count;	// Number of vertices.
+ GLuint ibo;			// Index buffer object (if available)
+ int index_count;		// Number of indices. This is the default rendering behavior. Set as -1 if rendering as glDrawArrays()
 } Mesh;
 
 /*******************************************************************************
@@ -92,4 +94,19 @@ typedef struct {
  Vec2i size;	//dimensions
 } Perspective;
 
+/*******************************************************************************
+ MARK: Vertex
+ *******************************************************************************/
+
+typedef union {
+ struct {
+  Vec3f position;
+  Vec3f normal;
+ };
+ float data[6];
+} Vertex;
+
+typedef union {
+ GLushort data[3];
+} Face;
 #endif

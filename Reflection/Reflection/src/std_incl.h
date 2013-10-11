@@ -9,6 +9,7 @@
 #ifndef Camera_std_incl_h
 #define Camera_std_incl_h
 #include <stdio.h>
+#include <stdbool.h>
 #include <assert.h>
 #include <OpenGLES/ES2/gl.h>
 #include <OpenGLES/ES2/glext.h>

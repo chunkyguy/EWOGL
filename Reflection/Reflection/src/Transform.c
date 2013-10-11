@@ -47,6 +47,13 @@ Mat4 *ModelViewMatrix(Mat4 *mat, const Transform *transform){
  return memcpy(mat, &mv, sizeof(mv));
 }
 
+bool NormalMatrix(Mat3 *mat, const Mat4 *mvMat) {
+ bool possible;
+ GLKMatrix3 nMat = GLKMatrix3InvertAndTranspose(GLKMatrix4GetMatrix3(*mvMat), &possible);
+ memcpy(mat, &nMat, sizeof(nMat));
+ return possible;
+}
+
 //GLKMatrix4 Transform_GetMVP(const Transform *slf, const GLKMatrix4 projection){
 // return GLKMatrix4Multiply(projection, Transform_GetMV(slf));
 //}
@@ -74,7 +81,7 @@ GLKMatrix4 *PerspectiveMatrix(GLKMatrix4 *matrix, const Perspective *perspective
  float height = perspective->size.y;
  float aspect_ratio = width/height;//(width > height) ? height/width: width/height;
 
- GLKMatrix4 mat = GLKMatrix4MakePerspective(perspective->fov,
+ GLKMatrix4 mat = GLKMatrix4MakePerspective(GLKMathDegreesToRadians(perspective->fov),
                                             aspect_ratio,
                                             perspective->near, perspective->far);
  return memcpy(matrix, &mat, sizeof(mat));

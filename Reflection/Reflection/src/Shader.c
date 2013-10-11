@@ -16,9 +16,9 @@ Shader *CompileShader(Shader *shader,
                       const char *vsh_filename,
                       const char *fsh_filename,
                       BindAttribs bind_attribs) {
- char vsh_src[kBuffer20] = {0};
- char fsh_src[kBuffer20] = {0};
- char path_buffer[kBuffer10] = {0};
+ char vsh_src[kBuffer4K] = {0};
+ char fsh_src[kBuffer4K] = {0};
+ char path_buffer[kBuffer1K] = {0};
  
  BundlePath(vsh_filename, path_buffer);
  ReadFile(path_buffer, vsh_src);
@@ -35,7 +35,6 @@ Shader *CompileShaderSource(Shader *shader,
                             BindAttribs bind_attribs) {
  
  Shader sh;
- GLint bShaderCompiled;
  
  // Loads the vertex shader
  sh.vert_shader = glCreateShader(GL_VERTEX_SHADER);
@@ -43,16 +42,19 @@ Shader *CompileShaderSource(Shader *shader,
  
  glShaderSource(sh.vert_shader, 1, (const char**)&vsh_src, NULL);
  glCompileShader(sh.vert_shader);
- 
+
+#if defined (TEST_ERR_SHADER)
+ GLint bShaderCompiled;
  glGetShaderiv(sh.vert_shader, GL_COMPILE_STATUS, &bShaderCompiled);
  if (!bShaderCompiled)	{
-  char info_log[kBuffer20] = {0};
+  char info_log[kBuffer1K] = {0};
   int info_log_len, chars_written;
   glGetShaderiv(sh.vert_shader, GL_INFO_LOG_LENGTH, &info_log_len);
   glGetShaderInfoLog(sh.vert_shader, info_log_len, &chars_written, info_log);
   printf("Failed to compile vertex shader: %s\n", info_log);
   assert(0);
  }
+#endif
  
  // Create the fragment shader object
  sh.frag_shader = glCreateShader(GL_FRAGMENT_SHADER);
@@ -61,9 +63,10 @@ Shader *CompileShaderSource(Shader *shader,
  glShaderSource(sh.frag_shader, 1, (const char**)&fsh_src, NULL);
  glCompileShader(sh.frag_shader);
  
+#if defined (TEST_ERR_SHADER)
  glGetShaderiv(sh.frag_shader, GL_COMPILE_STATUS, &bShaderCompiled);
  if (!bShaderCompiled) {
-  char info_log[kBuffer20] = {0};
+  char info_log[kBuffer1K] = {0};
   int info_log_len, chars_written;
   
   glGetShaderiv(sh.frag_shader, GL_INFO_LOG_LENGTH, &info_log_len);
@@ -71,6 +74,7 @@ Shader *CompileShaderSource(Shader *shader,
   printf("Failed to compile fragment shader: %s\n", info_log);
   assert(0);
  }
+#endif
  
  // Create the shader program
  sh.program = glCreateProgram();
@@ -88,10 +92,11 @@ Shader *CompileShaderSource(Shader *shader,
  glLinkProgram(sh.program);
  
  // Check if linking succeeded in the same way we checked for compilation success
+#if defined (TEST_ERR_SHADER)
  GLint bLinked;
  glGetProgramiv(sh.program, GL_LINK_STATUS, &bLinked);
  if (!bLinked) {
-  char info_log[kBuffer20] = {0};
+  char info_log[kBuffer1K] = {0};
   int info_log_len, chars_written;
   
   glGetProgramiv(sh.program, GL_INFO_LOG_LENGTH, &info_log_len);
@@ -99,6 +104,7 @@ Shader *CompileShaderSource(Shader *shader,
   printf("Failed to link program: %s\n", info_log);
   assert(0);
  }
+#endif
  
  // Actually use the created program
  glUseProgram(sh.program);

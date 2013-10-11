@@ -17,7 +17,8 @@
 typedef struct {
  Mesh *mesh;
  Transform transform;
-}Object;
+ Vec4f color;
+} Object;
 
 Mesh g_Mesh[2]; // Cube, Square
 Object g_Cube;
@@ -76,15 +77,17 @@ void Load() {
  //g_Cube.transform.scale = GLKVector3Make(10.0f, 10.0f, 10.0f);
  g_Cube.transform.angle = 0.0f;
  g_Cube.transform.parent = &g_WorldTrans;
- 
+ g_Cube.color = GLKVector4Make(0.4f, 0.6f, 0.7f, 0.8f);
+
  // Mask
  g_Mask.mesh = &g_Mesh[1];
  DefaultTransform(&g_Mask.transform);
- g_Mask.transform.position.z = 40.0f;
+ g_Mask.transform.position = GLKVector3Make(0.0f, 3.0f, 40.0f);
  g_Mask.transform.axis = GLKVector3Make(1.0f, 0.0f, 0.0f);
  g_Mask.transform.angle = 90.0f;
- g_Mask.transform.scale = GLKVector3Make(3.0f, 3.0f, 3.0f);
+ g_Mask.transform.scale = GLKVector3Make(2.0f, 2.0f, 2.0f);
  g_Mask.transform.parent = &g_WorldTrans;
+ g_Mask.color = GLKVector4Make(0.0f, 0.0f, 0.0f, 0.8f);
 }
 
 void Unload() {
@@ -98,17 +101,6 @@ void Update(int dt) {
  //update
  g_Cube.transform.angle += 1.0f;
 
- // Render floor
- // glDisable(GL_DEPTH_TEST);
- // glEnable(GL_BLEND);
- // glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
- // RenderMesh(g_Mask.mesh, &g_Mask.transform, &g_Shader, &g_Perspective);
- // glDisable(GL_BLEND);
- // glEnable(GL_DEPTH_TEST);
-
- // Render cube
- g_Cube.transform.position.y = 1.1f;
- RenderMesh(g_Cube.mesh, &g_Cube.transform, &g_Shader, &g_Perspective);
 
  // Prepare the stencil buffer
  glEnable(GL_STENCIL_TEST);
@@ -133,7 +125,7 @@ void Update(int dt) {
   */
  glDepthMask(GL_FALSE);
  glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
- RenderMesh(g_Mask.mesh, &g_Mask.transform, &g_Shader, &g_Perspective);
+ RenderMesh(g_Mask.mesh, &g_Mask.transform, &g_Shader, &g_Perspective, &g_Mask.color);
  
  /* Turn depth and color buffers back on.
   */
@@ -157,11 +149,24 @@ void Update(int dt) {
  
  // Render relfection
  Transform ref_trans = g_Cube.transform;
- ref_trans.position.y = -1.1f;
- RenderMesh(g_Cube.mesh, &ref_trans, &g_Shader, &g_Perspective);
-
+ ref_trans.position.y = 0.0f;
+ RenderMesh(g_Cube.mesh, &ref_trans, &g_Shader, &g_Perspective, &g_Cube.color);
 
  // Disable stencil test
  glDisable(GL_STENCIL_TEST);
+
+ 
+ // Render floor
+ glDisable(GL_DEPTH_TEST);
+ glEnable(GL_BLEND);
+ glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+ RenderMesh(g_Mask.mesh, &g_Mask.transform, &g_Shader, &g_Perspective, &g_Mask.color);
+ glDisable(GL_BLEND);
+ glEnable(GL_DEPTH_TEST);
+
+ // Render cube
+ g_Cube.transform.position.y = 2.1f;
+ RenderMesh(g_Cube.mesh, &g_Cube.transform, &g_Shader, &g_Perspective, &g_Cube.color);
+
 }
 

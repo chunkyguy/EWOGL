@@ -22,6 +22,7 @@ Transform *DefaultTransform(Transform *transform);
  */
 Mat4 *ModelViewMatrix(Mat4 *mat, const Transform *transform);
 
+bool NormalMatrix(Mat3 *mat, const Mat4 *mvMat);
 
 bool TransformsEqual(const Transform *one, const Transform *two);
 
