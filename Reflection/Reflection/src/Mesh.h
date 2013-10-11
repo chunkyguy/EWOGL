@@ -12,11 +12,16 @@
 Mesh *CreateMesh(Mesh *mesh,
                  const kCommonMesh mesh_type);
 
+
+Mesh *CreateMeshFromFile(Mesh *mesh, const char *filename);
+
+
 const Mesh *RenderMesh(const Mesh *mesh,   /*	The mesh to be rendered */
-                const Transform *transform, /*	The transform. */
-                const Shader *shader,	/*	The program in use. */
-                const Perspective *perspective /* The perpective to be applied*/
-);
+                       const Transform *transform, /*	The transform. */
+                       const Shader *shader,	/*	The program in use. */
+                       const Perspective *perspective, /* The perpective to be applied*/
+                       const Vec4f *color
+                       );
 
 /**
  *	Release resources for the mesh.

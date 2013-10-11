@@ -18,8 +18,8 @@
 /**************************************************************************************************************
  *	MARK:	Callbacks + Functions
  ***************************************************************************************************************/
-int AllocateRenderbufferStorage(void *context, void *layer) {
-	return [(EAGLContext*)context renderbufferStorage:GL_RENDERBUFFER fromDrawable:(id<EAGLDrawable>)layer] ? T: F;
+bool AllocateRenderbufferStorage(void *context, void *layer) {
+	return [(EAGLContext*)context renderbufferStorage:GL_RENDERBUFFER fromDrawable:(id<EAGLDrawable>)layer] ? true: false;
 }
 /**************************************************************************************************************
  *	MARK:	App
@@ -108,8 +108,10 @@ int AllocateRenderbufferStorage(void *context, void *layer) {
 	[self.context presentRenderbuffer:GL_RENDERBUFFER];
 
 	// check for errors
+#if defined (TEST_ERR_ANY)
 	GLenum err = glGetError();
 	NSAssert(!err, @"%x error", err);
+#endif
 }
 
 /********************************************************************************
@@ -158,6 +160,7 @@ int AllocateRenderbufferStorage(void *context, void *layer) {
 	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_STENCIL_ATTACHMENT, GL_RENDERBUFFER, frame_buffer_.renderbuffer[kRenderbuffer_DepthStencil]);
 
 	// check for errors
+#if defined (TEST_ERR_FRAMEBUFFER)
 	switch (glCheckFramebufferStatus(GL_FRAMEBUFFER)) {
 		case GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT: printf("Framebuffer error:\nany of the framebuffer attachment points are framebuffer incomplete.\n"); assert(0); break;
 		case GL_FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT: printf("Framebuffer error:\nthe framebuffer does not have at least one image attached to it.\n"); assert(0); break;
@@ -171,7 +174,8 @@ int AllocateRenderbufferStorage(void *context, void *layer) {
 			//		case GL_FRAMEBUFFER_INCOMPLETE_LAYER_TARGETS: printf("any framebuffer attachment is layered, and any populated attachment is not layered, or if all populated color attachments are not from textures of the same target.\n"); assert(0); break;
 		case GL_FRAMEBUFFER_COMPLETE: printf("Framebuffer ready\n"); break;
 	}
-	
+#endif
+ 
 	SetUp((GLsizei)frame_buffer_.width, (GLsizei)frame_buffer_.height);
 }
 

@@ -37,8 +37,8 @@ static void split(const char *filename, char *file, char *extn) {
 
 
 void BundlePath(const char *filename, char *absolute_path) {
-	char file[kBuffer10] = {0};
-	char extn[kBuffer10] = {0};
+	char file[kBuffer256] = {0};
+	char extn[10] = {0};
 	split(filename, file, extn);
 	NSString *full_path = [[NSBundle mainBundle] pathForResource:[NSString stringWithUTF8String:file] ofType:[NSString stringWithUTF8String:extn]];
 	assert(full_path);

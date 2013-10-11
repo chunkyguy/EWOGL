@@ -21,7 +21,7 @@
  *
  *	@return	TURE on command successful, else FALSE
  */
-int AllocateRenderbufferStorage(void *context, void *layer);
+bool AllocateRenderbufferStorage(void *context, void *layer);
 
 /**************************************************************************************************************
  *	MARK:	App
