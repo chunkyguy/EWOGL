@@ -85,12 +85,14 @@ struct Transform_ {
 typedef struct Transform_ Transform;
 
 /*******************************************************************************
- MARK: Frustum
+ MARK: Perspective
  *******************************************************************************/
 typedef struct {
- Vec3f dimension;	/*width, height, depth */
- float nearZ;
-} Frustum;
+ float fov; // Field of view.
+ float near;
+ float far;
+ Vec2i size;	//dimensions
+} Perspective;
 
 /*******************************************************************************
  MARK: Vertex

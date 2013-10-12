@@ -6,7 +6,6 @@
 //  Copyright (c) 2013 whackylabs. All rights reserved.
 //
 #include "std_incl.h"
-#include "Utilities.h"
 
 #import <string.h>
 #import <Foundation/Foundation.h>
@@ -38,8 +37,8 @@ static void split(const char *filename, char *file, char *extn) {
 
 
 void BundlePath(const char *filename, char *absolute_path) {
-	char file[kBuffer(5)] = {0};
-	char extn[kBuffer(5)] = {0};
+	char file[kBuffer256] = {0};
+	char extn[10] = {0};
 	split(filename, file, extn);
 	NSString *full_path = [[NSBundle mainBundle] pathForResource:[NSString stringWithUTF8String:file] ofType:[NSString stringWithUTF8String:extn]];
 	assert(full_path);
@@ -47,21 +46,15 @@ void BundlePath(const char *filename, char *absolute_path) {
 	strcpy(absolute_path, [full_path UTF8String]);
 }
 
-FileInfo ReadFile(const char *path, char *buffer) {
+void ReadFile(const char *path, char *buffer) {
 	FILE *file = fopen(path, "r");
 	assert(file);
 	
-	FileInfo fi = {0, 0};
 	int ch;
 	while ((ch = fgetc(file)) != EOF) {
 		*buffer++ = ch;
-		if (ch == '\n') {
-			fi.lines++;
-		}
-		fi.words++;
 	}
 	*buffer = '\0';
 	fclose(file);
-	return fi;
 }
 

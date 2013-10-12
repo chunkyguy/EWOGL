@@ -25,45 +25,13 @@ Object g_Cube;
 Object g_Mask;
 Shader g_Shader;
 Transform g_WorldTrans;
-Perspective g_Perspective;
-
-void BindAttributes(Shader *shader) {
- // Bind the custom vertex attribute "a_Position" to location VERTEX_ARRAY
- glBindAttribLocation(shader->program, kAttribPosition, "a_Position");
- glBindAttribLocation(shader->program, kAttribNormal, "a_Normal");
-}
-
-void SetUp(GLsizei width, GLsizei height) {
- // Set perpective
- DefaultPerspective(&g_Perspective);
- g_Perspective.size.x = width;
- g_Perspective.size.y = height;
-
- // Set viewport
- glViewport(0, 0, width, height);
- 
- // Set world transform
- DefaultTransform(&g_WorldTrans);
- g_WorldTrans.position = GLKVector3Make(0.0f, 0.0f, -(g_Perspective.far-g_Perspective.near)/2.0f);
- g_WorldTrans.axis = GLKVector3Make(1.0f, 0.0f, 0.0f);
- g_WorldTrans.angle = 3.0f;
- 
- /* Set default gl state*/
- glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
- glEnable(GL_DEPTH_TEST);
-}
-
-void TearDown() {
- glDisableVertexAttribArray(kAttribPosition);
- glDisableVertexAttribArray(kAttribNormal);
-}
-
+Frustum g_Frustum;
 
 void Load() {
  /* Load shader */
  char shaderName_vsh[] = "Shader.vsh";
  char shaderName_fsh[] = "Shader.fsh";
- CompileShader(&g_Shader, shaderName_vsh, shaderName_fsh, BindAttributes);
+ CompileShader(&g_Shader, shaderName_vsh, shaderName_fsh);
  
  /* Load mesh */
  CreateMesh(&g_Mesh[0], kCommonMesh_Cube);
@@ -78,23 +46,49 @@ void Load() {
  g_Cube.transform.angle = 0.0f;
  g_Cube.transform.parent = &g_WorldTrans;
  g_Cube.color = GLKVector4Make(0.4f, 0.6f, 0.7f, 0.8f);
-
+ 
  // Mask
  g_Mask.mesh = &g_Mesh[1];
  DefaultTransform(&g_Mask.transform);
- g_Mask.transform.position = GLKVector3Make(0.0f, 3.0f, 40.0f);
+ g_Mask.transform.position = GLKVector3Make(0.0f, 2.0f, 40.0f);
  g_Mask.transform.axis = GLKVector3Make(1.0f, 0.0f, 0.0f);
  g_Mask.transform.angle = 90.0f;
- g_Mask.transform.scale = GLKVector3Make(2.0f, 2.0f, 2.0f);
+ g_Mask.transform.scale = GLKVector3Make(2.0f, 2.0f, 1.0f);
  g_Mask.transform.parent = &g_WorldTrans;
  g_Mask.color = GLKVector4Make(0.0f, 0.0f, 0.0f, 0.8f);
+ 
+ /* Set gl states */
+ glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
+ glEnable(GL_DEPTH_TEST);
 }
 
 void Unload() {
+ /* Reset gl states */
+ glDisable(GL_DEPTH_TEST);
+ 
  ReleaseShader(&g_Shader);
  for (int i = 0; i < 2; ++i) {
   ReleaseMesh(&g_Mesh[i]);
  }
+}
+
+
+void Reshape(GLsizei width, GLsizei height) {
+ // Set perpective
+ DefaultPerspective(&g_Frustum);
+// g_Frustum.dimension.x = width;
+// g_Frustum.dimension.y = height;
+
+ // Set viewport
+ glViewport(0, 0, width, height);
+ 
+ // Set world transform
+ DefaultTransform(&g_WorldTrans);
+ g_WorldTrans.position = GLKVector3Make(0.0f, 0.0f, -g_Frustum.dimension.z/2.0f);
+ g_WorldTrans.axis = GLKVector3Make(1.0f, 0.0f, 0.0f);
+ g_WorldTrans.angle = 3.0f;
+ g_WorldTrans.scale.x = (float)height/(float)width;
+ 
 }
 
 void Update(int dt) {
@@ -125,7 +119,7 @@ void Update(int dt) {
   */
  glDepthMask(GL_FALSE);
  glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
- RenderMesh(g_Mask.mesh, &g_Mask.transform, &g_Shader, &g_Perspective, &g_Mask.color);
+ RenderMesh(g_Mask.mesh, &g_Mask.transform, &g_Shader, &g_Frustum, &g_Mask.color);
  
  /* Turn depth and color buffers back on.
   */
@@ -150,7 +144,7 @@ void Update(int dt) {
  // Render relfection
  Transform ref_trans = g_Cube.transform;
  ref_trans.position.y = 0.0f;
- RenderMesh(g_Cube.mesh, &ref_trans, &g_Shader, &g_Perspective, &g_Cube.color);
+ RenderMesh(g_Cube.mesh, &ref_trans, &g_Shader, &g_Frustum, &g_Cube.color);
 
  // Disable stencil test
  glDisable(GL_STENCIL_TEST);
@@ -160,13 +154,13 @@ void Update(int dt) {
  glDisable(GL_DEPTH_TEST);
  glEnable(GL_BLEND);
  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
- RenderMesh(g_Mask.mesh, &g_Mask.transform, &g_Shader, &g_Perspective, &g_Mask.color);
+ RenderMesh(g_Mask.mesh, &g_Mask.transform, &g_Shader, &g_Frustum, &g_Mask.color);
  glDisable(GL_BLEND);
  glEnable(GL_DEPTH_TEST);
 
  // Render cube
- g_Cube.transform.position.y = 2.1f;
- RenderMesh(g_Cube.mesh, &g_Cube.transform, &g_Shader, &g_Perspective, &g_Cube.color);
+ g_Cube.transform.position.y = 2.0f;
+ RenderMesh(g_Cube.mesh, &g_Cube.transform, &g_Shader, &g_Frustum, &g_Cube.color);
 
 }
 

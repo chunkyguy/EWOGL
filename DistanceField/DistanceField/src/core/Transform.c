@@ -7,81 +7,84 @@
 //
 
 #include "Transform.h"
+#include "Console.h"
 
-
-Transform Transform_Create(const GLKVector3 pos,
-						   const GLKVector4 rot,
-						   const GLKVector3 sc,
-						   const Transform *p)
-{
-	Transform t;
-	t.position = pos;
-	t.rotation = rot;
-	t.scale = sc;
-	t.parent = p;
-	return t;
+Transform *DefaultTransform(Transform *transform) {
+ Transform t = {
+  {0.0f, 0.0f, 0.0f},
+  {1.0f, 1.0f, 1.0f},
+  0.0f,
+  {1.0f, 1.0f, 1.0f},
+  NULL,
+  (kTransformMask_Translation | kTransformMask_Rotation | kTransformMask_Scaling)
+ };
+ return memcpy(transform, &t, sizeof(t));
 }
 
-GLKMatrix4 Transform_GetMV(const Transform *slf){
-	
-	GLKMatrix4 mv = GLKMatrix4Identity;
-	mv = GLKMatrix4Translate(mv, slf->position.x, slf->position.y, slf->position.z);
-	mv = GLKMatrix4Rotate(mv, slf->rotation.w, slf->rotation.x, slf->rotation.y, slf->rotation.z);
-	mv = GLKMatrix4Scale(mv, slf->scale.x, slf->scale.y, slf->scale.z);
-	if (slf->parent) {
-		mv = GLKMatrix4Multiply(Transform_GetMV(slf->parent), mv);
-	}
-	return mv;
+
+Mat4 *ModelViewMatrix(Mat4 *mat, const Transform *transform){
+ 
+ Mat4 mv = GLKMatrix4Identity;
+ 
+ if (transform->mask_flag & kTransformMask_Translation) {
+  mv = GLKMatrix4Translate(mv, transform->position.x, transform->position.y, transform->position.z);
+ }
+ 
+ if (transform->mask_flag & kTransformMask_Rotation) {
+  mv = GLKMatrix4Rotate(mv, GLKMathDegreesToRadians(transform->angle),
+                        transform->axis.x, transform->axis.y, transform->axis.z);
+ }
+ 
+ if (transform->mask_flag & kTransformMask_Scaling) {
+  mv = GLKMatrix4Scale(mv, transform->scale.x, transform->scale.y, transform->scale.z);
+ }
+ 
+ if (transform->parent) {
+  Mat4 parent_mv;
+  ModelViewMatrix(&parent_mv, transform->parent);
+  mv = GLKMatrix4Multiply(parent_mv, mv);
+ }
+ return memcpy(mat, &mv, sizeof(mv));
 }
 
-GLKMatrix4 Transform_GetMVP(const Transform *slf, const GLKMatrix4 projection){
-	return GLKMatrix4Multiply(projection, Transform_GetMV(slf));
+bool NormalMatrix(Mat3 *mat, const Mat4 *mvMat) {
+ bool possible;
+ GLKMatrix3 nMat = GLKMatrix3InvertAndTranspose(GLKMatrix4GetMatrix3(*mvMat), &possible);
+ memcpy(mat, &nMat, sizeof(nMat));
+ return possible;
 }
 
-Transform Add(const Transform one, const Transform two){
-	assert(one.parent == two.parent);
-	return Transform_Create(GLKVector3Add(one.position, two.position),
-							GLKVector4Add(one.rotation, two.rotation),
-							GLKVector3Add(one.scale, two.scale),
-							0);
+//GLKMatrix4 Transform_GetMVP(const Transform *slf, const GLKMatrix4 projection){
+// return GLKMatrix4Multiply(projection, Transform_GetMV(slf));
+//}
+
+
+bool TransformsEqual(const Transform* one, const Transform* two) {
+ 
+ return (one->parent == two->parent	&&
+         GLKVector3AllEqualToVector3(one->position, two->position)	&&
+         GLKVector3AllEqualToVector3(one->axis, two->axis)	&&
+         (one->angle == two->angle) &&
+         GLKVector3AllEqualToVector3(one->scale,	two->scale));
 }
 
-Transform Subtract(const Transform one, const Transform two){
-	assert(one.parent == two.parent);
-	return Transform_Create(GLKVector3Subtract(one.position, two.position),
-							GLKVector4Subtract(one.rotation, two.rotation),
-							GLKVector3Subtract(one.scale, two.scale),
-							0);
-}
-Transform Multiply(const Transform one, float two){
-	return Transform_Create(GLKVector3MultiplyScalar(one.position, two),
-							GLKVector4MultiplyScalar(one.rotation, two),
-							GLKVector3MultiplyScalar(one.scale, two),
-							0);
+Perspective *DefaultPerspective(Perspective *perspective) {
+ Perspective p = {
+  45.0f, 1.0f, 101.0f,
+  {1, 1}
+ };
+ return memcpy(perspective, &p, sizeof(p));
 }
 
-void Transform_SetPosition(Transform *slf, const GLKVector2 pos){
-	slf->position.x = pos.x;
-	slf->position.y = pos.y;
-}
+GLKMatrix4 *PerspectiveMatrix(GLKMatrix4 *matrix, const Perspective *perspective) {
+ float width = perspective->size.x;
+ float height = perspective->size.y;
+ float aspect_ratio = width/height;//(width > height) ? height/width: width/height;
 
-GLKVector2 Transform_GetPosition(const Transform slf){
-	return GLKVector2Make(slf.position.x, slf.position.y);
-}
-
-GLKVector3 Transform_GetLocalPosition(const Transform slf, GLKVector3 world_position) {
-	bool inv_result;
-	GLKMatrix4 transform_inv = GLKMatrix4Invert(Transform_GetMV(&slf), &inv_result);
-	assert(inv_result);	// the matrix should be invertible.
-	GLKVector4 position4 = GLKMatrix4MultiplyVector4(transform_inv, GLKVector4Make(world_position.x, world_position.y, world_position.z, 1.0f));
-	return GLKVector3Make(position4.x, position4.y, position4.z);
-}
-
-int Equal(const Transform one, const Transform two) {
-	return (one.parent		== two.parent	&&
-			GLKVector3AllEqualToVector3(one.position, two.position)	&&
-			GLKVector4AllEqualToVector4(one.rotation, two.rotation)	&&
-			GLKVector3AllEqualToVector3(one.scale,	two.scale));
+ GLKMatrix4 mat = GLKMatrix4MakePerspective(GLKMathDegreesToRadians(perspective->fov),
+                                            aspect_ratio,
+                                            perspective->near, perspective->far);
+ return memcpy(matrix, &mat, sizeof(mat));
 }
 
 ///EOF

@@ -9,35 +9,24 @@
 #ifndef Camera_Cube_h
 #define Camera_Cube_h
 #include "Types.h"
-/**
- *	Static Mesh
- */
-typedef enum {
-	kMesh_Cube, kMesh_Square, kMesh_Triangle
-}StaticMesh;
+Mesh *CreateMesh(Mesh *mesh,
+                 const kCommonMesh mesh_type);
 
-/**
- *	Create a static mesh.
- *
- *	@param	mesh_type	Mesh type.
- *
- *	@return	Mesh
- */
-Mesh CreatStaticMesh(StaticMesh mesh_type);
 
-/**
- *	Create a mesh from file.
- *
- *	@param	filename	 filename.
- *
- *	@return	Mesh.
- */
-Mesh CreateMeshFromFile(const char *filename);
+Mesh *CreateMeshFromFile(Mesh *mesh, const char *filename);
+
+
+const Mesh *RenderMesh(const Mesh *mesh,   /*	The mesh to be rendered */
+                       const Transform *transform, /*	The transform. */
+                       const Shader *shader,	/*	The program in use. */
+                       const Perspective *perspective, /* The perpective to be applied*/
+                       const Vec4f *color
+                       );
 
 /**
  *	Release resources for the mesh.
  *
  *	@param	mesh	 The mesh.
  */
-void TearDown_Mesh(const Mesh mesh);
+void ReleaseMesh(Mesh *mesh);
 #endif

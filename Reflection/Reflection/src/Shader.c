@@ -14,8 +14,7 @@
 
 Shader *CompileShader(Shader *shader,
                       const char *vsh_filename,
-                      const char *fsh_filename,
-                      BindAttribs bind_attribs) {
+                      const char *fsh_filename) {
  char vsh_src[kBuffer4K] = {0};
  char fsh_src[kBuffer4K] = {0};
  char path_buffer[kBuffer1K] = {0};
@@ -26,13 +25,12 @@ Shader *CompileShader(Shader *shader,
  BundlePath(fsh_filename, path_buffer);
  ReadFile(path_buffer, fsh_src);
  
- return CompileShaderSource(shader, vsh_src, fsh_src, bind_attribs);
+ return CompileShaderSource(shader, vsh_src, fsh_src);
 }
 
 Shader *CompileShaderSource(Shader *shader,
                             const char *vsh_src,
-                            const char *fsh_src,
-                            BindAttribs bind_attribs) {
+                            const char *fsh_src) {
  
  Shader sh;
  
@@ -85,7 +83,8 @@ Shader *CompileShaderSource(Shader *shader,
  glAttachShader(sh.program, sh.frag_shader);
  
  //Bind attributes
- bind_attribs(&sh);
+ glBindAttribLocation(sh.program, kAttribPosition, "a_Position");
+ glBindAttribLocation(sh.program, kAttribNormal, "a_Normal");
  
  
  // Link the program
@@ -122,4 +121,3 @@ void ReleaseShader(Shader *shader) {
  glDeleteProgram(shader->program);
  shader = NULL;
 }
-

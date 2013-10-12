@@ -26,8 +26,9 @@ bool NormalMatrix(Mat3 *mat, const Mat4 *mvMat);
 
 bool TransformsEqual(const Transform *one, const Transform *two);
 
-Perspective *DefaultPerspective(Perspective *perspective);
+Frustum *DefaultPerspective(Frustum *frustum);
 
-Mat4 *PerspectiveMatrix(Mat4 *matrix, const Perspective *perspective);
+Mat4 *PerspectiveMatrix(Mat4 *matrix, const Frustum *frustum);
 
+float FarZ(const Frustum *frustum);
 #endif /* defined(__HideousGameEngine__Transform__) */

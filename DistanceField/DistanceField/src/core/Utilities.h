@@ -7,8 +7,6 @@
 //
 #ifndef OGL_Basic_Utilities_h
 #define OGL_Basic_Utilities_h
-#include "Types.h"
-
 /**
  *	Get absolute Bundle path
  *
@@ -22,8 +20,6 @@ void BundlePath(const char *filename, char *absolute_path);
  *
  *	@param	path	 The absolute path of the file. (In)
  *	@param	buffer The buffer (Out)
- *
- *	@return FileInfo object.
  */
-FileInfo ReadFile(const char *path, char *buffer);
+void ReadFile(const char *path, char *buffer);
 #endif

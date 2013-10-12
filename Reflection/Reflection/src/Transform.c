@@ -68,23 +68,27 @@ bool TransformsEqual(const Transform* one, const Transform* two) {
          GLKVector3AllEqualToVector3(one->scale,	two->scale));
 }
 
-Perspective *DefaultPerspective(Perspective *perspective) {
- Perspective p = {
-  45.0f, 1.0f, 101.0f,
-  {1, 1}
+Frustum *DefaultPerspective(Frustum *frustum) {
+ Frustum f = {
+  {1.0f, 1.0f, 100.0f},	/* dimensions */
+  1.0f	/* far */
  };
- return memcpy(perspective, &p, sizeof(p));
+ return memcpy(frustum, &f, sizeof(f));
 }
 
-GLKMatrix4 *PerspectiveMatrix(GLKMatrix4 *matrix, const Perspective *perspective) {
- float width = perspective->size.x;
- float height = perspective->size.y;
- float aspect_ratio = width/height;//(width > height) ? height/width: width/height;
-
- GLKMatrix4 mat = GLKMatrix4MakePerspective(GLKMathDegreesToRadians(perspective->fov),
-                                            aspect_ratio,
-                                            perspective->near, perspective->far);
+Mat4 *PerspectiveMatrix(Mat4 *matrix, const Frustum *frustum) {
+ float width = frustum->dimension.x;
+ float height = frustum->dimension.y;
+ float near = frustum->nearZ;
+ float far = FarZ(frustum);
+ 
+ Mat4 mat = GLKMatrix4MakeFrustum(-width/2.0f, width/2.0f, -height/2.0f, height/2.0f, near, far);
+ 
  return memcpy(matrix, &mat, sizeof(mat));
+}
+
+float FarZ(const Frustum *frustum) {
+ return frustum->nearZ + frustum->dimension.z;
 }
 
 ///EOF

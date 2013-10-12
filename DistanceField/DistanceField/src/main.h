@@ -21,7 +21,7 @@
  *
  *	@return	TURE on command successful, else FALSE
  */
-int AllocateRenderbufferStorage(void *context, void *layer);
+bool AllocateRenderbufferStorage(void *context, void *layer);
 
 /**************************************************************************************************************
  *	MARK:	App
@@ -30,7 +30,7 @@ int AllocateRenderbufferStorage(void *context, void *layer);
 #import <QuartzCore/QuartzCore.h>
 #import <Foundation/Foundation.h>
 
-#import "Types.h"
+#import "core/Types.h"
 
 @interface AppView : UIView <UIApplicationDelegate> {
 	Framebuffer frame_buffer_;

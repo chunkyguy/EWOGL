@@ -49,12 +49,6 @@ static Mesh *create_mesh(Mesh *mesh,
   glBufferData(GL_ELEMENT_ARRAY_BUFFER, face_data_size, face_data, GL_STATIC_DRAW);
  }
  
- /*	Enable the custom vertex attributes at some indices (for eg. kAttribPosition).
-  We previously binded those indices to the variables in our shader (for eg. vec4 a_Position)
-  */
- glEnableVertexAttribArray(kAttribPosition);
- glEnableVertexAttribArray(kAttribNormal);
- 
  /* Sets the vertex data to enabled attribute indices */
  GLsizei stride = sizeof(Vertex);
  Offset position_offset;
@@ -235,7 +229,7 @@ Mesh *CreateMeshFromFile(Mesh *mesh, const char *filename) {
 const Mesh *RenderMesh(const Mesh *mesh,   /*	The mesh to be rendered */
                        const Transform *transform, /*	The transform. */
                        const Shader *shader,	/*	The program in use. */
-                       const Perspective *perspective, /* The perpective to be applied*/
+                       const Frustum *frustum, /* The perpective to be applied*/
                        const Vec4f *color
 ) {
  /* Matrices used */
@@ -245,9 +239,9 @@ const Mesh *RenderMesh(const Mesh *mesh,   /*	The mesh to be rendered */
 
  ModelViewMatrix(&mvMat, transform);
  NormalMatrix(&nMat, &mvMat);
- PerspectiveMatrix(&pMat, perspective);
+ PerspectiveMatrix(&pMat, frustum);
 
- GLKMatrix4 mvpMat = GLKMatrix4Multiply(pMat, mvMat);
+ Mat4 mvpMat = GLKMatrix4Multiply(pMat, mvMat);
  
  /*	Bind the data to the associated uniform variable in the shader
   First gets the location of that variable in the shader using its name
@@ -262,6 +256,11 @@ const Mesh *RenderMesh(const Mesh *mesh,   /*	The mesh to be rendered */
  
  // Bind the VAO
  glBindVertexArrayOES(mesh->vao);
+ /*	Enable the custom vertex attributes at some indices (for eg. kAttribPosition).
+  We previously binded those indices to the variables in our shader (for eg. vec4 a_Position)
+  */
+ glEnableVertexAttribArray(kAttribPosition);
+ glEnableVertexAttribArray(kAttribNormal);
  
  /*
   This function allows the use of other primitive types : triangle strips, lines, ...
@@ -275,11 +274,15 @@ const Mesh *RenderMesh(const Mesh *mesh,   /*	The mesh to be rendered */
  }
  
  // Unbind the VAO
+ glDisableVertexAttribArray(kAttribPosition);
+ glDisableVertexAttribArray(kAttribNormal);
  glBindVertexArrayOES(0);
+ 
  return mesh;
 }
 
 void ReleaseMesh(Mesh *mesh) {
+
  glDeleteBuffers(1, &mesh->vbo);
  if (mesh->index_count > 0) {
   glDeleteBuffers(1, &mesh->ibo);

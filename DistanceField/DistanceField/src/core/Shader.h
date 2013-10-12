@@ -11,7 +11,7 @@
 
 #include "Types.h"
 
-typedef void(*BindAttribs)(Program *program);
+typedef void(*BindAttribs)(Shader *shader);
 
 /**
  *	Compile shader from filename
@@ -19,7 +19,10 @@ typedef void(*BindAttribs)(Program *program);
  *	@param	vsh_filename Vertex shader filename
  *	@param	fsh_filename	 Fragment shader filename
  */
-extern Program CompileShader(const char *vsh_filename, const char *fsh_filename, BindAttribs bind_attribs);
+Shader *CompileShader(Shader *shader,
+                      const char *vsh_filename,
+                      const char *fsh_filename,
+                      BindAttribs bind_attribs);
 
 /**
  *	Compile shader from source
@@ -27,13 +30,15 @@ extern Program CompileShader(const char *vsh_filename, const char *fsh_filename,
  *	@param	vsh_src	Vertex shader source
  *	@param	fsh_src	Fragment shader source
  */
-Program CompileShaderSource(const char *vsh_src, const char *fsh_src, BindAttribs bind_attribs);
+Shader *CompileShaderSource(Shader *shader,
+                            const char *vsh_src,
+                            const char *fsh_src,
+                            BindAttribs bind_attribs);
 
 /**
  *	Release the shader.
  *
  *	@param	program	The program object.
  */
-void ReleaseShader(const Program program);
-
+void ReleaseShader(Shader *shader);
 #endif

@@ -5,21 +5,21 @@
 //  Created by Sid on 21/08/13.
 //  Copyright (c) 2013 whackylabs. All rights reserved.
 //
-#include "std_incl.h"
+#import "main.h"
+
+#include "core/std_incl.h"
 
 #import <OpenGLES/EAGLDrawable.h>
 #import <OpenGLES/EAGL.h>
 
-#import "main.h"
-
 #include "Loop.h"
-#include "Constants.h"
+#include "core/Constants.h"
 
 /**************************************************************************************************************
  *	MARK:	Callbacks + Functions
  ***************************************************************************************************************/
-int AllocateRenderbufferStorage(void *context, void *layer) {
-	return [(EAGLContext*)context renderbufferStorage:GL_RENDERBUFFER fromDrawable:(id<EAGLDrawable>)layer] ? T: F;
+bool AllocateRenderbufferStorage(void *context, void *layer) {
+	return [(EAGLContext*)context renderbufferStorage:GL_RENDERBUFFER fromDrawable:(id<EAGLDrawable>)layer] ? true: false;
 }
 /**************************************************************************************************************
  *	MARK:	App
@@ -239,9 +239,9 @@ int AllocateRenderbufferStorage(void *context, void *layer) {
 }
 @end
 
-/**************************************************************************************************************
+/******************************************************************************
  *	MARK:	main
- ***************************************************************************************************************/
+ ******************************************************************************/
 int main(int argc, char *argv[]) {
 	@autoreleasepool {
 	    return UIApplicationMain(argc, argv, nil, NSStringFromClass([App class]));

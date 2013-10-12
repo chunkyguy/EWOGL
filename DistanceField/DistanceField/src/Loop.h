@@ -28,7 +28,7 @@ void TearDown();
  *
  *	@param	program	The Program reference.
  */
-void BindAttributes(Program *program);
+void BindAttributes(Shader *program);
 
 /**
  *	Load all stuff. The VBO, textures, anything that can be loaded independently of the framebuffer. Only called once at first render.

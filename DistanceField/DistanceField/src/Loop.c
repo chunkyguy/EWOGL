@@ -9,13 +9,12 @@
 #include "std_incl.h"
 #include "Loop.h"
 
-#include "Shader.h"
-#include "Constants.h"
-#include "Mesh.h"
-#include "Renderer.h"
-#include "Transform.h"
-#include "../font/Font.h"
-#include "Utilities.h"
+#include "core/Shader.h"
+#include "core/Constants.h"
+#include "core/Mesh.h"
+#include "core/Transform.h"
+#include "core/Font.h"
+#include "core/Utilities.h"
 
 #define kMesh_Cube		0
 #define kMesh_Square		1
@@ -29,8 +28,8 @@ typedef struct {
 
 Mesh mesh_[kMesh_Total]; // Cube, Square
 Object object_[3];
-Program program_;
-Camera camera_;
+Shader program_;
+Transform world_trans_;
 
 void BindAttributes(Program *program) {
 	// Bind the custom vertex attribute "a_Position" to location VERTEX_ARRAY

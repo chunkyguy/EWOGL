@@ -7,6 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		190D7CFB18091B50003DC35A /* Console.c in Sources */ = {isa = PBXBuildFile; fileRef = 190D7CE218091B50003DC35A /* Console.c */; };
+		190D7CFC18091B50003DC35A /* Font.c in Sources */ = {isa = PBXBuildFile; fileRef = 190D7CE518091B50003DC35A /* Font.c */; };
+		190D7CFD18091B50003DC35A /* Ganit.c in Sources */ = {isa = PBXBuildFile; fileRef = 190D7CE718091B50003DC35A /* Ganit.c */; };
+		190D7CFE18091B50003DC35A /* Mesh.c in Sources */ = {isa = PBXBuildFile; fileRef = 190D7CE918091B50003DC35A /* Mesh.c */; };
+		190D7D0018091B50003DC35A /* Shader.c in Sources */ = {isa = PBXBuildFile; fileRef = 190D7CED18091B50003DC35A /* Shader.c */; };
+		190D7D0118091B50003DC35A /* Shader.fsh in Sources */ = {isa = PBXBuildFile; fileRef = 190D7CEE18091B50003DC35A /* Shader.fsh */; };
+		190D7D0218091B50003DC35A /* Shader.vsh in Sources */ = {isa = PBXBuildFile; fileRef = 190D7CF018091B50003DC35A /* Shader.vsh */; };
+		190D7D0318091B50003DC35A /* Transform.c in Sources */ = {isa = PBXBuildFile; fileRef = 190D7CF218091B50003DC35A /* Transform.c */; };
+		190D7D0418091B50003DC35A /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 190D7CF618091B50003DC35A /* Utilities.m */; };
+		190D7D0518091B50003DC35A /* Loop.c in Sources */ = {isa = PBXBuildFile; fileRef = 190D7CF718091B50003DC35A /* Loop.c */; };
+		190D7D0618091B50003DC35A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 190D7CFA18091B50003DC35A /* main.m */; };
 		1929544E17DFF52D004E60DF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1929544D17DFF52D004E60DF /* UIKit.framework */; };
 		1929545017DFF52D004E60DF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1929544F17DFF52D004E60DF /* Foundation.framework */; };
 		1929545217DFF52D004E60DF /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1929545117DFF52D004E60DF /* CoreGraphics.framework */; };
@@ -18,16 +29,8 @@
 		1929546817DFF52D004E60DF /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1929546717DFF52D004E60DF /* Default-568h@2x.png */; };
 		1929578E17E00021004E60DF /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1929578D17E00021004E60DF /* QuartzCore.framework */; };
 		19295B2017E008C3004E60DF /* libFreetype2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19295B1D17E007A0004E60DF /* libFreetype2.a */; };
-		1986CF1117E13CF80060DFFD /* Loop.c in Sources */ = {isa = PBXBuildFile; fileRef = 1986CEFC17E13CF80060DFFD /* Loop.c */; };
-		1986CF1217E13CF80060DFFD /* Mesh.c in Sources */ = {isa = PBXBuildFile; fileRef = 1986CEFE17E13CF80060DFFD /* Mesh.c */; };
-		1986CF1317E13CF80060DFFD /* Renderer.c in Sources */ = {isa = PBXBuildFile; fileRef = 1986CF0017E13CF80060DFFD /* Renderer.c */; };
-		1986CF1417E13CF80060DFFD /* Shader.c in Sources */ = {isa = PBXBuildFile; fileRef = 1986CF0217E13CF80060DFFD /* Shader.c */; };
-		1986CF1517E13CF80060DFFD /* Transform.c in Sources */ = {isa = PBXBuildFile; fileRef = 1986CF0417E13CF80060DFFD /* Transform.c */; };
-		1986CF1617E13CF80060DFFD /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 1986CF0717E13CF80060DFFD /* Utilities.m */; };
-		1986CF1717E13CF80060DFFD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1986CF0917E13CF80060DFFD /* main.m */; };
 		1986CF1817E13CF80060DFFD /* Shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 1986CF0F17E13CF80060DFFD /* Shader.fsh */; };
 		1986CF1917E13CF80060DFFD /* Shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 1986CF1017E13CF80060DFFD /* Shader.vsh */; };
-		1986CF1C17E13DE50060DFFD /* Font.c in Sources */ = {isa = PBXBuildFile; fileRef = 1986CF1B17E13DE50060DFFD /* Font.c */; };
 		1986CF2217E148850060DFFD /* Eurostile in Resources */ = {isa = PBXBuildFile; fileRef = 1986CF1E17E148850060DFFD /* Eurostile */; };
 		1986CF2317E148850060DFFD /* Eurostile.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1986CF1F17E148850060DFFD /* Eurostile.ttf */; };
 		1986CF2417E148850060DFFD /* EurostileBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1986CF2017E148850060DFFD /* EurostileBold.ttf */; };
@@ -52,7 +55,29 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1917C6BC17E1C45D0099E38E /* Font.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Font.h; sourceTree = "<group>"; };
+		190D7CE218091B50003DC35A /* Console.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Console.c; sourceTree = "<group>"; };
+		190D7CE318091B50003DC35A /* Console.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Console.h; sourceTree = "<group>"; };
+		190D7CE418091B50003DC35A /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		190D7CE518091B50003DC35A /* Font.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Font.c; sourceTree = "<group>"; };
+		190D7CE618091B50003DC35A /* Font.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Font.h; sourceTree = "<group>"; };
+		190D7CE718091B50003DC35A /* Ganit.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Ganit.c; sourceTree = "<group>"; };
+		190D7CE818091B50003DC35A /* Ganit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ganit.h; sourceTree = "<group>"; };
+		190D7CE918091B50003DC35A /* Mesh.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Mesh.c; sourceTree = "<group>"; };
+		190D7CEA18091B50003DC35A /* Mesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mesh.h; sourceTree = "<group>"; };
+		190D7CED18091B50003DC35A /* Shader.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Shader.c; sourceTree = "<group>"; };
+		190D7CEE18091B50003DC35A /* Shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Shader.fsh; sourceTree = "<group>"; };
+		190D7CEF18091B50003DC35A /* Shader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Shader.h; sourceTree = "<group>"; };
+		190D7CF018091B50003DC35A /* Shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Shader.vsh; sourceTree = "<group>"; };
+		190D7CF118091B50003DC35A /* std_incl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = std_incl.h; sourceTree = "<group>"; };
+		190D7CF218091B50003DC35A /* Transform.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Transform.c; sourceTree = "<group>"; };
+		190D7CF318091B50003DC35A /* Transform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Transform.h; sourceTree = "<group>"; };
+		190D7CF418091B50003DC35A /* Types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Types.h; sourceTree = "<group>"; };
+		190D7CF518091B50003DC35A /* Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = "<group>"; };
+		190D7CF618091B50003DC35A /* Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utilities.m; sourceTree = "<group>"; };
+		190D7CF718091B50003DC35A /* Loop.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Loop.c; sourceTree = "<group>"; };
+		190D7CF818091B50003DC35A /* Loop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Loop.h; sourceTree = "<group>"; };
+		190D7CF918091B50003DC35A /* main.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = main.h; sourceTree = "<group>"; };
+		190D7CFA18091B50003DC35A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		1929544A17DFF52D004E60DF /* DistanceField.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DistanceField.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1929544D17DFF52D004E60DF /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		1929544F17DFF52D004E60DF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -68,26 +93,8 @@
 		1929546717DFF52D004E60DF /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		1929578D17E00021004E60DF /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		19295B1817E007A0004E60DF /* freetype2.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = freetype2.xcodeproj; path = "freetype2-ios/freetype2.xcodeproj"; sourceTree = "<group>"; };
-		1986CEFA17E13CF80060DFFD /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
-		1986CEFC17E13CF80060DFFD /* Loop.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Loop.c; sourceTree = "<group>"; };
-		1986CEFD17E13CF80060DFFD /* Loop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Loop.h; sourceTree = "<group>"; };
-		1986CEFE17E13CF80060DFFD /* Mesh.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Mesh.c; sourceTree = "<group>"; };
-		1986CEFF17E13CF80060DFFD /* Mesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mesh.h; sourceTree = "<group>"; };
-		1986CF0017E13CF80060DFFD /* Renderer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Renderer.c; sourceTree = "<group>"; };
-		1986CF0117E13CF80060DFFD /* Renderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Renderer.h; sourceTree = "<group>"; };
-		1986CF0217E13CF80060DFFD /* Shader.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Shader.c; sourceTree = "<group>"; };
-		1986CF0317E13CF80060DFFD /* Shader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Shader.h; sourceTree = "<group>"; };
-		1986CF0417E13CF80060DFFD /* Transform.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Transform.c; sourceTree = "<group>"; };
-		1986CF0517E13CF80060DFFD /* Transform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Transform.h; sourceTree = "<group>"; };
-		1986CF0617E13CF80060DFFD /* Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = "<group>"; };
-		1986CF0717E13CF80060DFFD /* Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utilities.m; sourceTree = "<group>"; };
-		1986CF0817E13CF80060DFFD /* main.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = main.h; sourceTree = "<group>"; };
-		1986CF0917E13CF80060DFFD /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		1986CF0A17E13CF80060DFFD /* std_incl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = std_incl.h; sourceTree = "<group>"; };
-		1986CF0B17E13CF80060DFFD /* Types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Types.h; sourceTree = "<group>"; };
 		1986CF0F17E13CF80060DFFD /* Shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Shader.fsh; sourceTree = "<group>"; };
 		1986CF1017E13CF80060DFFD /* Shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Shader.vsh; sourceTree = "<group>"; };
-		1986CF1B17E13DE50060DFFD /* Font.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Font.c; sourceTree = "<group>"; };
 		1986CF1E17E148850060DFFD /* Eurostile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Eurostile; sourceTree = "<group>"; };
 		1986CF1F17E148850060DFFD /* Eurostile.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Eurostile.ttf; sourceTree = "<group>"; };
 		1986CF2017E148850060DFFD /* EurostileBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = EurostileBold.ttf; sourceTree = "<group>"; };
@@ -112,6 +119,44 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		190D7CE018091B50003DC35A /* src */ = {
+			isa = PBXGroup;
+			children = (
+				190D7CE118091B50003DC35A /* core */,
+				190D7CF718091B50003DC35A /* Loop.c */,
+				190D7CF818091B50003DC35A /* Loop.h */,
+				190D7CF918091B50003DC35A /* main.h */,
+				190D7CFA18091B50003DC35A /* main.m */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		190D7CE118091B50003DC35A /* core */ = {
+			isa = PBXGroup;
+			children = (
+				190D7CE218091B50003DC35A /* Console.c */,
+				190D7CE318091B50003DC35A /* Console.h */,
+				190D7CE418091B50003DC35A /* Constants.h */,
+				190D7CE518091B50003DC35A /* Font.c */,
+				190D7CE618091B50003DC35A /* Font.h */,
+				190D7CE718091B50003DC35A /* Ganit.c */,
+				190D7CE818091B50003DC35A /* Ganit.h */,
+				190D7CE918091B50003DC35A /* Mesh.c */,
+				190D7CEA18091B50003DC35A /* Mesh.h */,
+				190D7CED18091B50003DC35A /* Shader.c */,
+				190D7CEE18091B50003DC35A /* Shader.fsh */,
+				190D7CEF18091B50003DC35A /* Shader.h */,
+				190D7CF018091B50003DC35A /* Shader.vsh */,
+				190D7CF118091B50003DC35A /* std_incl.h */,
+				190D7CF218091B50003DC35A /* Transform.c */,
+				190D7CF318091B50003DC35A /* Transform.h */,
+				190D7CF418091B50003DC35A /* Types.h */,
+				190D7CF518091B50003DC35A /* Utilities.h */,
+				190D7CF618091B50003DC35A /* Utilities.m */,
+			);
+			path = core;
+			sourceTree = "<group>";
+		};
 		1929544117DFF52D004E60DF = {
 			isa = PBXGroup;
 			children = (
@@ -146,7 +191,7 @@
 		1929545717DFF52D004E60DF /* DistanceField */ = {
 			isa = PBXGroup;
 			children = (
-				1986CEF917E13CF80060DFFD /* src */,
+				190D7CE018091B50003DC35A /* src */,
 				1986CF0C17E13CF80060DFFD /* assets */,
 				1929545817DFF52D004E60DF /* Supporting Files */,
 			);
@@ -175,39 +220,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		1986CEF917E13CF80060DFFD /* src */ = {
-			isa = PBXGroup;
-			children = (
-				1986CF1A17E13DD40060DFFD /* font */,
-				1986CEFB17E13CF80060DFFD /* core */,
-				1986CEFA17E13CF80060DFFD /* Constants.h */,
-				1986CF0817E13CF80060DFFD /* main.h */,
-				1986CF0917E13CF80060DFFD /* main.m */,
-				1986CF0A17E13CF80060DFFD /* std_incl.h */,
-				1986CF0B17E13CF80060DFFD /* Types.h */,
-			);
-			path = src;
-			sourceTree = "<group>";
-		};
-		1986CEFB17E13CF80060DFFD /* core */ = {
-			isa = PBXGroup;
-			children = (
-				1986CEFC17E13CF80060DFFD /* Loop.c */,
-				1986CEFD17E13CF80060DFFD /* Loop.h */,
-				1986CEFE17E13CF80060DFFD /* Mesh.c */,
-				1986CEFF17E13CF80060DFFD /* Mesh.h */,
-				1986CF0017E13CF80060DFFD /* Renderer.c */,
-				1986CF0117E13CF80060DFFD /* Renderer.h */,
-				1986CF0217E13CF80060DFFD /* Shader.c */,
-				1986CF0317E13CF80060DFFD /* Shader.h */,
-				1986CF0417E13CF80060DFFD /* Transform.c */,
-				1986CF0517E13CF80060DFFD /* Transform.h */,
-				1986CF0617E13CF80060DFFD /* Utilities.h */,
-				1986CF0717E13CF80060DFFD /* Utilities.m */,
-			);
-			path = core;
-			sourceTree = "<group>";
-		};
 		1986CF0C17E13CF80060DFFD /* assets */ = {
 			isa = PBXGroup;
 			children = (
@@ -232,15 +244,6 @@
 				1986CF1017E13CF80060DFFD /* Shader.vsh */,
 			);
 			path = shaders;
-			sourceTree = "<group>";
-		};
-		1986CF1A17E13DD40060DFFD /* font */ = {
-			isa = PBXGroup;
-			children = (
-				1986CF1B17E13DE50060DFFD /* Font.c */,
-				1917C6BC17E1C45D0099E38E /* Font.h */,
-			);
-			path = font;
 			sourceTree = "<group>";
 		};
 		1986CF1D17E148850060DFFD /* fonts */ = {
@@ -342,14 +345,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1986CF1117E13CF80060DFFD /* Loop.c in Sources */,
-				1986CF1217E13CF80060DFFD /* Mesh.c in Sources */,
-				1986CF1317E13CF80060DFFD /* Renderer.c in Sources */,
-				1986CF1417E13CF80060DFFD /* Shader.c in Sources */,
-				1986CF1517E13CF80060DFFD /* Transform.c in Sources */,
-				1986CF1617E13CF80060DFFD /* Utilities.m in Sources */,
-				1986CF1717E13CF80060DFFD /* main.m in Sources */,
-				1986CF1C17E13DE50060DFFD /* Font.c in Sources */,
+				190D7D0218091B50003DC35A /* Shader.vsh in Sources */,
+				190D7D0518091B50003DC35A /* Loop.c in Sources */,
+				190D7CFE18091B50003DC35A /* Mesh.c in Sources */,
+				190D7CFD18091B50003DC35A /* Ganit.c in Sources */,
+				190D7D0318091B50003DC35A /* Transform.c in Sources */,
+				190D7D0418091B50003DC35A /* Utilities.m in Sources */,
+				190D7D0018091B50003DC35A /* Shader.c in Sources */,
+				190D7CFC18091B50003DC35A /* Font.c in Sources */,
+				190D7D0118091B50003DC35A /* Shader.fsh in Sources */,
+				190D7D0618091B50003DC35A /* main.m in Sources */,
+				190D7CFB18091B50003DC35A /* Console.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
