@@ -30,12 +30,14 @@ bool AllocateRenderbufferStorage(void *context, void *layer);
 #import <QuartzCore/QuartzCore.h>
 #import <Foundation/Foundation.h>
 
-#import "core/Types.h"
+#import "HE_Types.h"
+#import "Loop.h"
 
 @interface AppView : UIView <UIApplicationDelegate> {
-	Framebuffer frame_buffer_;
-	CFTimeInterval time_;
-	BOOL load_;
+ Framebuffer frame_buffer_;
+ CFTimeInterval time_;
+ BOOL load_;
+ Context context_;
 }
 @property (strong, nonatomic) EAGLContext *context;
 @property (strong, nonatomic) CADisplayLink *link;

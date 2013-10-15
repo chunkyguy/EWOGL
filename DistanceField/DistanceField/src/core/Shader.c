@@ -14,27 +14,24 @@
 
 Shader *CompileShader(Shader *shader,
                       const char *vsh_filename,
-                      const char *fsh_filename,
-                      BindAttribs bind_attribs) {
+                      const char *fsh_filename) {
+ 
  char vsh_src[kBuffer4K] = {0};
  char fsh_src[kBuffer4K] = {0};
  char path_buffer[kBuffer1K] = {0};
  
- BundlePath(vsh_filename, path_buffer);
- ReadFile(path_buffer, vsh_src);
- 
- BundlePath(fsh_filename, path_buffer);
- ReadFile(path_buffer, fsh_src);
- 
- return CompileShaderSource(shader, vsh_src, fsh_src, bind_attribs);
+ return CompileShaderSource(shader,
+                            ReadFile(vsh_src, BundlePath(path_buffer, vsh_filename)),
+                            ReadFile(fsh_src, BundlePath(path_buffer, fsh_filename)));
 }
 
 Shader *CompileShaderSource(Shader *shader,
                             const char *vsh_src,
-                            const char *fsh_src,
-                            BindAttribs bind_attribs) {
+                            const char *fsh_src) {
  
  Shader sh;
+ 
+ sh.attrib_flags = shader->attrib_flags;
  
  // Loads the vertex shader
  sh.vert_shader = glCreateShader(GL_VERTEX_SHADER);
@@ -85,9 +82,12 @@ Shader *CompileShaderSource(Shader *shader,
  glAttachShader(sh.program, sh.frag_shader);
  
  //Bind attributes
- bind_attribs(&sh);
- 
- 
+ for (int index = 0; index < kAttrib_Total; ++index) {
+  if (sh.attrib_flags && kAttribFlag(index)) {
+   glBindAttribLocation(sh.program, index, AttribNames[index]);
+  }
+ }
+
  // Link the program
  glLinkProgram(sh.program);
  
@@ -122,4 +122,3 @@ void ReleaseShader(Shader *shader) {
  glDeleteProgram(shader->program);
  shader = NULL;
 }
-

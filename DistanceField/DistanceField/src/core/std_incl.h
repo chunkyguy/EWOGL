@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <assert.h>
+#include <sys/types.h>
 #include <OpenGLES/ES2/gl.h>
 #include <OpenGLES/ES2/glext.h>
 #endif

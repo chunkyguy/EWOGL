@@ -8,7 +8,9 @@
 
 #ifndef DistanceField_Font_h
 #define DistanceField_Font_h
+#include "HE_Types.h"
 
-int font_main(char* font_path, char* text );
+Font *CreateFont(Font *font, const char *path);
+void ReleaseFont(Font *font);
 
 #endif

@@ -1,5 +1,5 @@
 //
-//  Types.h
+//  HE_Types.h
 //  Camera
 //
 //  Created by Sid on 31/08/13.
@@ -10,10 +10,12 @@
 #define Camera_Types_h
 #include "std_incl.h"
 #include "Ganit.h"
+#include <ft2build.h>
+#include FT_FREETYPE_H
 
 /*******************************************************************************
-	MARK: Framebuffer
-*******************************************************************************/
+ MARK: Framebuffer
+ *******************************************************************************/
 // The Framebuffer object
 #define kRenderbuffer_Color				0
 #define kRenderbuffer_DepthStencil		1
@@ -38,12 +40,14 @@ typedef struct {
 /*******************************************************************************
  MARK: Shader
  *******************************************************************************/
-// Compiled shader program
+/* Compiled shader program */
 typedef struct {
  GLuint vert_shader;
  GLuint frag_shader;
  GLuint program;
+ u_int attrib_flags;
 } Shader;
+
 
 /*******************************************************************************
  MARK: Mesh
@@ -51,7 +55,7 @@ typedef struct {
 
 typedef enum {
  kCommonMesh_Triangle, kCommonMesh_Square, kCommonMesh_Cube
- } kCommonMesh;
+} kCommonMesh;
 
 // Renderable Mesh
 typedef struct {
@@ -59,7 +63,9 @@ typedef struct {
  GLuint vbo;			// Vertex buffer object
  int vertex_count;	// Number of vertices.
  GLuint ibo;			// Index buffer object (if available)
- int index_count;		// Number of indices. This is the default rendering behavior. Set as -1 if rendering as glDrawArrays()
+ int index_count;		// Number of indices.
+                        //This is the default rendering behavior. Set as -1 if rendering as glDrawArrays()
+ GLuint texture;
 } Mesh;
 
 /*******************************************************************************
@@ -85,14 +91,9 @@ struct Transform_ {
 typedef struct Transform_ Transform;
 
 /*******************************************************************************
- MARK: Perspective
+ MARK: Frustum
  *******************************************************************************/
-typedef struct {
- float fov; // Field of view.
- float near;
- float far;
- Vec2i size;	//dimensions
-} Perspective;
+typedef Vec2f Frustum;	/*width, height*/
 
 /*******************************************************************************
  MARK: Vertex
@@ -109,4 +110,21 @@ typedef union {
 typedef union {
  GLushort data[3];
 } Face;
+
+/*******************************************************************************
+ MARK: Font
+ *******************************************************************************/
+typedef struct {
+ FT_Library    library;
+ FT_Face       face;
+ float size;
+} Font;
+
+/*******************************************************************************
+ MARK: Texture
+ *******************************************************************************/
+typedef struct {
+ Vec2i size;
+ void *pixels;
+} Texture;
 #endif

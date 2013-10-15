@@ -10,7 +10,11 @@
 #define __HideousGameEngine__Transform__
 
 #include "std_incl.h"
-#include "Types.h"
+#include "HE_Types.h"
+
+#define kFrustum_Z_Near 1.0f
+#define kFrustum_Z_Far 100.0f
+#define kFrustum_XY 2.0f
 
 /** @file Transform.h
  */
@@ -26,8 +30,11 @@ bool NormalMatrix(Mat3 *mat, const Mat4 *mvMat);
 
 bool TransformsEqual(const Transform *one, const Transform *two);
 
-Perspective *DefaultPerspective(Perspective *perspective);
+Frustum *DefaultPerspective(Frustum *frustum);
 
-Mat4 *PerspectiveMatrix(Mat4 *matrix, const Perspective *perspective);
+Frustum *PerspectiveSize(Frustum *frustum, float width, float height);
 
+Mat4 *PerspectiveMatrix(Mat4 *matrix, const Frustum *frustum);
+
+float FarZ(const Frustum *frustum);
 #endif /* defined(__HideousGameEngine__Transform__) */

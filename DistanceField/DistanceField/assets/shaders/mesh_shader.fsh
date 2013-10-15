@@ -1,3 +1,7 @@
+/**
+ 3D mesh shader
+ */
+
 varying lowp vec4 v_Color;
 
 void main(void) {

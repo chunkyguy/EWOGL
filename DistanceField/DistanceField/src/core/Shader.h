@@ -9,9 +9,7 @@
 #ifndef OGL_Basic_Shader_h
 #define OGL_Basic_Shader_h
 
-#include "Types.h"
-
-typedef void(*BindAttribs)(Shader *shader);
+#include "HE_Types.h"
 
 /**
  *	Compile shader from filename
@@ -21,8 +19,7 @@ typedef void(*BindAttribs)(Shader *shader);
  */
 Shader *CompileShader(Shader *shader,
                       const char *vsh_filename,
-                      const char *fsh_filename,
-                      BindAttribs bind_attribs);
+                      const char *fsh_filename);
 
 /**
  *	Compile shader from source
@@ -32,9 +29,7 @@ Shader *CompileShader(Shader *shader,
  */
 Shader *CompileShaderSource(Shader *shader,
                             const char *vsh_src,
-                            const char *fsh_src,
-                            BindAttribs bind_attribs);
-
+                            const char *fsh_src);
 /**
  *	Release the shader.
  *

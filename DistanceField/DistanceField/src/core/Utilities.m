@@ -21,40 +21,38 @@
  *	@param	extn			The extension part (Out)
  */
 static void split(const char *filename, char *file, char *extn) {
-	char *fp = file;
-	char *split_pt = strrchr(filename, '.');
-	
-	for (const char *f = filename; *f != '\0'; ++f) {
-		if (f == split_pt) {
-			*fp = '\0';
-			fp = extn;
-		} else {
-			*fp++ = *f;
-		}
-	}
-	*fp = '\0';
+ char *fp = file;
+ char *split_pt = strrchr(filename, '.');
+ 
+ for (const char *f = filename; *f != '\0'; ++f) {
+  if (f == split_pt) {
+   *fp = '\0';
+   fp = extn;
+  } else {
+   *fp++ = *f;
+  }
+ }
+ *fp = '\0';
 }
 
 
-void BundlePath(const char *filename, char *absolute_path) {
-	char file[kBuffer256] = {0};
-	char extn[10] = {0};
-	split(filename, file, extn);
-	NSString *full_path = [[NSBundle mainBundle] pathForResource:[NSString stringWithUTF8String:file] ofType:[NSString stringWithUTF8String:extn]];
-	assert(full_path);
-	
-	strcpy(absolute_path, [full_path UTF8String]);
+char *BundlePath(char *absolute_path, const char *filename) {
+ char file[kBuffer1K] = {0};
+ char extn[10] = {0};
+ split(filename, file, extn);
+ NSString *full_path = [[NSBundle mainBundle] pathForResource:[NSString stringWithUTF8String:file] ofType:[NSString stringWithUTF8String:extn]];
+ assert(full_path);
+ 
+ return strcpy(absolute_path, [full_path UTF8String]);
 }
 
-void ReadFile(const char *path, char *buffer) {
-	FILE *file = fopen(path, "r");
-	assert(file);
-	
-	int ch;
-	while ((ch = fgetc(file)) != EOF) {
-		*buffer++ = ch;
-	}
-	*buffer = '\0';
-	fclose(file);
+char *ReadFile(char *buffer, const char *path) {
+ int count = 0;
+ FILE *file = fopen(path, "r");
+ while((fread((void*)&buffer[count], kBuffer1K, 1, file)) == 1) {
+  count += kBuffer1K;
+ }
+ assert(!ferror(file));
+ fclose(file);
+ return buffer;
 }
-

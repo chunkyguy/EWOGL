@@ -68,23 +68,33 @@ bool TransformsEqual(const Transform* one, const Transform* two) {
          GLKVector3AllEqualToVector3(one->scale,	two->scale));
 }
 
-Perspective *DefaultPerspective(Perspective *perspective) {
- Perspective p = {
-  45.0f, 1.0f, 101.0f,
-  {1, 1}
+Frustum *DefaultPerspective(Frustum *frustum) {
+ Frustum f = {
+  kFrustum_XY, kFrustum_XY	/* dimensions */
  };
- return memcpy(perspective, &p, sizeof(p));
+ return memcpy(frustum, &f, sizeof(f));
 }
 
-GLKMatrix4 *PerspectiveMatrix(GLKMatrix4 *matrix, const Perspective *perspective) {
- float width = perspective->size.x;
- float height = perspective->size.y;
- float aspect_ratio = width/height;//(width > height) ? height/width: width/height;
-
- GLKMatrix4 mat = GLKMatrix4MakePerspective(GLKMathDegreesToRadians(perspective->fov),
-                                            aspect_ratio,
-                                            perspective->near, perspective->far);
+Mat4 *PerspectiveMatrix(Mat4 *matrix, const Frustum *frustum) {
+ float width = frustum->x;
+ float height = frustum->y;
+ 
+ Mat4 mat = GLKMatrix4MakeFrustum(-width/2.0f, width/2.0f, -height/2.0f, height/2.0f, kFrustum_Z_Near, kFrustum_Z_Far);
+ 
  return memcpy(matrix, &mat, sizeof(mat));
+}
+
+Frustum *PerspectiveSize(Frustum *frustum, float width, float height) {
+ frustum->x = kFrustum_XY;
+ frustum->y = kFrustum_XY;
+
+ if (width > height) {
+  frustum->y = height/width * kFrustum_XY;
+ } else if (height > width) {
+  frustum->x = width/height * kFrustum_XY;
+ }
+ 
+ return frustum;
 }
 
 ///EOF

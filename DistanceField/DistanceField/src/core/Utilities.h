@@ -10,10 +10,10 @@
 /**
  *	Get absolute Bundle path
  *
- *	@param	filename	 The filename (In)
  *	@param	absolute_path	The absolute path (Out)
+ *	@param	filename	 The filename (In)
  */
-void BundlePath(const char *filename, char *absolute_path);
+char *BundlePath(char *absolute_path, const char *filename);
 
 /**
  *	Read a file into buffer
@@ -21,5 +21,5 @@ void BundlePath(const char *filename, char *absolute_path);
  *	@param	path	 The absolute path of the file. (In)
  *	@param	buffer The buffer (Out)
  */
-void ReadFile(const char *path, char *buffer);
+char *ReadFile(char *buffer, const char *path);
 #endif
