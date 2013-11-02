@@ -62,7 +62,28 @@ typedef struct {
 /*******************************************************************************
  MARK: Shader
  *******************************************************************************/
+/* mask to fit all attributes into a single int */
 #define kShaderAttribMask(attrib) 	(0x1 << attrib)
+
+/* test for each attribute type and enable/disable */
+#define kShaderAttribEnable(attrib_flag)\
+if (attrib_flag & kShaderAttribMask(kAttribPosition)) {\
+ glEnableVertexAttribArray(kAttribPosition);\
+}\
+if (attrib_flag & kShaderAttribMask(kAttribNormal)) {\
+ glEnableVertexAttribArray(kAttribNormal);\
+}
+
+#define kShaderAttribDisable(attrib_flag)\
+if (attrib_flag & kShaderAttribMask(kAttribPosition)) {\
+ glDisableVertexAttribArray(kAttribPosition);\
+}\
+if (attrib_flag & kShaderAttribMask(kAttribNormal)) {\
+ glDisableVertexAttribArray(kAttribNormal);\
+}
+
+
+
 // Compiled shader program
 typedef struct {
  GLuint vert_shader;

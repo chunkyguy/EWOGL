@@ -43,7 +43,7 @@ void Unload() {
 void Load() {
  
  // CompileShader(&mesh_sh, "mesh.vsh", "mesh.fsh");
- texture_sh.attrib_flag = kShaderAttribMask(kAttribPosition);
+ texture_sh.attrib_flag = kShaderAttribMask(kAttribPosition) | kShaderAttribMask(kAttribNormal);
  CompileShader(&texture_sh, "Shader.vsh", "Shader.fsh");
  
  glEnable(GL_DEPTH_TEST);
@@ -123,8 +123,7 @@ void Render() {
  int color_loc = glGetUniformLocation(texture_sh.program, "u_Color");
  
  glBindVertexArrayOES(board_mesh.vao);
- glEnableVertexAttribArray(kAttribPosition);
- glEnableVertexAttribArray(kAttribNormal);
+ kShaderAttribEnable(texture_sh.attrib_flag);
  
  for (int i = 0; i < 4; ++i) {
   ModelViewMatrix(&mvMat, &board_trans[i]);
@@ -135,8 +134,6 @@ void Render() {
    glUniform4fv(color_loc, 1, &board_color[i].v[0]);
   glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
  }
- 
- glDisableVertexAttribArray(kAttribPosition);
- glDisableVertexAttribArray(kAttribNormal);
+ kShaderAttribDisable(texture_sh.attrib_flag);
  glBindVertexArrayOES(0);
 }
