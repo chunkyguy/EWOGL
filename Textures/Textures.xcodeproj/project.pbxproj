@@ -29,6 +29,7 @@
 		1917935718518CAC009FBCF9 /* 3am_256.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 1917935618518CAC009FBCF9 /* 3am_256.jpeg */; };
 		1917935A18518D52009FBCF9 /* he_Image.m in Sources */ = {isa = PBXBuildFile; fileRef = 1917935918518D52009FBCF9 /* he_Image.m */; };
 		197DD4FE1851CACC008ABDC1 /* he_Sprite.m in Sources */ = {isa = PBXBuildFile; fileRef = 197DD4FD1851CACC008ABDC1 /* he_Sprite.m */; };
+		19DEAD911851E45700757CEE /* mrseal.png in Resources */ = {isa = PBXBuildFile; fileRef = 19DEAD901851E45700757CEE /* mrseal.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +72,7 @@
 		1917935918518D52009FBCF9 /* he_Image.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = he_Image.m; sourceTree = "<group>"; };
 		197DD4FC1851CACC008ABDC1 /* he_Sprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = he_Sprite.h; sourceTree = "<group>"; };
 		197DD4FD1851CACC008ABDC1 /* he_Sprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = he_Sprite.m; sourceTree = "<group>"; };
+		19DEAD901851E45700757CEE /* mrseal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mrseal.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,6 +137,7 @@
 			isa = PBXGroup;
 			children = (
 				1917935618518CAC009FBCF9 /* 3am_256.jpeg */,
+				19DEAD901851E45700757CEE /* mrseal.png */,
 				1917932918518C2D009FBCF9 /* WLAppDelegate.h */,
 				1917932A18518C2D009FBCF9 /* WLAppDelegate.m */,
 				1917932C18518C2D009FBCF9 /* Main_iPhone.storyboard */,
@@ -260,6 +263,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1917935718518CAC009FBCF9 /* 3am_256.jpeg in Resources */,
+				19DEAD911851E45700757CEE /* mrseal.png in Resources */,
 				1917933318518C2D009FBCF9 /* Shader.fsh in Resources */,
 				1917933118518C2D009FBCF9 /* Main_iPad.storyboard in Resources */,
 				1917932E18518C2D009FBCF9 /* Main_iPhone.storyboard in Resources */,

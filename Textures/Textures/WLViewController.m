@@ -11,6 +11,12 @@
 #import "he_Sprite.h"
 
 #define BUFFER_OFFSET(i) ((char *)NULL + (i))
+#define FOV 65.0f /* field of view */
+#define X_TILT -60.0f /* rotation around x-axis */
+#define SPRITES_ROW 100
+#define SPRITES_COL 8
+#define DRAW_ORIGIN_Y -1.4f
+#define DRAW_ORIGIN_X -3.0f
 
 // Uniform index.
 enum
@@ -26,16 +32,13 @@ GLint uniforms[NUM_UNIFORMS];
 @interface WLViewController () {
  GLuint _program;
  
- GLKMatrix4 _modelViewProjectionMatrix;
- GLKMatrix3 _normalMatrix;
- 
  GLuint _vertexArray;
  GLuint _vertexBuffer;
  
  GLuint texture_;
  Image image_;
  
- Sprite sprite_;
+ Sprite sprite_[SPRITES_ROW*SPRITES_COL];
 }
 @property (strong, nonatomic) EAGLContext *context;
 
@@ -100,12 +103,14 @@ GLint uniforms[NUM_UNIFORMS];
 
  // set gl state
  glEnable(GL_DEPTH_TEST);
+ glEnable(GL_BLEND);
+ glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
  
  // load shader
  [self loadShaders];
  
  // load texture
- NSString *img_path = [[NSBundle mainBundle] pathForResource:@"3am_256" ofType:@"jpeg"];
+ NSString *img_path = [[NSBundle mainBundle] pathForResource:@"mrseal" ofType:@"png"];
  Image_Create(&image_, [img_path cStringUsingEncoding:NSASCIIStringEncoding]);
  glGenTextures(1, &texture_);
  glBindTexture(GL_TEXTURE_2D, texture_);
@@ -178,7 +183,14 @@ GLint uniforms[NUM_UNIFORMS];
  glBindVertexArrayOES(0);
  
  // sprite
- sprite_.position = GLKVector3Make(0.0f, 0.0f, -1.5f);
+ float startY = DRAW_ORIGIN_Y;
+ float startX = DRAW_ORIGIN_X;
+ for (int r = 0; r < SPRITES_ROW; ++r) {
+  for (int c = 0; c < SPRITES_COL; ++c) {
+   assert(r*SPRITES_COL+c < (SPRITES_ROW*SPRITES_COL));
+   sprite_[r*SPRITES_COL+c].position = GLKVector3Make(startX+c*1.0f, startY+r*1.0f, -1.5f);
+  }
+ }
 }
 
 - (void)tearDownGL
@@ -200,26 +212,18 @@ GLint uniforms[NUM_UNIFORMS];
 #pragma mark - GLKView and GLKViewController delegate methods
 
 - (void)update
-{
- float aspect = fabsf(self.view.bounds.size.width / self.view.bounds.size.height);
- GLKMatrix4 projectionMatrix = GLKMatrix4MakePerspective(GLKMathDegreesToRadians(65.0f), aspect, 0.1f, 100.0f);
- 
- 
- GLKMatrix4 baseModelViewMatrix = GLKMatrix4MakeTranslation(0.0f, 0.0f, -4.0f);
- baseModelViewMatrix = GLKMatrix4Rotate(baseModelViewMatrix, GLKMathDegreesToRadians(-30.0f), 1.0f, 0.0f, 0.0f);
- 
- // Compute the model view matrix for the object rendered with GLKit
- GLKMatrix4 sprite_mvMatrix;
- Sprite_MVMatrix(&sprite_mvMatrix, &sprite_);
- GLKMatrix4 world_mvMatrix = GLKMatrix4Multiply(baseModelViewMatrix, sprite_mvMatrix);
- 
- 
- _normalMatrix = GLKMatrix3InvertAndTranspose(GLKMatrix4GetMatrix3(world_mvMatrix), NULL);
- _modelViewProjectionMatrix = GLKMatrix4Multiply(projectionMatrix, world_mvMatrix);
-}
+{}
 
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect
 {
+ float aspect = fabsf(self.view.bounds.size.width / self.view.bounds.size.height);
+ GLKMatrix4 projectionMatrix = GLKMatrix4MakePerspective(GLKMathDegreesToRadians(FOV), aspect, 0.1f, 100.0f);
+ 
+ GLKMatrix4 baseModelViewMatrix = GLKMatrix4MakeTranslation(0.0f, 0.0f, -4.0f);
+ baseModelViewMatrix = GLKMatrix4Rotate(baseModelViewMatrix, GLKMathDegreesToRadians(X_TILT), 1.0f, 0.0f, 0.0f);
+ 
+
+ 
  glClearColor(0.65f, 0.65f, 0.65f, 1.0f);
  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
  
@@ -231,10 +235,20 @@ GLint uniforms[NUM_UNIFORMS];
  glActiveTexture(GL_TEXTURE0);
  glBindTexture(GL_TEXTURE_2D, texture_);
  glUniform1i(uniforms[UNIFORM_TEXTURE], 0);
- glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, _modelViewProjectionMatrix.m);
- glUniformMatrix3fv(uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, _normalMatrix.m);
- 
- glDrawArrays(GL_TRIANGLES, 0, 6);
+
+ for (int i = 0; i < (SPRITES_ROW*SPRITES_COL); ++i) {
+  GLKMatrix4 sprite_mvMatrix;
+  Sprite_MVMatrix(&sprite_mvMatrix, &sprite_[i]);
+  GLKMatrix4 world_mvMatrix = GLKMatrix4Multiply(baseModelViewMatrix, sprite_mvMatrix);
+  
+  GLKMatrix4 modelViewProjectionMatrix = GLKMatrix4Multiply(projectionMatrix, world_mvMatrix);
+  glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, modelViewProjectionMatrix.m);
+  
+  GLKMatrix3 normalMatrix = GLKMatrix3InvertAndTranspose(GLKMatrix4GetMatrix3(world_mvMatrix), NULL);
+  glUniformMatrix3fv(uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, normalMatrix.m);
+  
+  glDrawArrays(GL_TRIANGLES, 0, 6);
+ }
 }
 
 #pragma mark -  OpenGL ES 2 shader compilation

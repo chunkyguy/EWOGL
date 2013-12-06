@@ -14,19 +14,16 @@ Image *Image_Create(Image *buffer, const char *file_path) {
  buffer->width = CGImageGetWidth(image.CGImage);
  buffer->height = CGImageGetHeight(image.CGImage);
  CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
- buffer->pixels = malloc(buffer->height * buffer->width * 4);	//4 bytes per pixel RGBA
+ buffer->pixels = malloc(buffer->height * buffer->width * 4 * sizeof(char));	/*4 bytes per pixel RGBA*/
  CGContextRef context = CGBitmapContextCreate(buffer->pixels,
                                               buffer->width,
                                               buffer->height,
-                                              8,
-                                              4 * buffer->width,
+                                              8, 				/*bits per component*/
+                                              4 * sizeof(char) * buffer->width, /*bytes per row */
                                               colorSpace,
                                               kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Big);
  CGColorSpaceRelease(colorSpace);
  CGContextClearRect(context, CGRectMake(0, 0, buffer->width, buffer->height));
- //flip the image
- CGContextTranslateCTM(context, 0, buffer->height);
- CGContextScaleCTM(context, 1, -1);
  CGContextDrawImage(context, CGRectMake( 0, 0, buffer->width, buffer->height), image.CGImage );
  
  //free up

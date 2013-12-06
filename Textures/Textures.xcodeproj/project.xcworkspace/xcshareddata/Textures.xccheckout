@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>0A452CF1-E87D-4C08-9CBB-E7F80FB122BE</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Textures</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>C4D2C183-C586-4F17-93D4-F68965510AB3</key>
+		<string>https://github.com/chunkyguy/EWOGL.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Textures/Textures.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>C4D2C183-C586-4F17-93D4-F68965510AB3</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/chunkyguy/EWOGL.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>C4D2C183-C586-4F17-93D4-F68965510AB3</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>C4D2C183-C586-4F17-93D4-F68965510AB3</string>
+			<key>IDESourceControlWCCName</key>
+			<string>EWOGL</string>
+		</dict>
+	</array>
+</dict>
+</plist>
