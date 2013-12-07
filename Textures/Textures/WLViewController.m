@@ -118,7 +118,7 @@ GLint uniforms[NUM_UNIFORMS];
  [self loadShaders];
  
  // load texture
- NSString *img_path = [[NSBundle mainBundle] pathForResource:@"mrseal" ofType:@"png"];
+ NSString *img_path = [[NSBundle mainBundle] pathForResource:@"Goomba" ofType:@"png"];
  Image_Create(&image_, [img_path cStringUsingEncoding:NSASCIIStringEncoding]);
  glGenTextures(1, &texture_);
  glBindTexture(GL_TEXTURE_2D, texture_);
@@ -133,15 +133,15 @@ GLint uniforms[NUM_UNIFORMS];
  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
  /* check for GL_EXT_texture_filter_anisotropic extension */
- //glEnable(GL_EXT_texture_filter_anisotropic);
- GLfloat max_anisotropicity;
- glGetFloatv(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT, &max_anisotropicity);
- printf("max_anisotropicity: %f",max_anisotropicity);
- glTexParameterf(GL_TEXTURE_2D, GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT, max_anisotropicity);
+//glEnable(GL_EXT_texture_filter_anisotropic);
+// GLfloat max_anisotropicity;
+// glGetFloatv(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT, &max_anisotropicity);
+// printf("max_anisotropicity: %f",max_anisotropicity);
+// glTexParameterf(GL_TEXTURE_2D, GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT, max_anisotropicity);
 
  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
- //glHint(GL_GENERATE_MIPMAP_HINT, GL_NICEST);
+ glHint(GL_GENERATE_MIPMAP_HINT, GL_NICEST);
 
  
  glGenerateMipmap(GL_TEXTURE_2D);
