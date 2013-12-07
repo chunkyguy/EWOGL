@@ -30,3 +30,8 @@ This experiment loads a mesh from an OBJ file.
 
 ![Ninja](http://imgur.com/YGMM3yF.png)
 
+Texturing
+----------
+Experiments with basic filters offered by OpenGL.
+
+![Trilinear filtering](http://i.imgur.com/v5brRtJ.png)
