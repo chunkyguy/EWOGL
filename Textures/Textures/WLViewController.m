@@ -101,6 +101,14 @@ GLint uniforms[NUM_UNIFORMS];
 {
  [EAGLContext setCurrentContext:self.context];
 
+ // get all available extensions
+ char *ogl_etxns = (char *)glGetString(GL_EXTENSIONS);
+ for (int i = 0; i < strlen(ogl_etxns) && i < 1000; i++) {
+   printf("%c",ogl_etxns[i] == ' ' ? '\n' : ogl_etxns[i]);
+ }
+ printf("\n");
+ 
+ 
  // set gl state
  glEnable(GL_DEPTH_TEST);
  glEnable(GL_BLEND);
@@ -114,8 +122,6 @@ GLint uniforms[NUM_UNIFORMS];
  Image_Create(&image_, [img_path cStringUsingEncoding:NSASCIIStringEncoding]);
  glGenTextures(1, &texture_);
  glBindTexture(GL_TEXTURE_2D, texture_);
- glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
- glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
  glPixelStorei(GL_UNPACK_ALIGNMENT, 4);
  glTexImage2D(GL_TEXTURE_2D,
               0,
@@ -124,6 +130,21 @@ GLint uniforms[NUM_UNIFORMS];
               0,
               GL_RGBA,
               GL_UNSIGNED_BYTE, image_.pixels);
+ glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+ glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+ /* check for GL_EXT_texture_filter_anisotropic extension */
+ //glEnable(GL_EXT_texture_filter_anisotropic);
+ GLfloat max_anisotropicity;
+ glGetFloatv(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT, &max_anisotropicity);
+ printf("max_anisotropicity: %f",max_anisotropicity);
+ glTexParameterf(GL_TEXTURE_2D, GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT, max_anisotropicity);
+
+ glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+ glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+ //glHint(GL_GENERATE_MIPMAP_HINT, GL_NICEST);
+
+ 
+ glGenerateMipmap(GL_TEXTURE_2D);
  
  // load vertex data
  glGenVertexArraysOES(1, &_vertexArray);

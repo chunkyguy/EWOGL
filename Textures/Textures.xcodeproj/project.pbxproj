@@ -15,8 +15,6 @@
 		1917932518518C2D009FBCF9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1917932318518C2D009FBCF9 /* InfoPlist.strings */; };
 		1917932718518C2D009FBCF9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1917932618518C2D009FBCF9 /* main.m */; };
 		1917932B18518C2D009FBCF9 /* WLAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1917932A18518C2D009FBCF9 /* WLAppDelegate.m */; };
-		1917932E18518C2D009FBCF9 /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1917932C18518C2D009FBCF9 /* Main_iPhone.storyboard */; };
-		1917933118518C2D009FBCF9 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1917932F18518C2D009FBCF9 /* Main_iPad.storyboard */; };
 		1917933318518C2D009FBCF9 /* Shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 1917933218518C2D009FBCF9 /* Shader.fsh */; };
 		1917933518518C2D009FBCF9 /* Shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 1917933418518C2D009FBCF9 /* Shader.vsh */; };
 		1917933818518C2D009FBCF9 /* WLViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1917933718518C2D009FBCF9 /* WLViewController.m */; };
@@ -55,8 +53,6 @@
 		1917932818518C2D009FBCF9 /* Textures-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Textures-Prefix.pch"; sourceTree = "<group>"; };
 		1917932918518C2D009FBCF9 /* WLAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WLAppDelegate.h; sourceTree = "<group>"; };
 		1917932A18518C2D009FBCF9 /* WLAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WLAppDelegate.m; sourceTree = "<group>"; };
-		1917932D18518C2D009FBCF9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
-		1917933018518C2D009FBCF9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
 		1917933218518C2D009FBCF9 /* Shader.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = Shader.fsh; path = Shaders/Shader.fsh; sourceTree = "<group>"; };
 		1917933418518C2D009FBCF9 /* Shader.vsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = Shader.vsh; path = Shaders/Shader.vsh; sourceTree = "<group>"; };
 		1917933618518C2D009FBCF9 /* WLViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WLViewController.h; sourceTree = "<group>"; };
@@ -140,8 +136,6 @@
 				19DEAD901851E45700757CEE /* mrseal.png */,
 				1917932918518C2D009FBCF9 /* WLAppDelegate.h */,
 				1917932A18518C2D009FBCF9 /* WLAppDelegate.m */,
-				1917932C18518C2D009FBCF9 /* Main_iPhone.storyboard */,
-				1917932F18518C2D009FBCF9 /* Main_iPad.storyboard */,
 				1917933218518C2D009FBCF9 /* Shader.fsh */,
 				1917933418518C2D009FBCF9 /* Shader.vsh */,
 				1917933618518C2D009FBCF9 /* WLViewController.h */,
@@ -233,6 +227,9 @@
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = whackylabs;
 				TargetAttributes = {
+					1917931218518C2D009FBCF9 = {
+						DevelopmentTeam = B8H28JR3TT;
+					};
 					1917933E18518C2D009FBCF9 = {
 						TestTargetID = 1917931218518C2D009FBCF9;
 					};
@@ -265,8 +262,6 @@
 				1917935718518CAC009FBCF9 /* 3am_256.jpeg in Resources */,
 				19DEAD911851E45700757CEE /* mrseal.png in Resources */,
 				1917933318518C2D009FBCF9 /* Shader.fsh in Resources */,
-				1917933118518C2D009FBCF9 /* Main_iPad.storyboard in Resources */,
-				1917932E18518C2D009FBCF9 /* Main_iPhone.storyboard in Resources */,
 				1917933A18518C2D009FBCF9 /* Images.xcassets in Resources */,
 				1917932518518C2D009FBCF9 /* InfoPlist.strings in Resources */,
 				1917933518518C2D009FBCF9 /* Shader.vsh in Resources */,
@@ -321,22 +316,6 @@
 				1917932418518C2D009FBCF9 /* en */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		1917932C18518C2D009FBCF9 /* Main_iPhone.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				1917932D18518C2D009FBCF9 /* Base */,
-			);
-			name = Main_iPhone.storyboard;
-			sourceTree = "<group>";
-		};
-		1917932F18518C2D009FBCF9 /* Main_iPad.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				1917933018518C2D009FBCF9 /* Base */,
-			);
-			name = Main_iPad.storyboard;
 			sourceTree = "<group>";
 		};
 		1917934918518C2D009FBCF9 /* InfoPlist.strings */ = {
@@ -427,11 +406,14 @@
 		1917935118518C2D009FBCF9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Textures/Textures-Prefix.pch";
 				INFOPLIST_FILE = "Textures/Textures-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -440,11 +422,14 @@
 		1917935218518C2D009FBCF9 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Textures/Textures-Prefix.pch";
 				INFOPLIST_FILE = "Textures/Textures-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
