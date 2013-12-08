@@ -14,7 +14,7 @@ uniform mediump mat3 u_N;		// Normal matrix, which is most often inverse-transpo
 
 void main(void) {
 
-	// 1. Convert normal from object-space to eye-space
+	// 1. Convert normal from object-space to world-space
 	vec3 eye_normal = normalize(u_N * a_Normal);
 
 	// 2. Assume a light position at some position

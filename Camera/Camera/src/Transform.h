@@ -24,7 +24,7 @@
  @return A Transform instance.
  */
 Transform Transform_Create(const GLKVector3 position,
-						   const GLKVector4 rotation,
+						   const GLKQuaternion orientation,
 						   const GLKVector3 scale,
 						   const Transform *parent);
 
@@ -36,7 +36,7 @@ GLKVector3 Transform_GetLocalPosition(const Transform slf, GLKVector3 world_posi
 
 Transform Add(const Transform one, const Transform two);
 Transform Subtract(const Transform one, const Transform two);
-Transform Multiply(const Transform one, float two);
+//Transform Multiply(const Transform one, float two);
 
 /** Get the model-view matrix in world-space.
  Useful when batching several coordinates.
@@ -48,5 +48,5 @@ GLKMatrix4 Transform_GetMV(const Transform *slf);
 GLKMatrix4 Transform_GetMVP(const Transform *slf, const GLKMatrix4 projection);
 
 
-int Equal(const Transform one, const Transform two);
+//int Equal(const Transform one, const Transform two);
 #endif /* defined(__HideousGameEngine__Transform__) */
