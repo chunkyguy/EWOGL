@@ -85,13 +85,13 @@ void Update(int dt) {
 
  //GLKQuaternion new_orient = GLKQuaternionMakeWithAngleAndVector3Axis(GLKMathDegreesToRadians(next_angle), curr_axis);
  
-cube_.transform.orientation = GLKQuaternionMultiply(GLKQuaternionMultiply(cube_.transform.orientation, rotatedQuaternion), GLKQuaternionInvert(cube_.transform.orientation));
+ cube_.transform.orientation = GLKQuaternionMultiply(GLKQuaternionMultiply(cube_.transform.orientation, rotatedQuaternion), GLKQuaternionInvert(cube_.transform.orientation));
 
  // cube_.transform.orientation = GLKQuaternionMultiply(rotatedQuaternion, cube_.transform.orientation);
 
  
-// cube_.transform.orientation = GLKQuaternionMultiply(GLKQuaternionMultiply(cube_.transform.orientation, rotatedQuaternion), GLKQuaternionConjugate(cube_.transform.orientation));
-
+//cube_.transform.orientation = GLKQuaternionMultiply(GLKQuaternionMultiply(cube_.transform.orientation, rotatedQuaternion), GLKQuaternionConjugate(cube_.transform.orientation));
+// GLKQuaternionNormalize(cube_.transform.orientation);
  // cube_.transform.orientation.s += 0.01f;
  //	cube_.transform.rotation.w += 0.01f;
  
