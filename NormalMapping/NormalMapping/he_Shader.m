@@ -10,6 +10,30 @@
 
 #include <assert.h>
 
+/** Print shader debug message
+ *
+ * @param glGetXiv
+ * glGetShaderiv(GLuint shader, GLenum pname, GLint *params)
+ * glGetProgramiv(GLuint program, GLenum pname, GLint *params)
+ *
+ * @param glXInfoLog
+ * glGetShaderInfoLog(GLuint shader, GLsizei bufsize, GLsizei *length, GLchar *infolog)
+ * glGetProgramInfoLog(GLuint program, GLsizei bufsize, GLsizei *length, GLchar *infolog)
+ */
+static void debug_shader(GLuint shader,
+                         void(*glGetXiv)(GLuint object, GLenum pname, GLint *params),
+                         void(*glXInfoLog)(GLuint object, GLsizei bufsize, GLsizei *length, GLchar *infolog))
+{
+ GLint logLength;
+ glGetXiv(shader, GL_INFO_LOG_LENGTH, &logLength);
+ if (logLength > 0) {
+  GLchar *log = malloc(sizeof(GLchar) * logLength);
+  glXInfoLog(shader, logLength, &logLength, log);
+  printf("Shader compile log:\n%s\n", log);
+  free(log);
+ }
+}
+
 GLuint ShaderCreate(const char *vsh_src, const char *fsh_src, const he_BitFlag attrib_flags)
 {
  /* create shader program */
@@ -21,6 +45,7 @@ GLuint ShaderCreate(const char *vsh_src, const char *fsh_src, const he_BitFlag a
  assert(vsh);
  glShaderSource(vsh, 1, &vsh_src, 0);
  glCompileShader(vsh);
+ debug_shader(vsh, glGetShaderiv, glGetShaderInfoLog);
  glAttachShader(program, vsh);
  
  /* compile frag shader */
@@ -28,14 +53,12 @@ GLuint ShaderCreate(const char *vsh_src, const char *fsh_src, const he_BitFlag a
  assert(fsh);
  glShaderSource(fsh, 1, &fsh_src, 0);
  glCompileShader(fsh);
+ debug_shader(fsh, glGetShaderiv, glGetShaderInfoLog);
  glAttachShader(program, fsh);
 
  /* bind attributes*/
  if (attrib_flags & BF_Mask(kAttribPosition)) {
   glBindAttribLocation(program, kAttribPosition, "a_Position");
- }
- if (attrib_flags & BF_Mask(kAttribNormal)) {
-  glBindAttribLocation(program, kAttribNormal, "a_Normal");
  }
  if (attrib_flags & BF_Mask(kAttribColor)) {
   glBindAttribLocation(program, kAttribColor, "a_Color");
@@ -43,9 +66,22 @@ GLuint ShaderCreate(const char *vsh_src, const char *fsh_src, const he_BitFlag a
  if (attrib_flags & BF_Mask(kAttribTexcoord)) {
   glBindAttribLocation(program, kAttribTexcoord, "a_Texcoord");
  }
+// if (attrib_flags & BF_Mask(kAttribTBN)) {
+//  glBindAttribLocation(program, kAttribTBN, "a_Tbn");
+// }
+ if (attrib_flags & BF_Mask(kAttribTangent)) {
+  glBindAttribLocation(program, kAttribTangent, "a_Tangent");
+ }
+ if (attrib_flags & BF_Mask(kAttribBinormal)) {
+  glBindAttribLocation(program, kAttribBinormal, "a_Binormal");
+ }
+ if (attrib_flags & BF_Mask(kAttribNormal)) {
+  glBindAttribLocation(program, kAttribNormal, "a_Normal");
+ }
  
  /* link */
  glLinkProgram(program);
+ debug_shader(program, glGetProgramiv, glGetProgramInfoLog);
  
  /* release tmp resources */
  glDetachShader(program, vsh);

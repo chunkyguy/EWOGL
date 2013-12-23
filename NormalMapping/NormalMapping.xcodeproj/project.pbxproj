@@ -26,6 +26,8 @@
 		190C78BE18643E640005E36B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 190C78BC18643E640005E36B /* InfoPlist.strings */; };
 		190C78C018643E640005E36B /* NormalMappingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 190C78BF18643E640005E36B /* NormalMappingTests.m */; };
 		190C78D418644BD80005E36B /* he_Shader.m in Sources */ = {isa = PBXBuildFile; fileRef = 190C78D318644BD80005E36B /* he_Shader.m */; };
+		19A7EF361867775E00A698DF /* he_Image.m in Sources */ = {isa = PBXBuildFile; fileRef = 19A7EF351867775E00A698DF /* he_Image.m */; };
+		19A7EF381867782C00A698DF /* TangentSpaceNormals.png in Resources */ = {isa = PBXBuildFile; fileRef = 19A7EF371867782C00A698DF /* TangentSpaceNormals.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +67,9 @@
 		190C78D218644BD80005E36B /* he_Shader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = he_Shader.h; sourceTree = "<group>"; };
 		190C78D318644BD80005E36B /* he_Shader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = he_Shader.m; sourceTree = "<group>"; };
 		190C78D518644E4F0005E36B /* he_BitFlag.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = he_BitFlag.h; sourceTree = "<group>"; };
+		19A7EF341867775E00A698DF /* he_Image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = he_Image.h; sourceTree = "<group>"; };
+		19A7EF351867775E00A698DF /* he_Image.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = he_Image.m; sourceTree = "<group>"; };
+		19A7EF371867782C00A698DF /* TangentSpaceNormals.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TangentSpaceNormals.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,6 +143,9 @@
 				190C78D218644BD80005E36B /* he_Shader.h */,
 				190C78D318644BD80005E36B /* he_Shader.m */,
 				190C78D518644E4F0005E36B /* he_BitFlag.h */,
+				19A7EF341867775E00A698DF /* he_Image.h */,
+				19A7EF351867775E00A698DF /* he_Image.m */,
+				19A7EF371867782C00A698DF /* TangentSpaceNormals.png */,
 				190C78AC18643E640005E36B /* Images.xcassets */,
 				190C789718643E640005E36B /* Supporting Files */,
 			);
@@ -255,6 +263,7 @@
 				190C78A618643E640005E36B /* Shader.fsh in Resources */,
 				190C789B18643E640005E36B /* InfoPlist.strings in Resources */,
 				190C78A418643E640005E36B /* Main.storyboard in Resources */,
+				19A7EF381867782C00A698DF /* TangentSpaceNormals.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -276,6 +285,7 @@
 				190C789D18643E640005E36B /* main.m in Sources */,
 				190C78AB18643E640005E36B /* he_ViewController.m in Sources */,
 				190C78A118643E640005E36B /* he_AppDelegate.m in Sources */,
+				19A7EF361867775E00A698DF /* he_Image.m in Sources */,
 				190C78D418644BD80005E36B /* he_Shader.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -485,6 +495,7 @@
 				190C78C518643E640005E36B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		190C78C618643E640005E36B /* Build configuration list for PBXNativeTarget "NormalMappingTests" */ = {
 			isa = XCConfigurationList;
@@ -493,6 +504,7 @@
 				190C78C818643E640005E36B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

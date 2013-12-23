@@ -13,9 +13,12 @@
 #include "he_BitFlag.h"
 
 #define kAttribPosition 0
-#define kAttribNormal 	1
-#define kAttribColor	2
-#define kAttribTexcoord 3
+#define kAttribColor	1
+#define kAttribTexcoord 2
+//#define kAttribTBN		3
+#define kAttribTangent 	3
+#define kAttribBinormal 4
+#define kAttribNormal 	5
 
 GLuint ShaderCreate(const char *vsh_src, const char *fsh_src, const he_BitFlag attrib_flags);
 
