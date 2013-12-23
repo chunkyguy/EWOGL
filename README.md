@@ -35,3 +35,9 @@ Texturing
 Experiments with basic filters offered by OpenGL.
 
 ![Trilinear filtering](http://i.imgur.com/v5brRtJ.png)
+
+Normal Mapping
+-------------
+Basic bump mapping using a normal map.
+
+![Normal Mapping](http://i.imgur.com/ZFCazGp.png)
