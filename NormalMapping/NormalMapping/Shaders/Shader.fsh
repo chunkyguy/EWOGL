@@ -14,6 +14,7 @@ varying vec3 v_Normal;
 varying vec2 v_Texcoord;
 
 uniform sampler2D u_Tex;
+uniform vec3 u_Light;
 
 void main()
 {
@@ -23,8 +24,8 @@ void main()
  vec3 pN = texture2D(u_Tex, v_Texcoord).xyz * 2.0 - 1.0;
  /*create normal*/
  vec3 N = tbn * pN;
- vec3 L = vec3(-1.0, 1.0, 1.0);
+
  vec4 color = vec4(0.5, 0.5, 0.7, 1.0);
- float nDotVP = max(0.0, dot(normalize(N), normalize(L)));
+ float nDotVP = max(0.0, dot(normalize(N), normalize(u_Light)));
  gl_FragColor = color * nDotVP;
 }

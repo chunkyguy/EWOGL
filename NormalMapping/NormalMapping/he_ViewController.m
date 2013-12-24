@@ -16,7 +16,7 @@
 @interface he_ViewController () {
  GLuint _program;
  
- GLKMatrix4 _modelViewProjectionMatrix;
+ GLKMatrix4 _modelViewMatrix;
  // GLKMatrix3 _normalMatrix;
  float _rotation;
  
@@ -105,21 +105,16 @@
 
 - (void)update
 {
- float aspect = fabsf(self.view.bounds.size.width / self.view.bounds.size.height);
- GLKMatrix4 projectionMatrix = GLKMatrix4MakePerspective(GLKMathDegreesToRadians(65.0f), aspect, 0.1f, 100.0f);
- 
- 
  GLKMatrix4 baseModelViewMatrix = GLKMatrix4MakeTranslation(0.0f, 0.0f, -4.0f);
  baseModelViewMatrix = GLKMatrix4Rotate(baseModelViewMatrix, _rotation, 0.0f, 1.0f, 0.0f);
  
  // Compute the model view matrix for the object rendered with ES2
- GLKMatrix4 modelViewMatrix = GLKMatrix4MakeTranslation(0.0f, 0.0f, 1.5f);
- modelViewMatrix = GLKMatrix4Rotate(modelViewMatrix, _rotation, 1.0f, 1.0f, 1.0f);
- modelViewMatrix = GLKMatrix4Multiply(baseModelViewMatrix, modelViewMatrix);
+ _modelViewMatrix = GLKMatrix4MakeTranslation(0.0f, 0.0f, 1.5f);
+ _modelViewMatrix = GLKMatrix4Rotate(_modelViewMatrix, _rotation, 1.0f, 1.0f, 1.0f);
+ _modelViewMatrix = GLKMatrix4Multiply(baseModelViewMatrix, _modelViewMatrix);
  
  //_normalMatrix = GLKMatrix3InvertAndTranspose(GLKMatrix4GetMatrix3(modelViewMatrix), NULL);
  
- _modelViewProjectionMatrix = GLKMatrix4Multiply(projectionMatrix, modelViewMatrix);
  
  _rotation += self.timeSinceLastUpdate * 0.05f;
 }
@@ -132,13 +127,24 @@
  glBindVertexArrayOES(_vertexArray);
  glBindTexture(GL_TEXTURE_2D, _texture);
  glUseProgram(_program);
- 
+
+ float aspect = fabsf(self.view.bounds.size.width / self.view.bounds.size.height);
+ GLKMatrix4 projectionMatrix = GLKMatrix4MakePerspective(GLKMathDegreesToRadians(65.0f), aspect, 0.1f, 100.0f);
+ GLKMatrix4 modelViewProjectionMatrix = GLKMatrix4Multiply(projectionMatrix, _modelViewMatrix);
  GLuint u_Mvp = glGetUniformLocation(_program, "u_Mvp");
- glUniformMatrix4fv(u_Mvp, 1, 0, _modelViewProjectionMatrix.m);
-// GLuint u_N = glGetUniformLocation(_program, "u_N");
+ glUniformMatrix4fv(u_Mvp, 1, 0, modelViewProjectionMatrix.m);
+
+ // GLuint u_N = glGetUniformLocation(_program, "u_N");
 // glUniformMatrix3fv(u_N, 1, 0, _normalMatrix.m);
+ 
  GLuint u_Tex = glGetUniformLocation(_program, "u_Tex");
  glUniform1i(u_Tex, 0);
+ 
+ GLKVector3 light = GLKVector3Make(-1.0, 0.0, 1.0); /*world space*/
+ GLKMatrix3 modelMatrix = GLKMatrix3MakeRotation(_rotation, 1.0, 1.0, 1.0);
+ light = GLKMatrix3MultiplyVector3(modelMatrix, light);
+ GLuint u_Light = glGetUniformLocation(_program, "u_Light");
+ glUniform3fv(u_Light, 1, light.v);
  
  glDrawArrays(GL_TRIANGLES, 0, 36);
 }
