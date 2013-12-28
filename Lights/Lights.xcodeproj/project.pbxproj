@@ -28,8 +28,12 @@
 		1955DCA8186C396A009093A0 /* he_Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955DCA7186C396A009093A0 /* he_Utility.m */; };
 		1955DCAD186D4036009093A0 /* teapot.obj in Resources */ = {isa = PBXBuildFile; fileRef = 1955DCAB186D4036009093A0 /* teapot.obj */; };
 		1955DCAE186D4036009093A0 /* teapot1.obj in Resources */ = {isa = PBXBuildFile; fileRef = 1955DCAC186D4036009093A0 /* teapot1.obj */; };
+		19D1E926186EEA7B003F1566 /* DiffusePF.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 19D1E924186EEA7B003F1566 /* DiffusePF.fsh */; };
+		19D1E927186EEA7B003F1566 /* DiffusePF.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 19D1E925186EEA7B003F1566 /* DiffusePF.vsh */; };
 		19FE2861186ED7E6001637DC /* Diffuse.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 19FE285F186ED7E6001637DC /* Diffuse.fsh */; };
 		19FE2862186ED7E6001637DC /* Diffuse.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 19FE2860186ED7E6001637DC /* Diffuse.vsh */; };
+		19FE2865186EDD16001637DC /* ADS.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 19FE2863186EDD16001637DC /* ADS.fsh */; };
+		19FE2866186EDD16001637DC /* ADS.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 19FE2864186EDD16001637DC /* ADS.vsh */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,8 +78,12 @@
 		1955DCA7186C396A009093A0 /* he_Utility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = he_Utility.m; sourceTree = "<group>"; };
 		1955DCAB186D4036009093A0 /* teapot.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = teapot.obj; sourceTree = "<group>"; };
 		1955DCAC186D4036009093A0 /* teapot1.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = teapot1.obj; sourceTree = "<group>"; };
+		19D1E924186EEA7B003F1566 /* DiffusePF.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = DiffusePF.fsh; path = Shaders/DiffusePF.fsh; sourceTree = "<group>"; };
+		19D1E925186EEA7B003F1566 /* DiffusePF.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = DiffusePF.vsh; path = Shaders/DiffusePF.vsh; sourceTree = "<group>"; };
 		19FE285F186ED7E6001637DC /* Diffuse.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = Diffuse.fsh; path = Shaders/Diffuse.fsh; sourceTree = "<group>"; };
 		19FE2860186ED7E6001637DC /* Diffuse.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = Diffuse.vsh; path = Shaders/Diffuse.vsh; sourceTree = "<group>"; };
+		19FE2863186EDD16001637DC /* ADS.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = ADS.fsh; path = Shaders/ADS.fsh; sourceTree = "<group>"; };
+		19FE2864186EDD16001637DC /* ADS.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = ADS.vsh; path = Shaders/ADS.vsh; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -192,8 +200,12 @@
 		193799A41869885600DAFE17 /* Shaders */ = {
 			isa = PBXGroup;
 			children = (
+				19FE2863186EDD16001637DC /* ADS.fsh */,
+				19FE2864186EDD16001637DC /* ADS.vsh */,
 				19FE285F186ED7E6001637DC /* Diffuse.fsh */,
 				19FE2860186ED7E6001637DC /* Diffuse.vsh */,
+				19D1E924186EEA7B003F1566 /* DiffusePF.fsh */,
+				19D1E925186EEA7B003F1566 /* DiffusePF.vsh */,
 			);
 			name = Shaders;
 			sourceTree = "<group>";
@@ -293,6 +305,10 @@
 				1937996C18696EF500DAFE17 /* InfoPlist.strings in Resources */,
 				19FE2862186ED7E6001637DC /* Diffuse.vsh in Resources */,
 				19FE2861186ED7E6001637DC /* Diffuse.fsh in Resources */,
+				19FE2866186EDD16001637DC /* ADS.vsh in Resources */,
+				19D1E926186EEA7B003F1566 /* DiffusePF.fsh in Resources */,
+				19D1E927186EEA7B003F1566 /* DiffusePF.vsh in Resources */,
+				19FE2865186EDD16001637DC /* ADS.fsh in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

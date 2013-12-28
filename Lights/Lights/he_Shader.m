@@ -61,25 +61,25 @@ GLuint ShaderCreate(const char *vsh_src, const char *fsh_src, const he_BitFlag a
  glAttachShader(program, fsh);
 
  /* bind attributes*/
- if (attrib_flags & BF_Mask(kAttribPosition)) {
+ if (BF_IsSet(attrib_flags, kAttribPosition)) {
   glBindAttribLocation(program, kAttribPosition, "a_Position");
  }
- if (attrib_flags & BF_Mask(kAttribColor)) {
+ if (BF_IsSet(attrib_flags, kAttribColor)) {
   glBindAttribLocation(program, kAttribColor, "a_Color");
  }
- if (attrib_flags & BF_Mask(kAttribTexcoord)) {
+ if (BF_IsSet(attrib_flags, kAttribTexcoord)) {
   glBindAttribLocation(program, kAttribTexcoord, "a_Texcoord");
  }
 // if (attrib_flags & BF_Mask(kAttribTBN)) {
 //  glBindAttribLocation(program, kAttribTBN, "a_Tbn");
 // }
- if (attrib_flags & BF_Mask(kAttribTangent)) {
+ if (BF_IsSet(attrib_flags, kAttribTangent)) {
   glBindAttribLocation(program, kAttribTangent, "a_Tangent");
  }
- if (attrib_flags & BF_Mask(kAttribBinormal)) {
+ if (BF_IsSet(attrib_flags, kAttribBinormal)) {
   glBindAttribLocation(program, kAttribBinormal, "a_Binormal");
  }
- if (attrib_flags & BF_Mask(kAttribNormal)) {
+ if (BF_IsSet(attrib_flags, kAttribNormal)) {
   glBindAttribLocation(program, kAttribNormal, "a_Normal");
  }
  

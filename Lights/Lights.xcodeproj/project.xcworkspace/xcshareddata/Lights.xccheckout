@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>6F794D74-6584-4CA3-A31F-8C32E0515A3D</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Lights</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>3D2FEB84-E8DF-4447-8E89-C80B16F74CCC</key>
+		<string>https://github.com/chunkyguy/EWOGL.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Lights/Lights.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>3D2FEB84-E8DF-4447-8E89-C80B16F74CCC</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/chunkyguy/EWOGL.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>3D2FEB84-E8DF-4447-8E89-C80B16F74CCC</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>3D2FEB84-E8DF-4447-8E89-C80B16F74CCC</string>
+			<key>IDESourceControlWCCName</key>
+			<string>EWOGL</string>
+		</dict>
+	</array>
+</dict>
+</plist>

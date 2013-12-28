@@ -13,4 +13,6 @@ void ShutDown();
 void Reshape(int w, int h);
 void Update(int dt);
 void Render();
+
+void TouchEnd();
 #endif

@@ -87,4 +87,8 @@
  Render();
 }
 
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+ TouchEnd();
+}
 @end

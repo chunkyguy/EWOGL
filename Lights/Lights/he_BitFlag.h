@@ -16,6 +16,7 @@
 typedef unsigned int he_BitFlag;
 
 /** Convert an index i to a bit mask
+ @param f The bitflag
  @param i The index value (could be index of an array or anything)
  @return The new mask.
  */
@@ -31,26 +32,22 @@ typedef unsigned int he_BitFlag;
 /** Set the flag
  @param f the bit flag.
  @param i the index
- @return the new bit flag
  */
 #define BF_Set(f, i) (f |= BF_Mask(i))
 
 /** Reset the flag
  @param f the bit flag.
  @param i the index
- @return the new bit flag
  */
 #define BF_Reset(f, i) (f &= ~BF_Mask(i))
 
 /** Toggle the flag
  @param f the bit flag.
  @param i the index
- @return the new bit flag
  */
 #define BF_Toggle(f, i) (f ^= BF_Mask(i))
 
 /** Clear the flag.
- @return the flag.
  */
 #define BF_Clear (f) (f = 0x0)
 
