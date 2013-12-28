@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1955DCAA186C79D6009093A0 /* teapot.obj in Resources */ = {isa = PBXBuildFile; fileRef = 1955DCA9186C79D6009093A0 /* teapot.obj */; };
 		195B081917D7B17800AF07B9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 195B081817D7B17800AF07B9 /* UIKit.framework */; };
 		195B081B17D7B17800AF07B9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 195B081A17D7B17800AF07B9 /* Foundation.framework */; };
 		195B081D17D7B17800AF07B9 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 195B081C17D7B17800AF07B9 /* CoreGraphics.framework */; };
@@ -32,6 +33,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1955DCA9186C79D6009093A0 /* teapot.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = teapot.obj; sourceTree = "<group>"; };
 		195B081517D7B17800AF07B9 /* OBJLoader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OBJLoader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		195B081817D7B17800AF07B9 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		195B081A17D7B17800AF07B9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -142,6 +144,7 @@
 		195B084317D7B1C300AF07B9 /* model */ = {
 			isa = PBXGroup;
 			children = (
+				1955DCA9186C79D6009093A0 /* teapot.obj */,
 				195B084417D7B1C300AF07B9 /* credits.txt */,
 				195B084517D7B1C300AF07B9 /* micronapalmv2.obj */,
 				195B084617D7B1C300AF07B9 /* Ninja.obj */,
@@ -230,6 +233,7 @@
 				195B088317D7B29500AF07B9 /* Shader.vsh in Resources */,
 				195B082717D7B17800AF07B9 /* InfoPlist.strings in Resources */,
 				195B082F17D7B17800AF07B9 /* Default.png in Resources */,
+				1955DCAA186C79D6009093A0 /* teapot.obj in Resources */,
 				195B083117D7B17800AF07B9 /* Default@2x.png in Resources */,
 				195B083317D7B17800AF07B9 /* Default-568h@2x.png in Resources */,
 				195B085B17D7B1C300AF07B9 /* credits.txt in Resources */,
@@ -364,6 +368,7 @@
 				195B084217D7B17800AF07B9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

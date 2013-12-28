@@ -229,6 +229,9 @@
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = whackylabs;
 				TargetAttributes = {
+					190C788818643E640005E36B = {
+						DevelopmentTeam = B8H28JR3TT;
+					};
 					190C78B118643E640005E36B = {
 						TestTargetID = 190C788818643E640005E36B;
 					};
@@ -411,11 +414,14 @@
 		190C78C418643E640005E36B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "NormalMapping/NormalMapping-Prefix.pch";
 				INFOPLIST_FILE = "NormalMapping/NormalMapping-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -424,11 +430,14 @@
 		190C78C518643E640005E36B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "NormalMapping/NormalMapping-Prefix.pch";
 				INFOPLIST_FILE = "NormalMapping/NormalMapping-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

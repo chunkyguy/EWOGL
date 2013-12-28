@@ -66,7 +66,7 @@ void Load() {
 	program_ = CompileShader(shaderName_vsh, shaderName_fsh, BindAttributes);
 
 	// Load mesh
-	char ninja_mesh[] = "Ninja.obj";
+	char ninja_mesh[] = "teapot.obj";
 	mesh_[kMesh_Cube] = CreatStaticMesh(kMesh_Cube);
 	mesh_[kMesh_Square] = CreatStaticMesh(kMesh_Square);
 	mesh_[kMesh_Triangle] = CreatStaticMesh(kMesh_Triangle);
@@ -83,7 +83,7 @@ void Load() {
 										   GLKVector3Make(1.0f, 1.0f, 1.0f),
 										   NULL);
 	object_[2].mesh = &mesh_[kMesh_Ninja];
-	object_[2].transform = Transform_Create(GLKVector3Make(0.0f, 0.0f, -6.0f),
+	object_[2].transform = Transform_Create(GLKVector3Make(0.0f, 0.0f, -15.0f),
 											GLKVector4Make(0.0f, 1.0f, 0.0f, GLKMathDegreesToRadians(0.0f)),
 											GLKVector3Make(1.0f, 1.0f, 1.0f),
 											NULL);

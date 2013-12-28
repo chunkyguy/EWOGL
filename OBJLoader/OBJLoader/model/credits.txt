@@ -9,3 +9,5 @@ Name:   micronapalmv2
 Artist: Christophe Desse 
 Origin: http://features.cgsociety.org/story_custom.php?story_id=1115
 
+Name: teapot
+Origin: http://groups.csail.mit.edu/graphics/classes/6.837/F03/models/teapot.obj
