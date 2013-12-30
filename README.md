@@ -1,9 +1,6 @@
-EWOGL
-=====
-
-My experiments with OpenGL.
-
-[Related article series.](http://whackylabs.com/rants/?p=837)
+[EWOGL: My experiments with OpenGL.](http://whackylabs.com/rants/?p=837)
+=========================================================================
+This repository contains all the code associated with the article series [http://whackylabs.com/rants/?p=837](http://whackylabs.com/rants/?p=837)
 
 OGLBasic
 --------
