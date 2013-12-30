@@ -41,3 +41,11 @@ Normal Mapping
 Basic bump mapping using a normal map.
 
 ![Normal Mapping](http://i.imgur.com/ZFCazGp.png)
+
+Lights
+------
+Various shaders in action.
+
+![Lights](http://i.imgur.com/FUQgBsI.png)
+
+
