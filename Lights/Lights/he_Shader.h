@@ -8,8 +8,8 @@
 #ifndef he_Shader_h
 #define he_Shader_h
 #include <stdbool.h>
-#include <OpenGLES/ES2/gl.h>
 
+#include "he_Availability.h"
 #include "he_BitFlag.h"
 
 #define kAttribPosition 0

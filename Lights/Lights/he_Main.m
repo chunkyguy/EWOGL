@@ -9,14 +9,12 @@
 #include "he_Main.h"
 
 #include <stdio.h>
-#include <OpenGLES/ES2/gl.h>
 #include <GLKit/GLKMath.h>
 
+#include "he_Availability.h"
 #include "he_Shader.h"
 #include "he_File.h"
 #include "he_Utility.h"
-
-#define MAX_SHADERS 3
 
 #define kUniformLightPosition	1
 #define kUniformLightColor		2
@@ -26,15 +24,17 @@
 #define kUniformMv				6
 #define kUniformMvp				7
 
-
+#define MAX_ALLOWED_SHADERS 32
 /*MARK: vars*/
-struct ShaderInfo{
+struct ShaderInfo {
  GLuint shader;
  char name[256];
  char sh_fn[2][256];
  he_BitFlag aflag; /*bitwise attribute flags*/
  he_BitFlag uflag; /*bitwise uniform flags*/
-} shInfo_[MAX_SHADERS];
+} shInfo_[MAX_ALLOWED_SHADERS];
+unsigned int max_shaders_;
+
 
 typedef union {
  size_t size;
@@ -83,6 +83,8 @@ static void new_shader_info(const int index,
                             const he_BitFlag aflag,
                             const he_BitFlag uflag)
 {
+ assert(index < MAX_ALLOWED_SHADERS);
+ 
  strcpy(shInfo_[index].name, name);
  strcpy(shInfo_[index].sh_fn[0], vsh_name);
  strcpy(shInfo_[index].sh_fn[1], fsh_name);
@@ -92,8 +94,10 @@ static void new_shader_info(const int index,
 
 static void load_shaders()
 {
+ max_shaders_ = 0;
+ 
  /*Diffuse per vertex*/
- new_shader_info(0, "DiffusePerVertex",
+ new_shader_info(max_shaders_++, "DiffusePerVertex",
                  "Diffuse.vsh", "Diffuse.fsh",
                  BF_Mask(kAttribPosition) |
                  BF_Mask(kAttribNormal),
@@ -104,7 +108,7 @@ static void load_shaders()
                  BF_Mask(kUniformMvp));
 
  /*Diffuse per fragment*/
- new_shader_info(1, "DiffusePerFrag",
+ new_shader_info(max_shaders_++, "DiffusePerFrag",
                  "DiffusePF.vsh", "DiffusePF.fsh",
                  BF_Mask(kAttribPosition) |
                  BF_Mask(kAttribNormal),
@@ -116,7 +120,7 @@ static void load_shaders()
 
 
  /*ADS per vertex*/
- new_shader_info(2, "ADSPerVertex",
+ new_shader_info(max_shaders_++, "ADSPerVertex",
                  "ADS.vsh", "ADS.fsh",
                  BF_Mask(kAttribPosition) |
                  BF_Mask(kAttribNormal),
@@ -128,18 +132,83 @@ static void load_shaders()
                  BF_Mask(kUniformMv) |
                  BF_Mask(kUniformMvp));
 
- for (int sh = 0; sh < MAX_SHADERS; ++sh) {
+ /*ADS per frag*/
+ new_shader_info(max_shaders_++, "ADSPerFrag",
+                 "ADSPF.vsh", "ADSPF.fsh",
+                 BF_Mask(kAttribPosition) |
+                 BF_Mask(kAttribNormal),
+                 BF_Mask(kUniformLightPosition) |
+                 BF_Mask(kUniformLightColor) |
+                 BF_Mask(kUniformMaterialColor) |
+                 BF_Mask(kUniformMaterialGloss) |
+                 BF_Mask(kUniformN) |
+                 BF_Mask(kUniformMv) |
+                 BF_Mask(kUniformMvp));
+
+ /*Toon per vertex*/
+ new_shader_info(max_shaders_++, "ToonPerVertex",
+                 "Toon.vsh", "Toon.fsh",
+                 BF_Mask(kAttribPosition) |
+                 BF_Mask(kAttribNormal),
+                 BF_Mask(kUniformLightPosition) |
+                 BF_Mask(kUniformLightColor) |
+                 BF_Mask(kUniformMaterialColor) |
+                 BF_Mask(kUniformMaterialGloss) |
+                 BF_Mask(kUniformN) |
+                 BF_Mask(kUniformMv) |
+                 BF_Mask(kUniformMvp));
+
+ /*Toon per fragment*/
+ new_shader_info(max_shaders_++, "ToonPerFrag",
+                 "ToonPF.vsh", "ToonPF.fsh",
+                 BF_Mask(kAttribPosition) |
+                 BF_Mask(kAttribNormal),
+                 BF_Mask(kUniformLightPosition) |
+                 BF_Mask(kUniformLightColor) |
+                 BF_Mask(kUniformMaterialColor) |
+                 BF_Mask(kUniformMaterialGloss) |
+                 BF_Mask(kUniformN) |
+                 BF_Mask(kUniformMv) |
+                 BF_Mask(kUniformMvp));
+ 
+ /*Double sided per vertex*/
+ new_shader_info(max_shaders_++, "DoubleSided",
+                 "DoubleSided.vsh", "DoubleSided.fsh",
+                 BF_Mask(kAttribPosition) |
+                 BF_Mask(kAttribNormal),
+                 BF_Mask(kUniformLightPosition) |
+                 BF_Mask(kUniformLightColor) |
+                 BF_Mask(kUniformMaterialColor) |
+                 BF_Mask(kUniformMaterialGloss) |
+                 BF_Mask(kUniformN) |
+                 BF_Mask(kUniformMv) |
+                 BF_Mask(kUniformMvp));
+
+ /*Flat not available for GLSL 120*/
+#if defined (GL_ES_VERSION_3_0)
+ new_shader_info(max_shaders_++, "Flat",
+                 "Flat.vsh", "Flat.fsh",
+                 BF_Mask(kAttribPosition) |
+                 BF_Mask(kAttribNormal),
+                 BF_Mask(kUniformLightPosition) |
+                 BF_Mask(kUniformMaterialColor) |
+                 BF_Mask(kUniformN) |
+                 BF_Mask(kUniformMv) |
+                 BF_Mask(kUniformMvp));
+#endif
+
+ for (int sh = 0; sh < max_shaders_; ++sh) {
   he_File file[2];
   char fullpathbuf[2][1024];
   /*load files to memory*/
   for (int f = 0; f < 2; ++f) {
-   printf("Shader: %s\n",shInfo_[sh].sh_fn[f]);
    FileCreate(&file[f], BundlePath(fullpathbuf[f], shInfo_[sh].sh_fn[f]));
   }
   
   /*create shader*/
   assert(file[0].buffer);
   assert(file[1].buffer);
+  printf("Shader: %s %s\n",shInfo_[sh].sh_fn[0], shInfo_[sh].sh_fn[1]);
   shInfo_[sh].shader = ShaderCreate(file[0].buffer, file[1].buffer, shInfo_[sh].aflag);
   
   /*release files*/
@@ -151,16 +220,16 @@ static void load_shaders()
 
 static void unload_shaders()
 {
- for (int sh = 0; sh < MAX_SHADERS; ++sh) {
+ for (int sh = 0; sh < max_shaders_; ++sh) {
   ShaderDestroy(shInfo_[sh].shader);
  }
 }
 
 void TouchEnd()
 {
- curr_shi_ = (curr_shi_ + 1)%MAX_SHADERS;
- printf("Shader switch: %s\n",shInfo_[curr_shi_].name);
+ curr_shi_ = (curr_shi_ + 1)%max_shaders_;
 }
+
 /*MARK: model*/
 
 static char *read_word(char *word, FILE *file)
@@ -278,6 +347,7 @@ static void unload_models()
 /*MARK: load/unload*/
 void StartUp()
 {
+ printf("%s\n%s\n",glGetString(GL_VERSION), glGetString(GL_SHADING_LANGUAGE_VERSION));
  printf("loading shaders ...\n");
  load_shaders();
  
@@ -287,7 +357,7 @@ void StartUp()
  /*default GL state*/
  printf("readying GL states ...\n");
  glEnable(GL_DEPTH_TEST);
- curr_shi_ = 0;
+ curr_shi_ = max_shaders_-1;
  rotation_ = 90.0f;
 }
 
@@ -347,11 +417,11 @@ void Render()
 
  /*pass transform matrices to shaders*/
  GLKMatrix4 baseMv = GLKMatrix4MakeTranslation(0.0f, 0.0f, -10.0f);
- baseMv = GLKMatrix4Rotate(baseMv, GLKMathDegreesToRadians(rotation_), 1.0f, 0.0f, 0.0f);
+ baseMv = GLKMatrix4Rotate(baseMv, GLKMathDegreesToRadians(0), 1.0f, 0.0f, 0.0f);
  
  /*pass transform matrices to shaders*/
  GLKMatrix4 teapotMv = GLKMatrix4MakeTranslation(0.0f, 0.0f, -2.0f);
- teapotMv = GLKMatrix4Rotate(teapotMv, GLKMathDegreesToRadians(rotation_), 0.0f, 1.0f, 0.0f);
+ teapotMv = GLKMatrix4Rotate(teapotMv, GLKMathDegreesToRadians(rotation_), 1.0f, 1.0f, 0.0f);
  teapotMv = GLKMatrix4Multiply(baseMv, teapotMv); /*eye space*/
  if (BF_IsSet(shInfo_[curr_shi_].uflag, kUniformMv)) {
   GLuint mv_loc = glGetUniformLocation(shInfo_[curr_shi_].shader, "u_Mv");
@@ -373,3 +443,7 @@ void Render()
  glDrawElements(GL_TRIANGLES, index_count_, GL_UNSIGNED_SHORT, NULL);
 }
 
+const char *Info()
+{
+ return shInfo_[curr_shi_].name;
+}

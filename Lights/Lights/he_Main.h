@@ -15,4 +15,5 @@ void Update(int dt);
 void Render();
 
 void TouchEnd();
+const char *Info();
 #endif

@@ -7,11 +7,14 @@
 //
 
 #import "he_ViewController.h"
+
+#include "he_Availability.h"
 #import "he_Main.h"
 
-@interface he_ViewController ()
+@interface he_ViewController () {
+ UILabel *lbl;
+}
 @property (strong, nonatomic) EAGLContext *context;
-
 - (void)setupGL;
 - (void)tearDownGL;
 @end
@@ -21,16 +24,26 @@
 - (void)viewDidLoad
 {
  [super viewDidLoad];
- 
- self.context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
- 
- if (!self.context) {
-  NSLog(@"Failed to create ES context");
- }
+
+#if defined (GL_ES_VERSION_3_0)
+ self.context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES3];
+ printf("Rendering API: ES3\n");
+#elif defined (GL_ES_VERSION_2_0)
+  self.context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
+  printf("Rendering API: ES2\n");
+#else
+ #error Rendering API: NONE
+#endif
  
  GLKView *view = (GLKView *)self.view;
  view.context = self.context;
  view.drawableDepthFormat = GLKViewDrawableDepthFormat24;
+ 
+ lbl = [[UILabel alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height-50, 200, 40)];
+ lbl.textAlignment = UITextAlignmentLeft;
+ lbl.backgroundColor = [UIColor clearColor];
+ lbl.text = @"Shading";
+ [self.view addSubview:lbl];
  
  [self setupGL];
 }
@@ -66,6 +79,7 @@
 {
  [EAGLContext setCurrentContext:self.context];
  StartUp();
+ lbl.text = [NSString stringWithUTF8String:Info()];
 }
 
 - (void)tearDownGL
@@ -90,5 +104,6 @@
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
  TouchEnd();
+ lbl.text = [NSString stringWithUTF8String:Info()];
 }
 @end

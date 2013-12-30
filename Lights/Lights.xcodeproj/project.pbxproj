@@ -7,6 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		190786D118706DE20067A30B /* Flat.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 190786CF18706DE20067A30B /* Flat.fsh */; };
+		190786D218706DE20067A30B /* Flat.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 190786D018706DE20067A30B /* Flat.vsh */; };
+		190F7F53186FEC8500D13F02 /* ADSPF.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 190F7F51186FEC8500D13F02 /* ADSPF.fsh */; };
+		190F7F54186FEC8500D13F02 /* ADSPF.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 190F7F52186FEC8500D13F02 /* ADSPF.vsh */; };
+		190F7F57186FF1DA00D13F02 /* Toon.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 190F7F55186FF1DA00D13F02 /* Toon.fsh */; };
+		190F7F58186FF1DA00D13F02 /* Toon.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 190F7F56186FF1DA00D13F02 /* Toon.vsh */; };
+		190F7F5B186FF39D00D13F02 /* ToonPF.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 190F7F59186FF39D00D13F02 /* ToonPF.fsh */; };
+		190F7F5C186FF39D00D13F02 /* ToonPF.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 190F7F5A186FF39D00D13F02 /* ToonPF.vsh */; };
+		190F7F67186FFFF400D13F02 /* DoubleSided.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 190F7F65186FFFF400D13F02 /* DoubleSided.fsh */; };
+		190F7F68186FFFF400D13F02 /* DoubleSided.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 190F7F66186FFFF400D13F02 /* DoubleSided.vsh */; };
 		1937995E18696EF500DAFE17 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1937995D18696EF500DAFE17 /* Foundation.framework */; };
 		1937996018696EF500DAFE17 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1937995F18696EF500DAFE17 /* CoreGraphics.framework */; };
 		1937996218696EF500DAFE17 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1937996118696EF500DAFE17 /* UIKit.framework */; };
@@ -47,6 +57,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		190786CF18706DE20067A30B /* Flat.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = Flat.fsh; path = Shaders/Flat.fsh; sourceTree = "<group>"; };
+		190786D018706DE20067A30B /* Flat.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = Flat.vsh; path = Shaders/Flat.vsh; sourceTree = "<group>"; };
+		190786D3187072F10067A30B /* he_Availability.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = he_Availability.h; sourceTree = "<group>"; };
+		190F7F51186FEC8500D13F02 /* ADSPF.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = ADSPF.fsh; path = Shaders/ADSPF.fsh; sourceTree = "<group>"; };
+		190F7F52186FEC8500D13F02 /* ADSPF.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = ADSPF.vsh; path = Shaders/ADSPF.vsh; sourceTree = "<group>"; };
+		190F7F55186FF1DA00D13F02 /* Toon.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = Toon.fsh; path = Shaders/Toon.fsh; sourceTree = "<group>"; };
+		190F7F56186FF1DA00D13F02 /* Toon.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = Toon.vsh; path = Shaders/Toon.vsh; sourceTree = "<group>"; };
+		190F7F59186FF39D00D13F02 /* ToonPF.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = ToonPF.fsh; path = Shaders/ToonPF.fsh; sourceTree = "<group>"; };
+		190F7F5A186FF39D00D13F02 /* ToonPF.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = ToonPF.vsh; path = Shaders/ToonPF.vsh; sourceTree = "<group>"; };
+		190F7F65186FFFF400D13F02 /* DoubleSided.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = DoubleSided.fsh; path = Shaders/DoubleSided.fsh; sourceTree = "<group>"; };
+		190F7F66186FFFF400D13F02 /* DoubleSided.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = DoubleSided.vsh; path = Shaders/DoubleSided.vsh; sourceTree = "<group>"; };
 		1937995A18696EF500DAFE17 /* Lights.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lights.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1937995D18696EF500DAFE17 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1937995F18696EF500DAFE17 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -162,6 +183,7 @@
 				193799A21869785B00DAFE17 /* he_File.m */,
 				1955DCA6186C396A009093A0 /* he_Utility.h */,
 				1955DCA7186C396A009093A0 /* he_Utility.m */,
+				190786D3187072F10067A30B /* he_Availability.h */,
 				1937997D18696EF500DAFE17 /* Images.xcassets */,
 				1937996818696EF500DAFE17 /* Supporting Files */,
 			);
@@ -200,6 +222,16 @@
 		193799A41869885600DAFE17 /* Shaders */ = {
 			isa = PBXGroup;
 			children = (
+				190786CF18706DE20067A30B /* Flat.fsh */,
+				190786D018706DE20067A30B /* Flat.vsh */,
+				190F7F65186FFFF400D13F02 /* DoubleSided.fsh */,
+				190F7F66186FFFF400D13F02 /* DoubleSided.vsh */,
+				190F7F59186FF39D00D13F02 /* ToonPF.fsh */,
+				190F7F5A186FF39D00D13F02 /* ToonPF.vsh */,
+				190F7F55186FF1DA00D13F02 /* Toon.fsh */,
+				190F7F56186FF1DA00D13F02 /* Toon.vsh */,
+				190F7F51186FEC8500D13F02 /* ADSPF.fsh */,
+				190F7F52186FEC8500D13F02 /* ADSPF.vsh */,
 				19FE2863186EDD16001637DC /* ADS.fsh */,
 				19FE2864186EDD16001637DC /* ADS.vsh */,
 				19FE285F186ED7E6001637DC /* Diffuse.fsh */,
@@ -299,12 +331,22 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				190786D118706DE20067A30B /* Flat.fsh in Resources */,
+				190786D218706DE20067A30B /* Flat.vsh in Resources */,
+				190F7F67186FFFF400D13F02 /* DoubleSided.fsh in Resources */,
+				190F7F68186FFFF400D13F02 /* DoubleSided.vsh in Resources */,
+				190F7F5C186FF39D00D13F02 /* ToonPF.vsh in Resources */,
+				190F7F5B186FF39D00D13F02 /* ToonPF.fsh in Resources */,
+				190F7F58186FF1DA00D13F02 /* Toon.vsh in Resources */,
+				190F7F57186FF1DA00D13F02 /* Toon.fsh in Resources */,
 				1955DCAE186D4036009093A0 /* teapot1.obj in Resources */,
 				1937997E18696EF500DAFE17 /* Images.xcassets in Resources */,
 				1955DCAD186D4036009093A0 /* teapot.obj in Resources */,
 				1937996C18696EF500DAFE17 /* InfoPlist.strings in Resources */,
 				19FE2862186ED7E6001637DC /* Diffuse.vsh in Resources */,
+				190F7F54186FEC8500D13F02 /* ADSPF.vsh in Resources */,
 				19FE2861186ED7E6001637DC /* Diffuse.fsh in Resources */,
+				190F7F53186FEC8500D13F02 /* ADSPF.fsh in Resources */,
 				19FE2866186EDD16001637DC /* ADS.vsh in Resources */,
 				19D1E926186EEA7B003F1566 /* DiffusePF.fsh in Resources */,
 				19D1E927186EEA7B003F1566 /* DiffusePF.vsh in Resources */,

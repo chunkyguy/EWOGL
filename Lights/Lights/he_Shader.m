@@ -41,6 +41,7 @@ GLuint ShaderCreate(const char *vsh_src, const char *fsh_src, const he_BitFlag a
  assert(program);
  
  /* compile vertex shader */
+ printf("Compiling vsh...\n");
  GLuint vsh = glCreateShader(GL_VERTEX_SHADER);
  assert(vsh);
  glShaderSource(vsh, 1, &vsh_src, 0);
@@ -51,6 +52,7 @@ GLuint ShaderCreate(const char *vsh_src, const char *fsh_src, const he_BitFlag a
  glAttachShader(program, vsh);
  
  /* compile frag shader */
+ printf("Compiling fsh...\n");
  GLuint fsh = glCreateShader(GL_FRAGMENT_SHADER);
  assert(fsh);
  glShaderSource(fsh, 1, &fsh_src, 0);
@@ -82,8 +84,13 @@ GLuint ShaderCreate(const char *vsh_src, const char *fsh_src, const he_BitFlag a
  if (BF_IsSet(attrib_flags, kAttribNormal)) {
   glBindAttribLocation(program, kAttribNormal, "a_Normal");
  }
+
+#if defined (GL_ES_VERSION_3_0)
+ //glBindFragDataLocation(program, 0, "FragColor");
+#endif
  
  /* link */
+ printf("Linking...\n");
  glLinkProgram(program);
 #if defined (DEBUG)
  debug_shader(program, glGetProgramiv, glGetProgramInfoLog);
