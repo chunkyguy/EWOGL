@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		195DCA2418780869007D66AA /* reflection.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 195DCA1E18780869007D66AA /* reflection.fsh */; };
+		195DCA2518780869007D66AA /* reflection.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 195DCA1F18780869007D66AA /* reflection.vsh */; };
+		195DCA2618780869007D66AA /* refraction.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 195DCA2018780869007D66AA /* refraction.fsh */; };
+		195DCA2718780869007D66AA /* refraction.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 195DCA2118780869007D66AA /* refraction.vsh */; };
+		195DCA2818780869007D66AA /* skybox.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 195DCA2218780869007D66AA /* skybox.fsh */; };
+		195DCA2918780869007D66AA /* skybox.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 195DCA2318780869007D66AA /* skybox.vsh */; };
 		19A2362D1874BE3200EFB30F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19A2362C1874BE3200EFB30F /* Foundation.framework */; };
 		19A2362F1874BE3200EFB30F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19A2362E1874BE3200EFB30F /* CoreGraphics.framework */; };
 		19A236311874BE3200EFB30F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19A236301874BE3200EFB30F /* UIKit.framework */; };
@@ -15,8 +21,6 @@
 		19A2363B1874BE3200EFB30F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 19A236391874BE3200EFB30F /* InfoPlist.strings */; };
 		19A2363D1874BE3200EFB30F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 19A2363C1874BE3200EFB30F /* main.m */; };
 		19A236411874BE3200EFB30F /* he_AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 19A236401874BE3200EFB30F /* he_AppDelegate.m */; };
-		19A236461874BE3200EFB30F /* Shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 19A236451874BE3200EFB30F /* Shader.fsh */; };
-		19A236481874BE3200EFB30F /* Shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 19A236471874BE3200EFB30F /* Shader.vsh */; };
 		19A2364B1874BE3200EFB30F /* he_ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19A2364A1874BE3200EFB30F /* he_ViewController.m */; };
 		19A2364D1874BE3200EFB30F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 19A2364C1874BE3200EFB30F /* Images.xcassets */; };
 		19A236541874BE3300EFB30F /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19A236531874BE3300EFB30F /* XCTest.framework */; };
@@ -46,6 +50,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		195DCA1E18780869007D66AA /* reflection.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = reflection.fsh; sourceTree = "<group>"; };
+		195DCA1F18780869007D66AA /* reflection.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = reflection.vsh; sourceTree = "<group>"; };
+		195DCA2018780869007D66AA /* refraction.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = refraction.fsh; sourceTree = "<group>"; };
+		195DCA2118780869007D66AA /* refraction.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = refraction.vsh; sourceTree = "<group>"; };
+		195DCA2218780869007D66AA /* skybox.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = skybox.fsh; sourceTree = "<group>"; };
+		195DCA2318780869007D66AA /* skybox.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = skybox.vsh; sourceTree = "<group>"; };
 		19A236291874BE3200EFB30F /* Cubemap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cubemap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		19A2362C1874BE3200EFB30F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		19A2362E1874BE3200EFB30F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -58,8 +68,6 @@
 		19A2363E1874BE3200EFB30F /* Cubemap-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Cubemap-Prefix.pch"; sourceTree = "<group>"; };
 		19A2363F1874BE3200EFB30F /* he_AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = he_AppDelegate.h; sourceTree = "<group>"; };
 		19A236401874BE3200EFB30F /* he_AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = he_AppDelegate.m; sourceTree = "<group>"; };
-		19A236451874BE3200EFB30F /* Shader.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = Shader.fsh; path = Shaders/Shader.fsh; sourceTree = "<group>"; };
-		19A236471874BE3200EFB30F /* Shader.vsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = Shader.vsh; path = Shaders/Shader.vsh; sourceTree = "<group>"; };
 		19A236491874BE3200EFB30F /* he_ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = he_ViewController.h; sourceTree = "<group>"; };
 		19A2364A1874BE3200EFB30F /* he_ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = he_ViewController.m; sourceTree = "<group>"; };
 		19A2364C1874BE3200EFB30F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -106,6 +114,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		195DCA1D18780869007D66AA /* shaders */ = {
+			isa = PBXGroup;
+			children = (
+				195DCA1E18780869007D66AA /* reflection.fsh */,
+				195DCA1F18780869007D66AA /* reflection.vsh */,
+				195DCA2018780869007D66AA /* refraction.fsh */,
+				195DCA2118780869007D66AA /* refraction.vsh */,
+				195DCA2218780869007D66AA /* skybox.fsh */,
+				195DCA2318780869007D66AA /* skybox.vsh */,
+			);
+			path = shaders;
+			sourceTree = "<group>";
+		};
 		19A236201874BE3200EFB30F = {
 			isa = PBXGroup;
 			children = (
@@ -141,12 +162,11 @@
 		19A236361874BE3200EFB30F /* Cubemap */ = {
 			isa = PBXGroup;
 			children = (
+				195DCA1D18780869007D66AA /* shaders */,
 				19A236791875129200EFB30F /* models */,
 				19A236691874CD7600EFB30F /* images */,
 				19A2363F1874BE3200EFB30F /* he_AppDelegate.h */,
 				19A236401874BE3200EFB30F /* he_AppDelegate.m */,
-				19A236451874BE3200EFB30F /* Shader.fsh */,
-				19A236471874BE3200EFB30F /* Shader.vsh */,
 				19A236491874BE3200EFB30F /* he_ViewController.h */,
 				19A2364A1874BE3200EFB30F /* he_ViewController.m */,
 				19A2364C1874BE3200EFB30F /* Images.xcassets */,
@@ -288,7 +308,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				19A236481874BE3200EFB30F /* Shader.vsh in Resources */,
+				195DCA2718780869007D66AA /* refraction.vsh in Resources */,
+				195DCA2618780869007D66AA /* refraction.fsh in Resources */,
+				195DCA2818780869007D66AA /* skybox.fsh in Resources */,
+				195DCA2918780869007D66AA /* skybox.vsh in Resources */,
+				195DCA2518780869007D66AA /* reflection.vsh in Resources */,
+				195DCA2418780869007D66AA /* reflection.fsh in Resources */,
 				19A2367C1875129200EFB30F /* teapot.obj in Resources */,
 				19A236751874CD7600EFB30F /* posz.jpg in Resources */,
 				19A236731874CD7600EFB30F /* posx.jpg in Resources */,
@@ -296,7 +321,6 @@
 				19A2364D1874BE3200EFB30F /* Images.xcassets in Resources */,
 				19A2367D1875129200EFB30F /* teapot1.obj in Resources */,
 				19A236741874CD7600EFB30F /* posy.jpg in Resources */,
-				19A236461874BE3200EFB30F /* Shader.fsh in Resources */,
 				19A236711874CD7600EFB30F /* negy.jpg in Resources */,
 				19A2363B1874BE3200EFB30F /* InfoPlist.strings in Resources */,
 				19A236721874CD7600EFB30F /* negz.jpg in Resources */,

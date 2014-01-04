@@ -12,17 +12,18 @@
 #define BUFFER_OFFSET(i) ((char *)NULL + (i))
 
 // Uniform index.
-enum
-{
- UNIFORM_MODEL_MATRIX,
- UNIFORM_MODELVIEWPROJECTION_MATRIX,
- UNIFORM_NORMAL_MATRIX,
- UNIFORM_EYE_POSITION,
- UNIFORM_CUBE_TEXTURE,
- UNIFORM_SHADE_REFLECTION,
+enum {
+ u_M = 0,
+ u_N,
+ u_Mvp,
+ u_EyePosition,
+ u_Material_ref_index,
+ u_Material_relection,
+ u_CubeTex,
  NUM_UNIFORMS
 };
 GLint uniforms[NUM_UNIFORMS];
+
 
 // Attribute index.
 enum
@@ -175,10 +176,12 @@ void loadModelFromFile(he_iModel *model, const char *path)
 // glDeleteVertexArraysOES(1, &model->vao);
 //}
 
+#define MAX_SHADERS 3
 
 @interface he_ViewController () {
- GLuint _program;
-
+ GLuint _program[MAX_SHADERS];
+ int _curr_shader;
+ 
  float _rotation;
  
  he_Model cube_;
@@ -190,7 +193,10 @@ void loadModelFromFile(he_iModel *model, const char *path)
 - (void)setupGL;
 - (void)tearDownGL;
 
-- (BOOL)loadShaders;
+- (void)loadShaders;
+- (BOOL)loadShaderAtIndex:(int)index
+              vshFilename:(NSString *)vshFilename
+              fshFilename:(NSString *)fshFilename;
 - (BOOL)compileShader:(GLuint *)shader type:(GLenum)type file:(NSString *)file;
 - (BOOL)linkProgram:(GLuint)prog;
 - (BOOL)validateProgram:(GLuint)prog;
@@ -286,33 +292,13 @@ void loadModelFromFile(he_iModel *model, const char *path)
  glClearColor(0.65f, 0.65f, 0.65f, 1.0f);
  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
  
- glUseProgram(_program);
- 
+ glUseProgram(_program[0]);
+
  glActiveTexture(GL_TEXTURE0);
  glBindTexture(GL_TEXTURE_CUBE_MAP, texture_);
- glUniform1i(uniforms[UNIFORM_CUBE_TEXTURE], 0);
+ uniforms[u_CubeTex] = glGetUniformLocation(_program[_curr_shader], "u_CubeTex");
+ glUniform1i(uniforms[u_CubeTex], 0);
 
- 
-// // Compute the model view matrix for the object rendered with GLKit
-// GLKMatrix4 modelMatrix = GLKMatrix4MakeRotation(_rotation, 0.0f, 1.0f, 0.0f);
-// GLKMatrix3 modelMatrix3 = GLKMatrix4GetMatrix3(modelMatrix);
-//
-// //GLKVector3 eyePos = GLKVector3Make(0.0f, 0.0f, 1.0f);
-// GLKVector4 eyeWorldSpace = GLKVector4Make(0, 0, -10, 1);
-// GLKVector4 eyeObjectSpace = GLKMatrix4MultiplyVector4(modelMatrix, eyeWorldSpace);
-// 
-// const float distance = 10;
-// const GLKVector3 target = GLKVector3Make(0.0f, -0.15f, 0.0f);
-// const GLKVector3 up = GLKVector3Make(0.0f, 1.0f, 0.0f);
-// GLKVector3 eye = GLKVector3Make(0.0f, 0.0f, distance);
-// GLKMatrix4 viewMatrix = GLKMatrix4MakeLookAt(eye.x, eye.y, eye.z,
-//                                              target.x, target.y, target.z,
-//                                              up.x, up.y, up.z);
-// //GLKMatrix4 viewMatrix = GLKMatrix4MakeTranslation(0.0f, 0.0f, -4.0f);
-// //baseModelViewMatrix = GLKMatrix4Rotate(baseModelViewMatrix, _rotation, 0.0f, 1.0f, 0.0f);
-// GLKMatrix4 modelViewMatrix = GLKMatrix4Multiply(viewMatrix, modelMatrix);
-// GLKMatrix3 normalMatrix = GLKMatrix3InvertAndTranspose(GLKMatrix4GetMatrix3(modelViewMatrix), NULL);
-//
  
  GLKMatrix4 modelViewMatrix, modelViewProjectionMatrix, projectionMatrix;
  GLKMatrix3 modelMatrix3, normalMatrix;
@@ -323,86 +309,116 @@ void loadModelFromFile(he_iModel *model, const char *path)
 
  glBindVertexArrayOES(cube_.vao);
  modelViewMatrix = GLKMatrix4MakeTranslation(0.0, 0.0f, -6.0f);
- modelViewMatrix = GLKMatrix4Rotate(modelViewMatrix, _rotation, 0.0f, 1.0f, 0.0f);
+ if (_curr_shader == 0) {
+  modelViewMatrix = GLKMatrix4Rotate(modelViewMatrix, _rotation, 0.0f, 1.0f, 0.0f);
+ }
  modelViewMatrix = GLKMatrix4Scale(modelViewMatrix, 12.0f, 12.0f, 12.0f);
  modelMatrix3 = GLKMatrix4GetMatrix3(modelViewMatrix);
  normalMatrix = GLKMatrix3InvertAndTranspose(modelMatrix3, NULL);
  eyeObjectSpace = GLKVector4Make(0.0f, 0.0f, 1.0f, 1.0f);
  modelViewProjectionMatrix = GLKMatrix4Multiply(projectionMatrix, modelViewMatrix);
  
- glUniformMatrix4fv(uniforms[UNIFORM_MODEL_MATRIX], 1, GL_FALSE, modelViewMatrix.m);
- glUniform3fv(uniforms[UNIFORM_EYE_POSITION], 1, eyeObjectSpace.v);
- glUniformMatrix3fv(uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, normalMatrix.m);
- glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, modelViewProjectionMatrix.m);
- glUniform1i(uniforms[UNIFORM_SHADE_REFLECTION], GL_FALSE);
- 
-// static int log = 0;
-// if (!log) { [self print:"rotation" values:&_rotation count:1]; }
-// if (!log) { [self print:"model-mat" values:modelMatrix.m count:16]; }
-// if (!log) { [self print:"eyeWorldSpace" values:eyeWorldSpace.v count:4]; }
-// if (!log) { [self print:"eyeObjectSpace" values:eyeObjectSpace.v count:4]; }
-// if (!log) { [self print:"view-mat" values:viewMatrix.m count:16]; }
-// if (!log) { [self print:"modelview-mat" values:modelViewMatrix.m count:16]; }
-// if (!log) { [self print:"projection-mat" values:projectionMatrix.m count:16]; }
-// log++;
+ uniforms[u_M] = glGetUniformLocation(_program[_curr_shader], "u_M");
+ glUniformMatrix4fv(uniforms[u_M], 1, GL_FALSE, modelViewMatrix.m);
+ uniforms[u_EyePosition] = glGetUniformLocation(_program[_curr_shader], "u_EyePosition");
+ glUniform3fv(uniforms[u_EyePosition], 1, eyeObjectSpace.v);
+ uniforms[u_N] = glGetUniformLocation(_program[_curr_shader], "u_N");
+ glUniformMatrix3fv(uniforms[u_N], 1, 0, normalMatrix.m);
+ uniforms[u_Mvp] = glGetUniformLocation(_program[_curr_shader], "u_Mvp");
+ glUniformMatrix4fv(uniforms[u_Mvp], 1, 0, modelViewProjectionMatrix.m);
  
  glDrawArrays(GL_TRIANGLES, 0, cube_.indexCount);
- 
- glBindVertexArrayOES(teapot_.vao);
- modelViewMatrix = GLKMatrix4MakeTranslation(0.0, 0.0f, -10.0f);
- modelViewMatrix = GLKMatrix4Rotate(modelViewMatrix, _rotation, 1.0f, 0.0f, 0.0f);
- modelMatrix3 = GLKMatrix4GetMatrix3(modelViewMatrix);
- normalMatrix = GLKMatrix3InvertAndTranspose(modelMatrix3, NULL);
- eyeObjectSpace = GLKVector4Make(0.0f, 0.0f, 1.0f, 1.0f);
- modelViewProjectionMatrix = GLKMatrix4Multiply(projectionMatrix, modelViewMatrix);
- 
- glUniformMatrix4fv(uniforms[UNIFORM_MODEL_MATRIX], 1, GL_FALSE, modelViewMatrix.m);
- glUniform3fv(uniforms[UNIFORM_EYE_POSITION], 1, eyeObjectSpace.v);
- glUniformMatrix3fv(uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, normalMatrix.m);
- glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, modelViewProjectionMatrix.m);
- glUniform1i(uniforms[UNIFORM_SHADE_REFLECTION], GL_TRUE);
 
- glDrawElements(GL_TRIANGLES, teapot_.indexCount, GL_UNSIGNED_SHORT, NULL);
+ if (_curr_shader) {
+  glUseProgram(_program[_curr_shader]);
+
+  glBindVertexArrayOES(teapot_.vao);
+  modelViewMatrix = GLKMatrix4MakeTranslation(0.0, 0.0f, -10.0f);
+  modelViewMatrix = GLKMatrix4Rotate(modelViewMatrix, _rotation, 1.0f, 1.0f, 1.0f);
+  modelMatrix3 = GLKMatrix4GetMatrix3(modelViewMatrix);
+  normalMatrix = GLKMatrix3InvertAndTranspose(modelMatrix3, NULL);
+  eyeObjectSpace = GLKVector4Make(0.0f, 0.0f, 1.0f, 1.0f);
+  modelViewProjectionMatrix = GLKMatrix4Multiply(projectionMatrix, modelViewMatrix);
+
+  if (_curr_shader == 2) {
+   float n1 = 1.6f; //glass
+   float n2 = 1.0f; //air
+   uniforms[u_Material_ref_index] = glGetUniformLocation(_program[_curr_shader], "u_Material.ref_index");
+   glUniform1f(uniforms[u_Material_ref_index], n2/n1);
+   uniforms[u_Material_relection] = glGetUniformLocation(_program[_curr_shader], "u_Material.relection");
+   glUniform1f(uniforms[u_Material_relection], 0.1f);
+  }
+  glUniformMatrix4fv(uniforms[u_M], 1, GL_FALSE, modelViewMatrix.m);
+  glUniform3fv(uniforms[u_EyePosition], 1, eyeObjectSpace.v);
+  glUniformMatrix3fv(uniforms[u_N], 1, 0, normalMatrix.m);
+  glUniformMatrix4fv(uniforms[u_Mvp], 1, 0, modelViewProjectionMatrix.m);
+  
+  glDrawElements(GL_TRIANGLES, teapot_.indexCount, GL_UNSIGNED_SHORT, NULL);
+ }
 }
 
 #pragma mark -  OpenGL ES 2 shader compilation
+- (void)loadShaders
+{
+ BOOL status;
+ status = [self loadShaderAtIndex:0
+             vshFilename:@"skybox"
+             fshFilename:@"skybox"];
+ NSAssert(status, @"skybox compilation failed!");
 
-- (BOOL)loadShaders
+ status = [self loadShaderAtIndex:1
+             vshFilename:@"reflection"
+             fshFilename:@"reflection"];
+ NSAssert(status, @"reflection compilation failed!");
+
+ status = [self loadShaderAtIndex:2
+             vshFilename:@"refraction"
+             fshFilename:@"refraction"];
+ NSAssert(status, @"refraction compilation failed!");
+
+ _curr_shader = 0;
+}
+
+- (BOOL)loadShaderAtIndex:(int)index
+              vshFilename:(NSString *)vshFilename
+              fshFilename:(NSString *)fshFilename
 {
  GLuint vertShader, fragShader;
  NSString *vertShaderPathname, *fragShaderPathname;
  
  // Create shader program.
- _program = glCreateProgram();
+ _program[index] = glCreateProgram();
  
  // Create and compile vertex shader.
- vertShaderPathname = [[NSBundle mainBundle] pathForResource:@"Shader" ofType:@"vsh"];
+ NSLog(@"compiling: %@.vsh ...",vshFilename);
+ vertShaderPathname = [[NSBundle mainBundle] pathForResource:vshFilename ofType:@"vsh"];
  if (![self compileShader:&vertShader type:GL_VERTEX_SHADER file:vertShaderPathname]) {
   NSLog(@"Failed to compile vertex shader");
   return NO;
  }
  
  // Create and compile fragment shader.
- fragShaderPathname = [[NSBundle mainBundle] pathForResource:@"Shader" ofType:@"fsh"];
+ NSLog(@"compiling: %@.fsh ...",fshFilename);
+ fragShaderPathname = [[NSBundle mainBundle] pathForResource:fshFilename ofType:@"fsh"];
  if (![self compileShader:&fragShader type:GL_FRAGMENT_SHADER file:fragShaderPathname]) {
   NSLog(@"Failed to compile fragment shader");
   return NO;
  }
  
  // Attach vertex shader to program.
- glAttachShader(_program, vertShader);
+ glAttachShader(_program[index], vertShader);
  
  // Attach fragment shader to program.
- glAttachShader(_program, fragShader);
+ glAttachShader(_program[index], fragShader);
  
  // Bind attribute locations.
  // This needs to be done prior to linking.
- glBindAttribLocation(_program, GLKVertexAttribPosition, "a_Position");
- glBindAttribLocation(_program, GLKVertexAttribNormal, "a_Normal");
+ glBindAttribLocation(_program[index], ATTRIB_VERTEX, "a_Position");
+ glBindAttribLocation(_program[index], ATTRIB_NORMAL, "a_Normal");
  
  // Link program.
- if (![self linkProgram:_program]) {
-  NSLog(@"Failed to link program: %d", _program);
+ if (![self linkProgram:_program[index]]) {
+  NSLog(@"Failed to link program: %d", _program[index]);
   
   if (vertShader) {
    glDeleteShader(vertShader);
@@ -412,29 +428,21 @@ void loadModelFromFile(he_iModel *model, const char *path)
    glDeleteShader(fragShader);
    fragShader = 0;
   }
-  if (_program) {
-   glDeleteProgram(_program);
-   _program = 0;
+  if (_program[index]) {
+   glDeleteProgram(_program[index]);
+   _program[index] = 0;
   }
   
   return NO;
  }
  
- // Get uniform locations.
- uniforms[UNIFORM_MODEL_MATRIX] = glGetUniformLocation(_program, "u_M");
- uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX] = glGetUniformLocation(_program, "u_Mvp");
- uniforms[UNIFORM_NORMAL_MATRIX] = glGetUniformLocation(_program, "u_N");
- uniforms[UNIFORM_EYE_POSITION] = glGetUniformLocation(_program, "u_EyePosition");
- uniforms[UNIFORM_CUBE_TEXTURE] = glGetUniformLocation(_program, "u_CubeTex");
- uniforms[UNIFORM_SHADE_REFLECTION] = glGetUniformLocation(_program, "u_ShadeReflection");
- 
  // Release vertex and fragment shaders.
  if (vertShader) {
-  glDetachShader(_program, vertShader);
+  glDetachShader(_program[index], vertShader);
   glDeleteShader(vertShader);
  }
  if (fragShader) {
-  glDetachShader(_program, fragShader);
+  glDetachShader(_program[index], fragShader);
   glDeleteShader(fragShader);
  }
  
@@ -523,9 +531,11 @@ void loadModelFromFile(he_iModel *model, const char *path)
 
 - (void)unloadShaders
 {
- if (_program) {
-  glDeleteProgram(_program);
-  _program = 0;
+ for (int i = 0; i < MAX_SHADERS; ++i) {
+ if (_program[i]) {
+  glDeleteProgram(_program[i]);
+  _program[i] = 0;
+ }
  }
 }
 
@@ -600,8 +610,6 @@ void loadModelFromFile(he_iModel *model, const char *path)
  glDeleteVertexArraysOES(1, &teapot_.vao);
 }
 
-/*MARK: model*/
-
 - (void)loadCube
 {
  GLfloat gCubeVertexData[] =
@@ -668,4 +676,9 @@ void loadModelFromFile(he_iModel *model, const char *path)
  glBindVertexArrayOES(0);
 }
 
+#pragma mark - Events
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+ _curr_shader = (_curr_shader + 1) % MAX_SHADERS;
+}
 @end
