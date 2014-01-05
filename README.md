@@ -45,4 +45,8 @@ Various shaders in action.
 
 ![Lights](http://i.imgur.com/FUQgBsI.png)
 
+Cube Mapping
+------------
+Rendering effects like skybox, reflection and refraction with Cube maps.
+![cubemaps](http://i.imgur.com/FpjKlIT.png)
 
