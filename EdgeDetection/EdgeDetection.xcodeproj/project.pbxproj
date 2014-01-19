@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1927A567188A31D5003818A8 /* he_TextureShader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 1927A566188A31D5003818A8 /* he_TextureShader.vsh */; };
+		1927A569188A31E1003818A8 /* he_TextureShader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 1927A568188A31E1003818A8 /* he_TextureShader.fsh */; };
+		1927A56B188A3548003818A8 /* he_EdgeDetectionShader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 1927A56A188A3548003818A8 /* he_EdgeDetectionShader.vsh */; };
+		1927A56D188A3559003818A8 /* he_EdgeDetectionShader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 1927A56C188A3559003818A8 /* he_EdgeDetectionShader.fsh */; };
 		1965F62C188974BC00C7FC63 /* he_Quaternion.m in Sources */ = {isa = PBXBuildFile; fileRef = 1965F62B188974BC00C7FC63 /* he_Quaternion.m */; };
 		196FC3E61888FC690083FEB4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 196FC3E51888FC690083FEB4 /* Foundation.framework */; };
 		196FC3E81888FC690083FEB4 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 196FC3E71888FC690083FEB4 /* CoreGraphics.framework */; };
@@ -26,6 +30,9 @@
 		196FC41C188904650083FEB4 /* he_Shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 196FC41B188904650083FEB4 /* he_Shader.fsh */; };
 		196FC41E188911230083FEB4 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 196FC41D188911230083FEB4 /* GLKit.framework */; };
 		196FC420188913D00083FEB4 /* teapot.obj in Resources */ = {isa = PBXBuildFile; fileRef = 196FC41F188913D00083FEB4 /* teapot.obj */; };
+		19F7C6CC188B7A4A00B83271 /* he_Image.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F7C6CA188B7A4A00B83271 /* he_Image.m */; };
+		19F7C6CE188B7A7800B83271 /* 3am_256.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 19F7C6CD188B7A7800B83271 /* 3am_256.jpeg */; };
+		19F7C6D0188B944D00B83271 /* sample.png in Resources */ = {isa = PBXBuildFile; fileRef = 19F7C6CF188B944D00B83271 /* sample.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,6 +46,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1927A566188A31D5003818A8 /* he_TextureShader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = he_TextureShader.vsh; sourceTree = "<group>"; };
+		1927A568188A31E1003818A8 /* he_TextureShader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = he_TextureShader.fsh; sourceTree = "<group>"; };
+		1927A56A188A3548003818A8 /* he_EdgeDetectionShader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = he_EdgeDetectionShader.vsh; sourceTree = "<group>"; };
+		1927A56C188A3559003818A8 /* he_EdgeDetectionShader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = he_EdgeDetectionShader.fsh; sourceTree = "<group>"; };
 		1965F62A188974BC00C7FC63 /* he_Quaternion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = he_Quaternion.h; sourceTree = "<group>"; };
 		1965F62B188974BC00C7FC63 /* he_Quaternion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = he_Quaternion.m; sourceTree = "<group>"; };
 		196FC3E21888FC690083FEB4 /* EdgeDetection.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EdgeDetection.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -64,6 +75,10 @@
 		196FC41B188904650083FEB4 /* he_Shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = he_Shader.fsh; sourceTree = "<group>"; };
 		196FC41D188911230083FEB4 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		196FC41F188913D00083FEB4 /* teapot.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = teapot.obj; sourceTree = "<group>"; };
+		19F7C6CA188B7A4A00B83271 /* he_Image.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = he_Image.m; sourceTree = "<group>"; };
+		19F7C6CB188B7A4A00B83271 /* he_Image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = he_Image.h; sourceTree = "<group>"; };
+		19F7C6CD188B7A7800B83271 /* 3am_256.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 3am_256.jpeg; sourceTree = "<group>"; };
+		19F7C6CF188B944D00B83271 /* sample.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sample.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,9 +148,17 @@
 				196FC4151888FD380083FEB4 /* he_View.m */,
 				1965F62A188974BC00C7FC63 /* he_Quaternion.h */,
 				1965F62B188974BC00C7FC63 /* he_Quaternion.m */,
+				19F7C6CA188B7A4A00B83271 /* he_Image.m */,
+				19F7C6CB188B7A4A00B83271 /* he_Image.h */,
 				196FC419188904590083FEB4 /* he_Shader.vsh */,
 				196FC41B188904650083FEB4 /* he_Shader.fsh */,
+				1927A566188A31D5003818A8 /* he_TextureShader.vsh */,
+				1927A568188A31E1003818A8 /* he_TextureShader.fsh */,
+				1927A56A188A3548003818A8 /* he_EdgeDetectionShader.vsh */,
+				1927A56C188A3559003818A8 /* he_EdgeDetectionShader.fsh */,
 				196FC41F188913D00083FEB4 /* teapot.obj */,
+				19F7C6CD188B7A7800B83271 /* 3am_256.jpeg */,
+				19F7C6CF188B944D00B83271 /* sample.png */,
 				196FC3F71888FC690083FEB4 /* Images.xcassets */,
 				196FC3EC1888FC690083FEB4 /* Supporting Files */,
 			);
@@ -250,11 +273,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1927A567188A31D5003818A8 /* he_TextureShader.vsh in Resources */,
+				19F7C6D0188B944D00B83271 /* sample.png in Resources */,
+				1927A569188A31E1003818A8 /* he_TextureShader.fsh in Resources */,
+				1927A56B188A3548003818A8 /* he_EdgeDetectionShader.vsh in Resources */,
+				1927A56D188A3559003818A8 /* he_EdgeDetectionShader.fsh in Resources */,
 				196FC41C188904650083FEB4 /* he_Shader.fsh in Resources */,
 				196FC41A188904590083FEB4 /* he_Shader.vsh in Resources */,
 				196FC3F01888FC690083FEB4 /* InfoPlist.strings in Resources */,
 				196FC3F81888FC690083FEB4 /* Images.xcassets in Resources */,
 				196FC420188913D00083FEB4 /* teapot.obj in Resources */,
+				19F7C6CE188B7A7800B83271 /* 3am_256.jpeg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -276,6 +305,7 @@
 				1965F62C188974BC00C7FC63 /* he_Quaternion.m in Sources */,
 				196FC3F21888FC690083FEB4 /* main.m in Sources */,
 				196FC4161888FD380083FEB4 /* he_View.m in Sources */,
+				19F7C6CC188B7A4A00B83271 /* he_Image.m in Sources */,
 				196FC3F61888FC690083FEB4 /* he_AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -311,7 +311,7 @@ enum {
 
  /* render to texture */
  glBindFramebuffer(GL_FRAMEBUFFER, _framebuffer[kOffScreen]);
- glBindRenderbuffer(GL_FRAMEBUFFER, _color_renderbuffer[kOffScreen]);
+ glBindRenderbuffer(GL_RENDERBUFFER, _color_renderbuffer[kOffScreen]);
  glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
  glClear(GL_COLOR_BUFFER_BIT);
 

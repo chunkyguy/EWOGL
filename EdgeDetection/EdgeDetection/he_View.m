@@ -8,10 +8,35 @@
 
 #import "he_View.h"
 #import <GLKit/GLKMath.h>
-#import "he_Quaternion.h"
 
-#define kAttrib_Position 0
-#define kAttrib_Normal 1
+#import "he_Quaternion.h"
+//#import "he_Image.h"
+
+#define kResourcePath(file, extn) ([[[NSBundle mainBundle] pathForResource:file ofType:extn] UTF8String])
+
+/** MARK: Types */
+enum {
+ kFBO_OnScreen,
+ kFBO_OffScreen
+};
+
+enum {
+ kShader_Diffuse,
+ // kShader_Texture,
+ kShader_Edge
+};
+
+enum {
+ kGeometry_Teapot,
+ kGeometry_Quad,
+};
+
+/* Map exactly in the shader locations */
+enum {
+ kAttrib_Position = 0,
+ kAttrib_Normal = 1,
+ kAttrib_Texcoord = 2
+};
 
 typedef union {
  size_t size;
@@ -33,6 +58,9 @@ typedef union {
  GLushort data[3];
 } Face;
 
+/** Load file in heap memory
+ * Don't forget to free when done
+ */
 static char *load_file_heap(const char *filepath)
 {
  /*open file*/
@@ -55,6 +83,9 @@ static char *load_file_heap(const char *filepath)
  return buffer;
 }
 
+/** Read file word by word
+ * @return Pointer to the word. Good for chaining
+ */
 static char *read_word(char *word, FILE *file)
 {
  char *wptr = word;
@@ -65,7 +96,44 @@ static char *read_word(char *word, FILE *file)
  return wptr;
 }
 
-static void loadModelFromFile(GLuint *vao, GLuint *vbo, GLuint *ibo, GLuint *index_count, const char *path)
+/** @return index count */
+static int loadQuad(GLuint vao, GLuint vbo, GLuint ibo)
+{
+ GLfloat quad_data[] = {
+  -0.5f, -0.5f, 0.0f,   0.0f, 1.0f,
+  0.5f, -0.5f, 0.0f,    1.0f, 1.0f,
+  -0.5f, 0.5f, 0.0f,     0.0f, 0.0f,
+  0.5f, 0.5f, 0.0f,     1.0f, 0.0f
+ };
+ GLushort quad_index[] = {0,1,2,3};
+
+ /* push data to GPU RAM */
+ glBindVertexArrayOES(vao);
+ 
+ glBindBuffer(GL_ARRAY_BUFFER, vbo);
+ glBufferData(GL_ARRAY_BUFFER, sizeof(quad_data), quad_data, GL_STATIC_DRAW);
+
+ glEnableVertexAttribArray(kAttrib_Position);
+ glVertexAttribPointer(kAttrib_Position, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 5, 0);
+ 
+ Stride texcoord_offset;
+ texcoord_offset.size = sizeof(GLfloat) * 3;
+ glEnableVertexAttribArray(kAttrib_Texcoord);
+ glVertexAttribPointer(kAttrib_Texcoord, 2, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 5, texcoord_offset.ptr);
+ 
+ glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
+ glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(quad_index), quad_index, GL_STATIC_DRAW);
+ 
+ glDisableVertexAttribArray(kAttrib_Position);
+ glDisableVertexAttribArray(kAttrib_Texcoord);
+
+ return sizeof(quad_index)/sizeof(quad_index[0]);
+}
+
+/** load model data from OBJ file into the GPU memory
+ * returns index_count
+ */
+static int loadModelFromFile(GLuint vao, GLuint vbo, GLuint ibo, const char *path)
 {
  /*open file*/
  int ch;
@@ -127,20 +195,12 @@ static void loadModelFromFile(GLuint *vao, GLuint *vbo, GLuint *ibo, GLuint *ind
  for (int i = 0; i < v_count; ++i) {
   vertex[i].normal = GLKVector3Normalize(vertex[i].normal);
  }
- 
+
  /* push data to GPU RAM */
- *index_count = f_count * 3;
+ glBindVertexArrayOES(vao);
  
- glGenVertexArraysOES(1, vao);
- glBindVertexArrayOES(*vao);
- 
- glGenBuffers(1, vbo);
- glBindBuffer(GL_ARRAY_BUFFER, *vbo);
+ glBindBuffer(GL_ARRAY_BUFFER, vbo);
  glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) * v_count, (GLfloat *)vertex, GL_STATIC_DRAW);
- 
- glGenBuffers(1, ibo);
- glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, *ibo);
- glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(Face) * f_count, (GLushort *)face, GL_STATIC_DRAW);
  
  glEnableVertexAttribArray(kAttrib_Position);
  glVertexAttribPointer(kAttrib_Position, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0);
@@ -149,13 +209,18 @@ static void loadModelFromFile(GLuint *vao, GLuint *vbo, GLuint *ibo, GLuint *ind
  nstride.size = sizeof(GLKVector3);
  glEnableVertexAttribArray(kAttrib_Normal);
  glVertexAttribPointer(kAttrib_Normal, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), nstride.ptr);
- 
+
+ glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
+ glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(Face) * f_count, (GLushort *)face, GL_STATIC_DRAW);
+
  free(vertex);
  free(face);
  
- glBindVertexArrayOES(0);
+ glDisableVertexAttribArray(kAttrib_Position);
+ glDisableVertexAttribArray(kAttrib_Normal);
  
  printf("Model: vertex = %d\t face = %d\n",v_count,f_count);
+ return f_count * 3;
 }
 
 /** Print shader debug message
@@ -182,6 +247,7 @@ static void debug_shader(GLuint shader,
  }
 }
 
+/** Sprinke any where */
 static void debug_gl()
 {
  GLenum err;
@@ -198,24 +264,65 @@ static void debug_gl()
  }
 }
 
+typedef void (^BindAttribute)(GLuint shader);
+static GLuint compileShader(const char *vsh_fpath, const char *fsh_fpath, BindAttribute bindAttribs)
+{
+ const char *file = NULL;
+ printf("Compiling vertex shader ...\n");
+ GLuint vsh = glCreateShader(GL_VERTEX_SHADER);
+ file = load_file_heap(vsh_fpath);
+ assert(strlen(file));
+ glShaderSource(vsh, 1, &file, NULL);
+ free((char *)file);
+ glCompileShader(vsh);
+ debug_shader(vsh, glGetShaderiv, glGetShaderInfoLog);
+ assert(vsh);
+ 
+ printf("Compiling frag shader ...\n");
+ GLuint fsh = glCreateShader(GL_FRAGMENT_SHADER);
+ file = load_file_heap(fsh_fpath);
+ assert(strlen(file));
+ glShaderSource(fsh, 1, &file, NULL);
+ free((char *)file);
+ glCompileShader(fsh);
+ debug_shader(fsh, glGetShaderiv, glGetShaderInfoLog);
+ assert(fsh);
+ 
+ printf("Creating shader program ...\n");
+ GLuint shader = glCreateProgram();
+ glAttachShader(shader, vsh);
+ glAttachShader(shader, fsh);
+
+ bindAttribs(shader);
+ glLinkProgram(shader);
+ debug_shader(shader, glGetProgramiv, glGetProgramInfoLog);
+ 
+ glDetachShader(shader, vsh);
+ glDetachShader(shader, fsh);
+ glDeleteShader(vsh);
+ glDeleteShader(fsh);
+ 
+ debug_gl();
+ return shader;
+}
+
 @interface he_View () {
- GLuint _fbo; /*framebuffer*/
- GLuint _crbo; /*color renderbuffer*/
- GLuint _drbo; /*depth renderbuffer*/
+ GLuint _fbo[2]; /*framebuffer*/
+ GLuint _rbo[3]; /*2 color + 1 depth renderbuffer*/
+ 
+ GLuint _tex0;
+ // GLuint _tex1;
  
  CFTimeInterval _time;
  
- GLuint _shader;
+ GLuint _shader[2];
  
- GLuint _vao;
- GLuint _vbo;
- GLuint _ibo;
- GLuint _index_count;
+ GLuint _vao[2]; /*vertex array objects*/
+ GLuint _vbo[4]; /*vertex buffer objects + index objects */
+ GLuint _index_count[2];
  
- GLuint _light_loc;
- GLuint _color_loc;
- GLuint _n_loc;
- GLuint _mvp_loc;
+ GLint _width;
+ GLint _height;
  
  GLKQuaternion _orientation;
  GLKQuaternion _prev_orientation;
@@ -252,89 +359,22 @@ static void debug_gl()
   [EAGLContext setCurrentContext:_context];
   
   /*create framebuffer*/
-  printf("Creating framebuffer ...\n");
-  glGenFramebuffers(1, &_fbo);
-  glBindFramebuffer(GL_FRAMEBUFFER, _fbo);
-  
-  /*create color renderbuffer*/
-  glGenRenderbuffers(1, &_crbo);
-  glBindRenderbuffer(GL_RENDERBUFFER, _crbo);
-  [_context renderbufferStorage:GL_RENDERBUFFER fromDrawable:layer];
-  glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, _crbo);
-
-  GLint w, h;
-  glGetRenderbufferParameteriv(GL_RENDERBUFFER, GL_RENDERBUFFER_WIDTH, &w);
-  glGetRenderbufferParameteriv(GL_RENDERBUFFER, GL_RENDERBUFFER_HEIGHT, &h);
-  
-  /*create depth renderbuffer*/
-  glGenRenderbuffers(1, &_drbo);
-  glBindRenderbuffer(GL_RENDERBUFFER, _drbo);
-  glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT16, w, h);
-  glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, _drbo);
-  assert(glCheckFramebufferStatus(GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE);
-  debug_gl();
-
-  /*set viewport*/
-  glViewport(0, 0, w, h);
+  [self createFramebuffersFromDrawable:layer];
 
   /*load shaders*/
-  
-  const char *file = NULL;
-  printf("Compiling vertex shader ...\n");
-  GLuint vsh = glCreateShader(GL_VERTEX_SHADER);
-  file = load_file_heap([[[NSBundle mainBundle] pathForResource:@"he_Shader" ofType:@"vsh"] UTF8String]);
-  assert(strlen(file));
-  glShaderSource(vsh, 1, &file, NULL);
-  free((char *)file);
-  glCompileShader(vsh);
-  debug_shader(vsh, glGetShaderiv, glGetShaderInfoLog);
-  assert(vsh);
-  
-  printf("Compiling frag shader ...\n");
-  GLuint fsh = glCreateShader(GL_FRAGMENT_SHADER);
-  file = load_file_heap([[[NSBundle mainBundle] pathForResource:@"he_Shader" ofType:@"fsh"] UTF8String]);
-   assert(strlen(file));
-  glShaderSource(fsh, 1, &file, NULL);
-   free((char *)file);
-  glCompileShader(fsh);
-  debug_shader(fsh, glGetShaderiv, glGetShaderInfoLog);
-  assert(fsh);
-  
-  printf("Creating shader program ...\n");
-  _shader = glCreateProgram();
-  glAttachShader(_shader, vsh);
-  glAttachShader(_shader, fsh);
-  
-  glBindAttribLocation(_shader, kAttrib_Position, "a_Position");
-  glBindAttribLocation(_shader, kAttrib_Normal, "a_Normal");
-  glLinkProgram(_shader);
-  debug_shader(_shader, glGetProgramiv, glGetProgramInfoLog);
-
-  _light_loc = glGetUniformLocation(_shader, "u_Light");
-  _color_loc = glGetUniformLocation(_shader, "u_Color");
-  _n_loc = glGetUniformLocation(_shader, "u_N");
-  _mvp_loc = glGetUniformLocation(_shader, "u_Mvp");
-  
-  glDetachShader(_shader, vsh);
-  glDetachShader(_shader, fsh);
-  glDeleteShader(vsh);
-  glDeleteShader(fsh);
-  
-  glUseProgram(_shader);
-  debug_gl();
+  [self loadShaders];
 
   /*load model*/
-  printf("Loading model ...\n");
-  loadModelFromFile(&_vao, &_vbo, &_ibo, &_index_count,
-                    [[[NSBundle mainBundle] pathForResource:@"teapot" ofType:@"obj"] UTF8String]);
-  glBindVertexArrayOES(_vbo);
-
+  [self loadModels];
+  
+  /*load textures*/
+  //[self loadTextures];
+  
   /*set default values*/
-  glEnable(GL_DEPTH_TEST);
-  glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
+  glViewport(0, 0, _width, _height);
   _spinning = false;
-  _trackballRadius = w / 3;
-  _center = GLKVector2Make(w/2, h/2);
+  _trackballRadius = _width / 3;
+  _center = GLKVector2Make(_width/2, _height/2);
   _orientation = GLKQuaternionIdentity;
   
   /*start loop*/
@@ -346,15 +386,142 @@ static void debug_gl()
  return self;
 }
 
+- (void)createFramebuffersFromDrawable:(CAEAGLLayer *)layer
+{
+ printf("Creating framebuffer ...\n");
+ glGenFramebuffers(2, _fbo);
+ glGenRenderbuffers(3, _rbo);
+
+ /*create on-screen FBO*/
+ glBindFramebuffer(GL_FRAMEBUFFER, _fbo[kFBO_OnScreen]);
+ glBindRenderbuffer(GL_RENDERBUFFER, _rbo[kFBO_OnScreen]);
+ [_context renderbufferStorage:GL_RENDERBUFFER fromDrawable:layer];
+ glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, _rbo[kFBO_OnScreen]);
+ 
+ glGetRenderbufferParameteriv(GL_RENDERBUFFER, GL_RENDERBUFFER_WIDTH, &_width);
+ glGetRenderbufferParameteriv(GL_RENDERBUFFER, GL_RENDERBUFFER_HEIGHT, &_height);
+// _width = 640;
+// _height = 1136;
+ 
+ /*create off-screen FBO*/
+ glBindFramebuffer(GL_FRAMEBUFFER, _fbo[kFBO_OffScreen]);
+ glBindRenderbuffer(GL_RENDERBUFFER, _rbo[kFBO_OffScreen]);
+ glRenderbufferStorage(GL_RENDERBUFFER, GL_RGBA8_OES, _width, _height);
+ glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, _rbo[kFBO_OffScreen]);
+ glBindRenderbuffer(GL_RENDERBUFFER, _rbo[kFBO_OffScreen+1]);
+ glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT16, _width, _height);
+ glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, _rbo[kFBO_OffScreen+1]);
+
+ /*create off-screen texture*/
+ glActiveTexture(GL_TEXTURE0);
+ glGenTextures(1, &_tex0);
+ glBindTexture(GL_TEXTURE_2D, _tex0);
+ glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+ glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+ glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+ glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+ glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, _width, _height, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
+ glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, _tex0, 0);
+
+ assert(glCheckFramebufferStatus(GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE);
+ debug_gl();
+}
+
+- (void)loadShaders
+{
+ /* diffuse shader */
+ _shader[kShader_Diffuse] = compileShader(kResourcePath(@"he_Shader",@"vsh"),
+                                          kResourcePath(@"he_Shader",@"fsh"),
+                                          ^(GLuint shader) {
+                                           glBindAttribLocation(shader, kAttrib_Position, "a_Position");
+                                           glBindAttribLocation(shader, kAttrib_Normal, "a_Normal");
+                                          });
+
+ /* texture shader */
+// _shader[kShader_Texture] = compileShader(kResourcePath(@"he_TextureShader",@"vsh"),
+//                                          kResourcePath(@"he_TextureShader",@"fsh"),
+//                                          ^(GLuint shader) {
+//                                           glBindAttribLocation(shader, kAttrib_Position, "a_Position");
+//                                           glBindAttribLocation(shader, kAttrib_Texcoord, "a_Texcoord");
+//                                          });
+ /* edge detection shader */
+ _shader[kShader_Edge] = compileShader(kResourcePath(@"he_EdgeDetectionShader",@"vsh"),
+                                          kResourcePath(@"he_EdgeDetectionShader",@"fsh"),
+                                          ^(GLuint shader) {
+                                           glBindAttribLocation(shader, kAttrib_Position, "a_Position");
+                                           glBindAttribLocation(shader, kAttrib_Texcoord, "a_Texcoord");
+                                          });
+
+}
+
+- (void)loadModels
+{
+ printf("Loading model ...\n");
+ glGenVertexArraysOES(2, _vao);
+ glGenBuffers(4, _vbo);
+ _index_count[kGeometry_Teapot] = loadModelFromFile(_vao[kGeometry_Teapot],
+                                                    _vbo[kGeometry_Teapot],
+                                                    _vbo[kGeometry_Teapot+2],
+                                                    kResourcePath(@"teapot", @"obj"));
+ 
+ _index_count[kGeometry_Quad] = loadQuad(_vao[kGeometry_Quad], _vbo[kGeometry_Quad], _vbo[kGeometry_Quad+2]);
+}
+
+//- (void)loadTextures
+//{
+// he_Image img;
+// Image_Create(&img, kResourcePath(@"sample", @"png"));
+// 
+// glGenTextures(1, &_tex1);
+// glBindTexture(GL_TEXTURE_2D, _tex1);
+// glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+// glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+// glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+// glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+// glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, img.width, img.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, img.pixels);
+// 
+// Image_Release(&img);
+//}
+
+#pragma mark - Loop
 - (void)loop
 {
  CFTimeInterval time = self.displayLink.timestamp;
  //CFTimeInterval dt = time - _time;
- 
- glBindRenderbuffer(GL_RENDERBUFFER, _crbo);
- 
- glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+ [self renderPass1];
+ [self renderPass2];
+ 
+ glDisableVertexAttribArray(kAttrib_Position);
+ glDisableVertexAttribArray(kAttrib_Normal);
+ glDisableVertexAttribArray(kAttrib_Texcoord);
+ 
+ _time = time;
+}
+
+- (void)drawTeapot
+{
+ glUseProgram(_shader[kShader_Diffuse]);
+ 
+ glBindVertexArrayOES(_vao[kGeometry_Teapot]);
+ 
+ glEnableVertexAttribArray(kAttrib_Position);
+ glEnableVertexAttribArray(kAttrib_Normal);
+ 
+ GLuint u_N = glGetUniformLocation(_shader[kShader_Diffuse], "u_N");
+ GLuint u_Mvp = glGetUniformLocation(_shader[kShader_Diffuse], "u_Mvp");
+ struct Light {
+  GLuint p; /*light position in eye space. Must be normalized*/
+  GLuint d; /*diffuse color*/
+  GLuint s; /*specular color*/
+  GLuint gloss; /*glossiness (1,200)*/
+ } u_Light;
+
+ u_Light.p = glGetUniformLocation(_shader[kShader_Diffuse], "u_Light.p");
+ u_Light.d = glGetUniformLocation(_shader[kShader_Diffuse], "u_Light.d");
+ u_Light.s = glGetUniformLocation(_shader[kShader_Diffuse], "u_Light.s");
+ u_Light.gloss = glGetUniformLocation(_shader[kShader_Diffuse], "u_Light.gloss");
+ 
  GLKMatrix4 pMat = GLKMatrix4MakePerspective(GLKMathDegreesToRadians(60.0f),
                                              self.bounds.size.width/self.bounds.size.height, 0.01f, 100.0f);
  GLKMatrix4 tMat = GLKMatrix4MakeTranslation(0.0f, 0.0f, -10.0f);
@@ -362,17 +529,86 @@ static void debug_gl()
  GLKMatrix4 rMat = GLKMatrix4MakeWithQuaternion(_orientation);
  GLKMatrix4 mvMat = GLKMatrix4Multiply(tMat, rMat);
  GLKMatrix3 nMat = GLKMatrix3InvertAndTranspose(GLKMatrix4GetMatrix3(mvMat), NULL);
- glUniformMatrix3fv(_n_loc, 1, GL_FALSE, nMat.m);
+ glUniformMatrix3fv(u_N, 1, GL_FALSE, nMat.m);
  GLKMatrix4 mvpMat = GLKMatrix4Multiply(pMat, mvMat);
- glUniformMatrix4fv(_mvp_loc, 1, GL_FALSE, mvpMat.m);
- glUniform3f(_light_loc, 1.0f, 1.0f, 1.0f); /* position of sun */
- glUniform3f(_color_loc, 255.0f/255.0f, 240.0f/255.0f, 173.0f/255.0f); /* color of sun's light */
+ glUniformMatrix4fv(u_Mvp, 1, GL_FALSE, mvpMat.m);
+ glUniform3f(u_Light.p, 0.0f, 0.0f, 1.0f); /* position of sun */
+ glUniform3f(u_Light.d, 255.0f/255.0f, 240.0f/255.0f, 173.0f/255.0f); /* color of sun's light */
+ glUniform3f(u_Light.s, 1.0f, 1.0f, 1.0f);
+ glUniform1f(u_Light.gloss, 60.0f);
  
- glDrawElements(GL_TRIANGLES, _index_count, GL_UNSIGNED_SHORT, NULL);
+ glDrawElements(GL_TRIANGLES, _index_count[kGeometry_Teapot], GL_UNSIGNED_SHORT, NULL);
+}
 
- [_context presentRenderbuffer:GL_RENDERBUFFER];
+- (void)drawQuad
+{
+ glUseProgram(_shader[kShader_Edge]);
  
- _time = time;
+ glBindVertexArrayOES(_vao[kGeometry_Quad]);
+
+ glBindTexture(GL_TEXTURE_2D, _tex0);
+
+ glEnableVertexAttribArray(kAttrib_Position);
+ glEnableVertexAttribArray(kAttrib_Texcoord);
+ 
+ GLuint u_Mvp = glGetUniformLocation(_shader[kShader_Edge], "u_Mvp");
+ GLuint u_Tex0 = glGetUniformLocation(_shader[kShader_Edge], "u_Tex0");
+ GLuint u_OneOverScreenX = glGetUniformLocation(_shader[kShader_Edge], "u_OneOverScreenX");
+ GLuint u_OneOverScreenY = glGetUniformLocation(_shader[kShader_Edge], "u_OneOverScreenY");
+ struct {
+  GLuint a;
+  GLuint b;
+  GLuint threshold;
+ } u_Color;
+ u_Color.a = glGetUniformLocation(_shader[kShader_Edge], "u_Color.a");
+ u_Color.b = glGetUniformLocation(_shader[kShader_Edge], "u_Color.b");
+ u_Color.threshold = glGetUniformLocation(_shader[kShader_Edge], "u_Color.threshold");
+
+ GLKMatrix4 pMat = GLKMatrix4MakeOrtho(-1.0f, 1.0f, -1.0f, 1.0f, 0.1f, 1.1f);
+ GLKMatrix4 tMat = GLKMatrix4MakeTranslation(0.0f, 0.0f, -0.1f);
+ /*because _width, _height = 320 x 568
+  * also, flip the y-coord as texture data is coming from GPU ram
+  */
+ GLKMatrix4 sMat = GLKMatrix4MakeScale(2.0f, -2.0f, 2.0f);
+ GLKMatrix4 mvMat = GLKMatrix4Multiply(tMat, sMat);
+ GLKMatrix4 mvpMat = GLKMatrix4Multiply(pMat, mvMat);
+ glUniformMatrix4fv(u_Mvp, 1, GL_FALSE, mvpMat.m);
+ glUniform1i(u_Tex0, 0);
+ glUniform1f(u_OneOverScreenX, 1.0f/_width);
+ glUniform1f(u_OneOverScreenY, 1.0f/_height);
+ glUniform4f(u_Color.a, 1.0f, 1.0f, 1.0f, 1.0f);
+ glUniform4f(u_Color.b, 0.0f, 0.0f, 0.0f, 1.0f);
+ glUniform1f(u_Color.threshold, 0.06f);
+ glDrawElements(GL_TRIANGLE_STRIP, _index_count[kGeometry_Quad], GL_UNSIGNED_SHORT, NULL);
+}
+
+/* Render the geometry to texture */
+- (void)renderPass1
+{
+
+ glBindFramebuffer(GL_FRAMEBUFFER, _fbo[kFBO_OffScreen]);
+ glBindRenderbuffer(GL_RENDERBUFFER, _rbo[kFBO_OffScreen]);
+ 
+ glEnable(GL_DEPTH_TEST);
+ glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
+ glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+ [self drawTeapot];
+ glDisable(GL_DEPTH_TEST);
+}
+
+/* Render texture to quad on screen */
+- (void)renderPass2
+{
+
+ glBindFramebuffer(GL_FRAMEBUFFER, _fbo[kFBO_OnScreen]);
+ glBindRenderbuffer(GL_RENDERBUFFER, _rbo[kFBO_OnScreen]);
+ 
+ glClearColor(1.0f, 1.0f, 0.0f, 1.0f);
+ glClear(GL_COLOR_BUFFER_BIT);
+ [self drawQuad];
+ //[self drawTeapot];
+ 
+ [_context presentRenderbuffer:GL_RENDERBUFFER];
 }
 
 #pragma mark - Trackball
