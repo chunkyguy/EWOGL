@@ -50,3 +50,8 @@ Cube Mapping
 Rendering effects like skybox, reflection and refraction with Cube maps.
 ![cubemaps](http://i.imgur.com/FpjKlIT.png)
 
+Edge Detection
+--------------
+Using 2-pass algorithm and Sobel operator to achieve edge detection.
+![Edge Detection](http://i.imgur.com/RWQ7lzy)
+
