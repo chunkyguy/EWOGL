@@ -55,8 +55,8 @@ void main()
  /* 8. Calculate effective color at this vertex
   * Pass it to the frag shader to be interpolated
   */
- v_Color = u_MaterialColor * diffuseFactor + u_LightColor * specularFactor;
- 
- /* 7. Calculate position in clip space */
+  v_Color = u_MaterialColor * diffuseFactor + u_LightColor * specularFactor;
+
+  /* 7. Calculate position in clip space */
  gl_Position = u_Mvp * a_Position;
 }
