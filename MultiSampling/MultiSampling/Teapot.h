@@ -14,6 +14,7 @@
 #include "Geometry.h"
 #include "Trackball.h"
 
+/** Draw a teapot. Has trackball implemented to help user rotate Teapot around on screen */
 class Teapot : public IGeometry {
 public:
   Teapot();

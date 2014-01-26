@@ -11,6 +11,7 @@
 #include <OpenGLES/ES2/gl.h>
 #include "he_BitFlag.h"
 
+/** Compile a shader program */
 class ShaderProgram {
 public:
   ShaderProgram(const char *vshFilePath, const char *fshFilePath, const he_BitFlag &attribFlags);

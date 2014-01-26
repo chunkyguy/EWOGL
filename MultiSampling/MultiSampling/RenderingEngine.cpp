@@ -13,11 +13,8 @@
 #include <GLKit/GLKMath.h>
 #include <OpenGLES/ES2/gl.h>
 #include <OpenGLES/ES2/glext.h>
-#include "Constants.h"
 #include "Geometry.h"
 #include "ShaderProgram.h"
-
-#define MSAA_ENABLED
 
 enum {
   FBO_Main = 0,
@@ -39,21 +36,13 @@ fbo_(),
 rbo_(),
 geometry_(NULL),
 shader_(NULL),
-renderer_()
+renderer_(),
+bufferWidth_(0),
+bufferHeight_(0)
 {}
 
 void RenderingEngine::Init(const RenderBufferStorage &renderbufferStorage, void *context)
 {
-  /* test if multisampling is available */
-  //  const GLubyte *extensions = glGetString(GL_EXTENSIONS);
-  //  for (const GLubyte *extnPtr = extensions; *extnPtr != '\0'; ++extnPtr) {
-  //    std::cout << *extnPtr;
-  //    if (*extnPtr == ' ') {
-  //      std::cout << std::endl;
-  //    }
-  //  }
-  //  assert(strstr(reinterpret_cast<const char *>(extensions), "GL_APPLE_framebuffer_multisample") != NULL);
-  
   /*create buffers */
   glGenFramebuffers(2, fbo_);
   glGenRenderbuffers(3, rbo_);
@@ -67,15 +56,13 @@ void RenderingEngine::Init(const RenderBufferStorage &renderbufferStorage, void 
   glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, rbo_[RBO_ColorMain]);
 
   /* read framebuffer dimension */
-  GLint width;
-  GLint height;
-  glGetRenderbufferParameteriv(GL_RENDERBUFFER, GL_RENDERBUFFER_WIDTH, &width);
-  glGetRenderbufferParameteriv(GL_RENDERBUFFER, GL_RENDERBUFFER_HEIGHT, &height);
+  glGetRenderbufferParameteriv(GL_RENDERBUFFER, GL_RENDERBUFFER_WIDTH, &bufferWidth_);
+  glGetRenderbufferParameteriv(GL_RENDERBUFFER, GL_RENDERBUFFER_HEIGHT, &bufferHeight_);
 
 #if !defined (MSAA_ENABLED)
 
   glBindRenderbuffer(GL_RENDERBUFFER, rbo_[RBO_DepthMain]);
-  glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT16, width, height);
+  glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT16, bufferWidth_, bufferHeight_);
   glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, rbo_[RBO_DepthMain]);
   
 #endif
@@ -84,25 +71,12 @@ void RenderingEngine::Init(const RenderBufferStorage &renderbufferStorage, void 
 
   
 #if defined (MSAA_ENABLED)
-  
-  /* bind multisample framebuffer */
-  glBindFramebuffer(GL_FRAMEBUFFER, fbo_[FBO_Multisample]);
-  
-  /* bind multisample color renderbuffer */
-  glBindRenderbuffer(GL_RENDERBUFFER, rbo_[RBO_ColorMultisample]);
-  glRenderbufferStorageMultisampleAPPLE(GL_RENDERBUFFER, 4, GL_RGBA8_OES, width, height);
-  glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, rbo_[RBO_ColorMultisample]);
-  
-  /* bind multisample depth buffer */
-  glBindRenderbuffer(GL_RENDERBUFFER, rbo_[RBO_DepthMultisample]);
-  glRenderbufferStorageMultisampleAPPLE(GL_RENDERBUFFER, 4, GL_DEPTH_COMPONENT16, width, height);
-  glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, rbo_[RBO_DepthMultisample]);
-  
-  assert (glCheckFramebufferStatus(GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE);
 
+  bind_msaa_framebuffer(fbo_[FBO_Multisample], rbo_[RBO_ColorMultisample], rbo_[RBO_DepthMultisample]);
+  
 #endif
   
-  glViewport(0, 0, width, height);
+  glViewport(0, 0, bufferWidth_, bufferHeight_);
   glEnable(GL_DEPTH_TEST);
 }
 
@@ -139,24 +113,8 @@ void RenderingEngine::Draw(size_t width, size_t height, unsigned int dt)
   geometry_->Update(dt);
   geometry_->Draw(&renderer_);
 
-#if defined (MSAA_ENABLED)
-    glBindFramebuffer(GL_READ_FRAMEBUFFER_APPLE, fbo_[FBO_Multisample]);
-    glBindFramebuffer(GL_DRAW_FRAMEBUFFER_APPLE, fbo_[FBO_Main]);
-    glResolveMultisampleFramebufferAPPLE();
-    GLenum discardAttachments[] = {
-      GL_COLOR_ATTACHMENT0,
-      GL_DEPTH_ATTACHMENT
-    };
-    glDiscardFramebufferEXT(GL_READ_FRAMEBUFFER_APPLE, 2, discardAttachments);
-
-#else
   
-  GLenum discardAttachments[] = {
-      GL_DEPTH_ATTACHMENT
-    };
-    glDiscardFramebufferEXT(GL_FRAMEBUFFER, 1, discardAttachments);
-
-#endif
+  resolve_msaa(fbo_[FBO_Multisample], fbo_[FBO_Main]);
   
   glBindRenderbuffer(GL_RENDERBUFFER, rbo_[RBO_ColorMain]);
   

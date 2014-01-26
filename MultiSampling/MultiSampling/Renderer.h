@@ -10,6 +10,7 @@
 #define MultiSampling_Renderer_h
 #include <GLKit/GLKMath.h>
 
+/** The rendering context to be passed around the Geometry for rendering purpose */
 struct Renderer {
   GLuint program;
   GLKMatrix4 projection;

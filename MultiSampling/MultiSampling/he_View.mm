@@ -48,16 +48,16 @@ bool RenderbufferStorageCallback(void *context)
                                     kEAGLDrawablePropertyColorFormat: kEAGLColorFormatRGBA8};
     
     /* create gl context */
-    self.glContext = nil;//[[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES3];
+    self.glContext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES3];
     RenderingEngine *renderer = NULL;
     
     if (!self.glContext) {
       self.glContext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
       [EAGLContext setCurrentContext:self.glContext];
-      renderer = new RenderingEngine;
+      renderer = new RenderingEngine2;
     } else {
       [EAGLContext setCurrentContext:self.glContext];
-      renderer = new RenderingEngine;
+      renderer = new RenderingEngine3;
     }
     GLContext context = {_glContext, gl_layer};
     renderer->Init(&RenderbufferStorageCallback, &context);

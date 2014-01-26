@@ -10,6 +10,7 @@
 #define __MultiSampling__File__
 #include <cstdio>
 
+/** Read a file into memory */
 class Reader {
 public:
   Reader(const char *path);

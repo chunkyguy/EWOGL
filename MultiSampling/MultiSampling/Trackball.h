@@ -10,6 +10,11 @@
 #define __MultiSampling__Trackball__
 #include <GLKit/GLKMath.h>
 
+/** Helps with rotating things on the screen.
+ * Simulates the touch events as being done on a trackball
+ * Add a Trackball object to any geometry and delegate all the touch events.
+ * Read the GetOrientation and create the rotation matrix from it.
+ */
 class Trackball {
 public:
   Trackball(const float radius = 0.0f, const GLKVector2 &center = GLKVector2Make(0.0f, 0.0f));

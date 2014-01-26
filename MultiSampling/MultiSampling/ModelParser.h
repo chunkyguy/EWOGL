@@ -26,8 +26,13 @@ typedef union {
   GLushort data[3];
 } Face;
 
+/** Parse a model file. Only OBJ files at the moment. 
+ * The OBJ file is not even the standard OBJ files you get from Maya or similar apps.
+ * The surface normals are calculated on the fly.
+ */
 class ModelParser {
 public:
+  
   ModelParser(const char *filePath);
   ~ModelParser();
 
@@ -43,19 +48,5 @@ private:
   Face *face_;
   int faceCount_;
 };
-
-///***/
-//template <typename IN, typename OUT>
-//OUT *Serialize(OUT *buffer, 				/* output buffer*/
-//              const IN *array,			/* array of data to be serialized */
-//              const size_t size)	/* size of array */
-//{
-//  OUT *bptr = buffer;
-//  size_t offset = sizeof(IN);
-//  for (int i = 0; i < size; ++i) {
-//    memcpy(buffer + (offset * i), array[i].data, offset);
-//  }
-//  return bptr;
-//}
 
 #endif /* defined(__MultiSampling__ModelParser__) */
