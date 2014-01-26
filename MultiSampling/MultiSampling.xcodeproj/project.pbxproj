@@ -34,6 +34,8 @@
 		1965F53818929B6E0038869A /* ColorShader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 1965F53718929B6E0038869A /* ColorShader.fsh */; };
 		1965F53A18929D380038869A /* RenderingEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1965F53918929D380038869A /* RenderingEngine.cpp */; };
 		1965F53F1892A6350038869A /* AppEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1965F53D1892A6350038869A /* AppEngine.cpp */; };
+		19C025EB189504B800963300 /* Trackball.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19C025E9189504B800963300 /* Trackball.cpp */; };
+		19C025EE1895074A00963300 /* he_Quaternion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19C025ED1895074A00963300 /* he_Quaternion.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -90,6 +92,10 @@
 		1965F53C1892A1F80038869A /* Renderer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Renderer.h; sourceTree = "<group>"; };
 		1965F53D1892A6350038869A /* AppEngine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AppEngine.cpp; sourceTree = "<group>"; };
 		1965F53E1892A6350038869A /* AppEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppEngine.h; sourceTree = "<group>"; };
+		19C025E9189504B800963300 /* Trackball.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Trackball.cpp; sourceTree = "<group>"; };
+		19C025EA189504B800963300 /* Trackball.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Trackball.h; sourceTree = "<group>"; };
+		19C025EC1895074A00963300 /* he_Quaternion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = he_Quaternion.h; sourceTree = "<group>"; };
+		19C025ED1895074A00963300 /* he_Quaternion.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = he_Quaternion.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -177,6 +183,10 @@
 				1965F53118928C690038869A /* File.cpp */,
 				1965F53218928C690038869A /* File.h */,
 				1965F534189295E50038869A /* he_BitFlag.h */,
+				19C025E9189504B800963300 /* Trackball.cpp */,
+				19C025EA189504B800963300 /* Trackball.h */,
+				19C025EC1895074A00963300 /* he_Quaternion.h */,
+				19C025ED1895074A00963300 /* he_Quaternion.cpp */,
 				1965F523189258660038869A /* teapot.obj */,
 				1965F53518929B5E0038869A /* ColorShader.vsh */,
 				1965F53718929B6E0038869A /* ColorShader.fsh */,
@@ -319,10 +329,12 @@
 			files = (
 				196516C91890D2B300FEF4A2 /* main.m in Sources */,
 				196516CD1890D2B300FEF4A2 /* he_AppDelegate.mm in Sources */,
+				19C025EE1895074A00963300 /* he_Quaternion.cpp in Sources */,
 				1965F52718925A950038869A /* ResourcePath.mm in Sources */,
 				1965F5221892583B0038869A /* Teapot.cpp in Sources */,
 				196516ED1890D3F000FEF4A2 /* RenderingEngine2.cpp in Sources */,
 				196516F01890D41A00FEF4A2 /* he_View.mm in Sources */,
+				19C025EB189504B800963300 /* Trackball.cpp in Sources */,
 				1965F530189277C40038869A /* ShaderProgram.cpp in Sources */,
 				1965F52D189261B30038869A /* ModelParser.cpp in Sources */,
 				196516F21890D74D00FEF4A2 /* RenderingEngine3.cpp in Sources */,

@@ -9,10 +9,10 @@
 #ifndef __MultiSampling__Teapot__
 #define __MultiSampling__Teapot__
 
-#include <OpenGLES/ES2/gl.h>
 #include <GLKit/GLKMath.h>
-
+#include <OpenGLES/ES2/gl.h>
 #include "Geometry.h"
+#include "Trackball.h"
 
 class Teapot : public IGeometry {
 public:
@@ -30,10 +30,6 @@ private:
   GLuint vao_;
   GLuint vbo_[2]; /* geometry data + face index data */
   int indexCount_;
-  GLKQuaternion orientation_;
-  GLKQuaternion orientationNext_;
-  GLKQuaternion orientationPrev_;
-  float rotationProgress_;
-  bool animating_;
+  Trackball trackball_;
 };
 #endif /* defined(__MultiSampling__Teapot__) */

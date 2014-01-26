@@ -15,12 +15,7 @@
 #include "ModelParser.h"
 #include "Renderer.h"
 
-Teapot::Teapot() :
-orientation_(GLKQuaternionIdentity),
-orientationNext_(GLKQuaternionIdentity),
-orientationPrev_(GLKQuaternionIdentity),
-rotationProgress_(0.0f),
-animating_(false)
+Teapot::Teapot()
 {
   char buffer[1024];
   ModelParser teapotModel(BundlePath(buffer, sizeof(buffer), "teapot.obj"));
@@ -58,6 +53,8 @@ animating_(false)
   glDisableVertexAttribArray(kAttribNormal);
 
   indexCount_ = teapotModel.GetIndexCount();
+  
+  trackball_.SetRadius(160.0f);
 }
 
 Teapot::~Teapot()
@@ -79,7 +76,7 @@ void Teapot::Draw(const Renderer *renderer)
   int light_uv4k_Color = glGetUniformLocation(renderer->program, "light.uv4k_Color");
   
   GLKMatrix4 tMat = GLKMatrix4MakeTranslation(0.0f, 0.0f, -15.0f);
-  GLKMatrix4 rMat = GLKMatrix4MakeWithQuaternion(orientation_);
+  GLKMatrix4 rMat = GLKMatrix4MakeWithQuaternion(trackball_.GetOrientation());
   //mvMat = GLKMatrix4Rotate(mvMat, GLKMathDegreesToRadians(-90.0f), -1.0f, 1.0f, 0.0f);
   GLKMatrix4 mvMat = GLKMatrix4Multiply(tMat, rMat);
   glUniformMatrix4fv(um4k_Modelview, 1, GL_FALSE, mvMat.m);
@@ -101,38 +98,19 @@ void Teapot::Draw(const Renderer *renderer)
 }
 
 void Teapot::Update(const int dt)
-{
-  if (!animating_) {
-    return;
-  }
-  
-  rotationProgress_ += (dt * 0.001f);
-  if (rotationProgress_ >= 1.0f) {
-    rotationProgress_ = 0.0f;
-    animating_ = false;
-    orientationPrev_ = orientationNext_;
-  } else {
-  	orientation_ = GLKQuaternionSlerp(orientationPrev_, orientationNext_, rotationProgress_);
-  }
-}
+{}
 
 void Teapot::TouchBegan(const GLKVector2 &point)
 {
-  
+  trackball_.TouchBegan(point);
 }
 
 void Teapot::TouchEnd(const GLKVector2 &point)
 {
-  float angle = GLKQuaternionAngle(orientationPrev_);
-  angle += GLKMathDegreesToRadians(90.0f);
-  if (angle > GLKMathDegreesToRadians(360.0f)) {
-    angle = GLKMathDegreesToRadians(360.0f) - angle;
-  }
-  orientationNext_ = GLKQuaternionMakeWithAngleAndAxis(angle, 0.0f, 1.0f, 0.0f);
-  animating_ = true;
+  trackball_.TouchEnded(point);
 }
 
 void Teapot::TouchMove(const GLKVector2 &point)
 {
-  
+  trackball_.TouchMoved(point);
 }
