@@ -57,6 +57,6 @@ Using 2-pass algorithm and Sobel operator to achieve edge detection.
 
 Multisampling
 --------------
-Anti aliasing with multisampling.
+Anti aliasing with multisampling with both ES2 and ES3 contexts.
 ![Multisampling](http://i.imgur.com/kKic8An.png)
 
