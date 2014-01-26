@@ -16,9 +16,11 @@
 #include "Renderer.h"
 
 Teapot::Teapot() :
-orientationSrc_(GLKQuaternionMakeWithAngleAndAxis(GLKMathDegreesToRadians(0.0f), 0.0f, 1.0f, 0.0f)),
-orientationDst_(GLKQuaternionMakeWithAngleAndAxis(GLKMathDegreesToRadians(10.0f), 1.0f, 0.0f, 0.0f)),
-rotationProgress_(0.0f)
+orientation_(GLKQuaternionIdentity),
+orientationNext_(GLKQuaternionIdentity),
+orientationPrev_(GLKQuaternionIdentity),
+rotationProgress_(0.0f),
+animating_(false)
 {
   char buffer[1024];
   ModelParser teapotModel(BundlePath(buffer, sizeof(buffer), "teapot.obj"));
@@ -77,8 +79,7 @@ void Teapot::Draw(const Renderer *renderer)
   int light_uv4k_Color = glGetUniformLocation(renderer->program, "light.uv4k_Color");
   
   GLKMatrix4 tMat = GLKMatrix4MakeTranslation(0.0f, 0.0f, -15.0f);
-  GLKQuaternion delta = GLKQuaternionSlerp(orientationSrc_, orientationDst_, rotationProgress_);
-  GLKMatrix4 rMat = GLKMatrix4MakeWithQuaternion(delta);
+  GLKMatrix4 rMat = GLKMatrix4MakeWithQuaternion(orientation_);
   //mvMat = GLKMatrix4Rotate(mvMat, GLKMathDegreesToRadians(-90.0f), -1.0f, 1.0f, 0.0f);
   GLKMatrix4 mvMat = GLKMatrix4Multiply(tMat, rMat);
   glUniformMatrix4fv(um4k_Modelview, 1, GL_FALSE, mvMat.m);
@@ -101,9 +102,17 @@ void Teapot::Draw(const Renderer *renderer)
 
 void Teapot::Update(const int dt)
 {
+  if (!animating_) {
+    return;
+  }
+  
   rotationProgress_ += (dt * 0.001f);
-  if (rotationProgress_ > 1.0f) {
-    rotationProgress_ = 1.0f - rotationProgress_;
+  if (rotationProgress_ >= 1.0f) {
+    rotationProgress_ = 0.0f;
+    animating_ = false;
+    orientationPrev_ = orientationNext_;
+  } else {
+  	orientation_ = GLKQuaternionSlerp(orientationPrev_, orientationNext_, rotationProgress_);
   }
 }
 
@@ -114,7 +123,13 @@ void Teapot::TouchBegan(const GLKVector2 &point)
 
 void Teapot::TouchEnd(const GLKVector2 &point)
 {
-  
+  float angle = GLKQuaternionAngle(orientationPrev_);
+  angle += GLKMathDegreesToRadians(90.0f);
+  if (angle > GLKMathDegreesToRadians(360.0f)) {
+    angle = GLKMathDegreesToRadians(360.0f) - angle;
+  }
+  orientationNext_ = GLKQuaternionMakeWithAngleAndAxis(angle, 0.0f, 1.0f, 0.0f);
+  animating_ = true;
 }
 
 void Teapot::TouchMove(const GLKVector2 &point)

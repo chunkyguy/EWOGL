@@ -30,8 +30,10 @@ private:
   GLuint vao_;
   GLuint vbo_[2]; /* geometry data + face index data */
   int indexCount_;
-  GLKQuaternion orientationSrc_;
-  GLKQuaternion orientationDst_;
+  GLKQuaternion orientation_;
+  GLKQuaternion orientationNext_;
+  GLKQuaternion orientationPrev_;
   float rotationProgress_;
+  bool animating_;
 };
 #endif /* defined(__MultiSampling__Teapot__) */

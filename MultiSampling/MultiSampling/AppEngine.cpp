@@ -44,16 +44,16 @@ void AppEngine::UpdateAndDraw(unsigned int dt)
 
 void AppEngine::TouchBegan(const GLKVector2 &point)
 {
-  
+  teapot_->TouchBegan(point);
 }
 
 void AppEngine::TouchEnd(const GLKVector2 &point)
 {
-  
+  teapot_->TouchEnd(point);
 }
 
 void AppEngine::TouchMove(const GLKVector2 &point)
 {
-  
+  teapot_->TouchMove(point);
 }
 

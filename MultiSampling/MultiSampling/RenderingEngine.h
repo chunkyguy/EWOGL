@@ -31,8 +31,8 @@ public:
   void BindGeometry(IGeometry *geometry);
   
 protected:
-  GLuint fbo_;
-  GLuint rbo_[2];
+  GLuint fbo_[2];
+  GLuint rbo_[4];
   IGeometry *geometry_;
   const ShaderProgram *shader_;
   Renderer renderer_;
