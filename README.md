@@ -56,7 +56,7 @@ Using 2-pass algorithm and Sobel operator to achieve edge detection.
 ![Edge Detection](http://i.imgur.com/RWQ7lzy.png)
 
 Multisampling
--------------
+--------------
 Anti aliasing with multisampling.
 ![Multisampling](http://i.imgur.com/kKic8An.png)
 
