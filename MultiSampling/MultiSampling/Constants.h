@@ -10,7 +10,7 @@
 #define MultiSampling_Constants_h
 
 /* Comment this flag to turn off MSAA */
-//#define MSAA_ENABLED
+#define MSAA_ENABLED
 
 #define kAttribPosition	(0x1 << 0)
 #define kAttribNormal		(0x1 << 1)
