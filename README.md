@@ -60,3 +60,7 @@ Multisampling
 Anti aliasing with multisampling with both ES2 and ES3 contexts.
 ![Multisampling](http://i.imgur.com/kKic8An.png)
 
+Gaussian Blur
+-------------
+Applying blur filter with multiple-pass algorithm.
+![Blur](http://i.imgur.com/y3uFqhB.png)
