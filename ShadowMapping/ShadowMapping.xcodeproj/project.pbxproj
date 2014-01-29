@@ -12,16 +12,23 @@
 		196C0B001897AE1800EB48FF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 196C0AFF1897AE1800EB48FF /* UIKit.framework */; };
 		196C0B061897AE1800EB48FF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 196C0B041897AE1800EB48FF /* InfoPlist.strings */; };
 		196C0B081897AE1800EB48FF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 196C0B071897AE1800EB48FF /* main.m */; };
-		196C0B0C1897AE1800EB48FF /* he_AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 196C0B0B1897AE1800EB48FF /* he_AppDelegate.m */; };
+		196C0B0C1897AE1800EB48FF /* he_AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 196C0B0B1897AE1800EB48FF /* he_AppDelegate.mm */; };
 		196C0B0E1897AE1800EB48FF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 196C0B0D1897AE1800EB48FF /* Images.xcassets */; };
 		196C0B151897AE1900EB48FF /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 196C0B141897AE1900EB48FF /* XCTest.framework */; };
 		196C0B161897AE1900EB48FF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 196C0AFB1897AE1800EB48FF /* Foundation.framework */; };
 		196C0B171897AE1900EB48FF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 196C0AFF1897AE1800EB48FF /* UIKit.framework */; };
 		196C0B1F1897AE1900EB48FF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 196C0B1D1897AE1900EB48FF /* InfoPlist.strings */; };
 		196C0B211897AE1900EB48FF /* ShadowMappingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 196C0B201897AE1900EB48FF /* ShadowMappingTests.m */; };
-		196C0B2C1897AE3500EB48FF /* he_View.m in Sources */ = {isa = PBXBuildFile; fileRef = 196C0B2B1897AE3500EB48FF /* he_View.m */; };
+		196C0B2C1897AE3500EB48FF /* he_View.mm in Sources */ = {isa = PBXBuildFile; fileRef = 196C0B2B1897AE3500EB48FF /* he_View.mm */; };
 		196C0B2E1897AEBE00EB48FF /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 196C0B2D1897AEBE00EB48FF /* OpenGLES.framework */; };
 		196C0B301897AEC500EB48FF /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 196C0B2F1897AEC500EB48FF /* GLKit.framework */; };
+		19A6819F189827F800F98B05 /* AppEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19A6819D189827F800F98B05 /* AppEngine.cpp */; };
+		19A681A2189836FF00F98B05 /* RenderingEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19A681A0189836FF00F98B05 /* RenderingEngine.cpp */; };
+		19A681A518983A5D00F98B05 /* ShaderProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19A681A318983A5D00F98B05 /* ShaderProgram.cpp */; };
+		19A681AE1898D0F700F98B05 /* ColorShader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 19A681AD1898D0F700F98B05 /* ColorShader.vsh */; };
+		19A681B01898D10400F98B05 /* ColorShader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 19A681AF1898D10400F98B05 /* ColorShader.fsh */; };
+		19A681B31898D56A00F98B05 /* he_File.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19A681B11898D56A00F98B05 /* he_File.cpp */; };
+		19A681B61898D80C00F98B05 /* he_Path.mm in Sources */ = {isa = PBXBuildFile; fileRef = 19A681B51898D80C00F98B05 /* he_Path.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,7 +51,7 @@
 		196C0B071897AE1800EB48FF /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		196C0B091897AE1800EB48FF /* ShadowMapping-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ShadowMapping-Prefix.pch"; sourceTree = "<group>"; };
 		196C0B0A1897AE1800EB48FF /* he_AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = he_AppDelegate.h; sourceTree = "<group>"; };
-		196C0B0B1897AE1800EB48FF /* he_AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = he_AppDelegate.m; sourceTree = "<group>"; };
+		196C0B0B1897AE1800EB48FF /* he_AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = he_AppDelegate.mm; sourceTree = "<group>"; };
 		196C0B0D1897AE1800EB48FF /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		196C0B131897AE1900EB48FF /* ShadowMappingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ShadowMappingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		196C0B141897AE1900EB48FF /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -52,9 +59,22 @@
 		196C0B1E1897AE1900EB48FF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		196C0B201897AE1900EB48FF /* ShadowMappingTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShadowMappingTests.m; sourceTree = "<group>"; };
 		196C0B2A1897AE3500EB48FF /* he_View.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = he_View.h; sourceTree = "<group>"; };
-		196C0B2B1897AE3500EB48FF /* he_View.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = he_View.m; sourceTree = "<group>"; };
+		196C0B2B1897AE3500EB48FF /* he_View.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = he_View.mm; sourceTree = "<group>"; };
 		196C0B2D1897AEBE00EB48FF /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		196C0B2F1897AEC500EB48FF /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		19A6819D189827F800F98B05 /* AppEngine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AppEngine.cpp; sourceTree = "<group>"; };
+		19A6819E189827F800F98B05 /* AppEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppEngine.h; sourceTree = "<group>"; };
+		19A681A0189836FF00F98B05 /* RenderingEngine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RenderingEngine.cpp; sourceTree = "<group>"; };
+		19A681A1189836FF00F98B05 /* RenderingEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RenderingEngine.h; sourceTree = "<group>"; };
+		19A681A318983A5D00F98B05 /* ShaderProgram.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ShaderProgram.cpp; sourceTree = "<group>"; };
+		19A681A418983A5D00F98B05 /* ShaderProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShaderProgram.h; sourceTree = "<group>"; };
+		19A681AC1898C96700F98B05 /* he_BitFlag.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = he_BitFlag.h; sourceTree = "<group>"; };
+		19A681AD1898D0F700F98B05 /* ColorShader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ColorShader.vsh; sourceTree = "<group>"; };
+		19A681AF1898D10400F98B05 /* ColorShader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ColorShader.fsh; sourceTree = "<group>"; };
+		19A681B11898D56A00F98B05 /* he_File.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = he_File.cpp; sourceTree = "<group>"; };
+		19A681B21898D56A00F98B05 /* he_File.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = he_File.h; sourceTree = "<group>"; };
+		19A681B41898D80C00F98B05 /* he_Path.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = he_Path.h; sourceTree = "<group>"; };
+		19A681B51898D80C00F98B05 /* he_Path.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = he_Path.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,10 +138,23 @@
 		196C0B011897AE1800EB48FF /* ShadowMapping */ = {
 			isa = PBXGroup;
 			children = (
+				19A6819D189827F800F98B05 /* AppEngine.cpp */,
+				19A6819E189827F800F98B05 /* AppEngine.h */,
+				19A681AC1898C96700F98B05 /* he_BitFlag.h */,
 				196C0B0A1897AE1800EB48FF /* he_AppDelegate.h */,
-				196C0B0B1897AE1800EB48FF /* he_AppDelegate.m */,
+				196C0B0B1897AE1800EB48FF /* he_AppDelegate.mm */,
 				196C0B2A1897AE3500EB48FF /* he_View.h */,
-				196C0B2B1897AE3500EB48FF /* he_View.m */,
+				196C0B2B1897AE3500EB48FF /* he_View.mm */,
+				19A681A0189836FF00F98B05 /* RenderingEngine.cpp */,
+				19A681A1189836FF00F98B05 /* RenderingEngine.h */,
+				19A681A318983A5D00F98B05 /* ShaderProgram.cpp */,
+				19A681A418983A5D00F98B05 /* ShaderProgram.h */,
+				19A681B11898D56A00F98B05 /* he_File.cpp */,
+				19A681B21898D56A00F98B05 /* he_File.h */,
+				19A681B41898D80C00F98B05 /* he_Path.h */,
+				19A681B51898D80C00F98B05 /* he_Path.mm */,
+				19A681AD1898D0F700F98B05 /* ColorShader.vsh */,
+				19A681AF1898D10400F98B05 /* ColorShader.fsh */,
 				196C0B0D1897AE1800EB48FF /* Images.xcassets */,
 				196C0B021897AE1800EB48FF /* Supporting Files */,
 			);
@@ -236,6 +269,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				19A681B01898D10400F98B05 /* ColorShader.fsh in Resources */,
+				19A681AE1898D0F700F98B05 /* ColorShader.vsh in Resources */,
 				196C0B061897AE1800EB48FF /* InfoPlist.strings in Resources */,
 				196C0B0E1897AE1800EB48FF /* Images.xcassets in Resources */,
 			);
@@ -257,8 +292,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				196C0B081897AE1800EB48FF /* main.m in Sources */,
-				196C0B2C1897AE3500EB48FF /* he_View.m in Sources */,
-				196C0B0C1897AE1800EB48FF /* he_AppDelegate.m in Sources */,
+				19A681A2189836FF00F98B05 /* RenderingEngine.cpp in Sources */,
+				19A681B61898D80C00F98B05 /* he_Path.mm in Sources */,
+				19A6819F189827F800F98B05 /* AppEngine.cpp in Sources */,
+				19A681B31898D56A00F98B05 /* he_File.cpp in Sources */,
+				19A681A518983A5D00F98B05 /* ShaderProgram.cpp in Sources */,
+				196C0B2C1897AE3500EB48FF /* he_View.mm in Sources */,
+				196C0B0C1897AE1800EB48FF /* he_AppDelegate.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -465,6 +505,7 @@
 				196C0B261897AE1900EB48FF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		196C0B271897AE1900EB48FF /* Build configuration list for PBXNativeTarget "ShadowMappingTests" */ = {
 			isa = XCConfigurationList;
@@ -473,6 +514,7 @@
 				196C0B291897AE1900EB48FF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
