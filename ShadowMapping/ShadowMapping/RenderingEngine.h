@@ -13,8 +13,10 @@
 
 class ShaderProgram;
 class IGeometry;
+class Camera;
 
 struct Renderer {
+  GLKMatrix4 view;
   GLKMatrix4 projection;
   GLuint program;
 };
@@ -25,7 +27,7 @@ public:
   
   bool Init(const GLKVector2 &screenSize);
   
-  void DrawFrame(const ShaderProgram *shader, const IGeometry *geometry);
+  void Draw(const ShaderProgram *shader, const IGeometry *geometry, const Camera *camera);
   
 private:
   GLKVector2 screenSize_;

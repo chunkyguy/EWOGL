@@ -35,6 +35,7 @@
 		19A681B31898D56A00F98B05 /* he_File.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19A681B11898D56A00F98B05 /* he_File.cpp */; };
 		19A681B61898D80C00F98B05 /* he_Path.mm in Sources */ = {isa = PBXBuildFile; fileRef = 19A681B51898D80C00F98B05 /* he_Path.mm */; };
 		19A681BA1898E53300F98B05 /* Quad.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19A681B81898E53300F98B05 /* Quad.cpp */; };
+		19E17CEA189963470000E516 /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19E17CE8189963470000E516 /* Camera.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,6 +94,8 @@
 		19A681B71898E51E00F98B05 /* IGeometry.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IGeometry.h; sourceTree = "<group>"; };
 		19A681B81898E53300F98B05 /* Quad.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Quad.cpp; sourceTree = "<group>"; };
 		19A681B91898E53300F98B05 /* Quad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Quad.h; sourceTree = "<group>"; };
+		19E17CE8189963470000E516 /* Camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Camera.cpp; sourceTree = "<group>"; };
+		19E17CE9189963470000E516 /* Camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Camera.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -183,6 +186,8 @@
 				1978CA8D1898F12F00C69A3C /* he_Quaternion.h */,
 				1978CA8F1898F16300C69A3C /* ModelParser.cpp */,
 				1978CA901898F16300C69A3C /* ModelParser.h */,
+				19E17CE8189963470000E516 /* Camera.cpp */,
+				19E17CE9189963470000E516 /* Camera.h */,
 				19A681AD1898D0F700F98B05 /* ColorShader.vsh */,
 				19A681AF1898D10400F98B05 /* ColorShader.fsh */,
 				196C0B0D1897AE1800EB48FF /* Images.xcassets */,
@@ -324,6 +329,7 @@
 			files = (
 				19A681BA1898E53300F98B05 /* Quad.cpp in Sources */,
 				196C0B081897AE1800EB48FF /* main.m in Sources */,
+				19E17CEA189963470000E516 /* Camera.cpp in Sources */,
 				19A681A2189836FF00F98B05 /* RenderingEngine.cpp in Sources */,
 				19A681B61898D80C00F98B05 /* he_Path.mm in Sources */,
 				1978CA8E1898F12F00C69A3C /* he_Quaternion.cpp in Sources */,

@@ -7,6 +7,7 @@
 //
 
 #include "RenderingEngine.h"
+#include "Camera.h"
 #include "ShaderProgram.h"
 #include "IGeometry.h"
 
@@ -26,34 +27,13 @@ bool RenderingEngine::Init(const GLKVector2 &screenSize)
 }
 
 
-void RenderingEngine::DrawFrame(const ShaderProgram *shader, const IGeometry *geometry)
+void RenderingEngine::Draw(const ShaderProgram *shader, const IGeometry *geometry, const Camera *camera)
 { 
   GLuint program = shader->GetProgram();
 
   glUseProgram(program);
   renderer_.program = program;
-  //  GeometryRenderer geoRenderer(geometry);
-  
-//  GLfloat pData[] = {
-//    -0.5f, -0.5f,
-//    0.5f, -0.5f,
-//    -0.5f, 0.5f,
-//    0.5f, 0.5f
-//  };
-//  glEnableVertexAttribArray(kAttribPosition);
-//  glVertexAttribPointer(kAttribPosition, 2, GL_FLOAT, GL_FALSE, sizeof(pData[0]) * 2, pData);
-//  
-//  GLfloat nData[] = {
-//    0.0f, 0.0f, 1.0f,
-//    0.0f, 0.0f, 1.0f,
-//    0.0f, 0.0f, 1.0f,
-//    0.0f, 0.0f, 1.0f
-//  };
-//  glEnableVertexAttribArray(kAttribNormal);
-//  glVertexAttribPointer(kAttribNormal, 3, GL_FLOAT, GL_FALSE, sizeof(nData[0]*3), nData);
-  
+  renderer_.view = camera->GetViewMatrix();
   
   geometry->Draw(&renderer_);
-  //  geoRenderer.Draw();
-//  glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 }

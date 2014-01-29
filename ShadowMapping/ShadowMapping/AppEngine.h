@@ -14,6 +14,7 @@
 #include "ShaderProgram.h"
 #include "Quad.h"
 #include "Teapot.h"
+#include "Camera.h"
 
 /** Functor to allocate the on-screen renderbuffer 
  * Replacement for glRenderbufferStorage call
@@ -68,5 +69,6 @@ private:
   
   Quad quad_;
   Teapot teapot_;
+  Camera camera_;
 };
 #endif /* defined(__ShadowMapping__AppEngine__) */

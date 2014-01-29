@@ -37,9 +37,11 @@ void Quad::Draw(const Renderer *renderer) const
   int material_uv4k_Color = glGetUniformLocation(renderer->program, "material.uv4k_Color");
   int material_uf1k_Gloss = glGetUniformLocation(renderer->program, "material.uf1k_Gloss");
   
-  GLKMatrix4 mvMat = GLKMatrix4MakeTranslation(0.0f, -2.0f, -15.0f);
-  mvMat = GLKMatrix4Rotate(mvMat, GLKMathDegreesToRadians(-85.0f), 1.0f, 0.0f, 0.0f);
-  mvMat = GLKMatrix4Scale(mvMat, 10.0f, 10.0f, 1.0f);
+  GLKMatrix4 mMat = GLKMatrix4MakeTranslation(0.0f, -1.0f, 0.0f);
+  mMat =  GLKMatrix4Rotate(mMat, GLKMathDegreesToRadians(-85.0f), 1.0f, 0.0f, 0.0f);
+  mMat = GLKMatrix4Scale(mMat, 10.0f, 10.0f, 1.0f);
+  
+  GLKMatrix4 mvMat = GLKMatrix4Multiply(renderer->view, mMat);
   glUniformMatrix4fv(um4k_Modelview, 1, GL_FALSE, mvMat.m);
   
   bool canNormal = true;

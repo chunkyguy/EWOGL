@@ -80,10 +80,11 @@ void Teapot::Draw(const Renderer *renderer) const
   int material_ufk_Gloss = glGetUniformLocation(renderer->program, "material.ufk_Gloss");
   int light_uv4k_Color = glGetUniformLocation(renderer->program, "light.uv4k_Color");
   
-  GLKMatrix4 tMat = GLKMatrix4MakeTranslation(0.0f, 0.0f, -15.0f);
-  GLKMatrix4 rMat = GLKMatrix4MakeWithQuaternion(trackball_.GetOrientation());
-  //mvMat = GLKMatrix4Rotate(mvMat, GLKMathDegreesToRadians(-90.0f), -1.0f, 1.0f, 0.0f);
-  GLKMatrix4 mvMat = GLKMatrix4Multiply(tMat, rMat);
+  //GLKMatrix4 tMat = GLKMatrix4MakeTranslation(0.0f, 0.0f, 0.0f);
+  GLKMatrix4 mMat = GLKMatrix4MakeWithQuaternion(trackball_.GetOrientation());
+ 
+  //  GLKMatrix4 mMat = GLKMatrix4Multiply(tMat, rMat);
+  GLKMatrix4 mvMat = GLKMatrix4Multiply(renderer->view, mMat);
   glUniformMatrix4fv(um4k_Modelview, 1, GL_FALSE, mvMat.m);
   
   GLKMatrix3 nMat = GLKMatrix3InvertAndTranspose(GLKMatrix4GetMatrix3(mvMat), NULL);

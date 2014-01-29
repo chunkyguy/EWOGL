@@ -33,6 +33,8 @@ bool AppEngine::Init(RenderbufferStorage &renderbufferStorage, const GLKVector2 
 
   quad_.Init();
   teapot_.Init();
+
+  camera_.SetPosition(GLKVector3Make(0.0f, 0.0f, 15.0f));
   
   renderer_.Init(screenSize);
 
@@ -103,8 +105,8 @@ void AppEngine::Update(unsigned int dt)
   glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-  renderer_.DrawFrame(&shaders_[0], &quad_);
-  renderer_.DrawFrame(&shaders_[0], &teapot_);
+  renderer_.Draw(&shaders_[0], &quad_, &camera_);
+  renderer_.Draw(&shaders_[0], &teapot_, &camera_);
   
   /* this should be the final step */
   glBindRenderbuffer(GL_RENDERBUFFER, rbo_[0]);
