@@ -71,4 +71,28 @@ bool RenderbufferStorageCompletion(void *eaglContext, void *layer)
   [self.eaglContext presentRenderbuffer:GL_RENDERBUFFER];
   _time = time;
 }
+
+- (GLKVector2)getTouchPoint:(NSSet *)touches
+{
+  UITouch *touch = [touches anyObject];
+  CGPoint touchPoint = [touch locationInView:self];
+  return GLKVector2Make(touchPoint.x - CGRectGetWidth(self.bounds)/2.0f,
+                        CGRectGetHeight(self.bounds)/2.0f - touchPoint.y);
+}
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+  _appEngine.TouchBegan([self getTouchPoint:touches]);
+}
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+  _appEngine.TouchEnd([self getTouchPoint:touches]);
+}
+
+- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
+{
+  _appEngine.TouchMove([self getTouchPoint:touches]);
+}
+
 @end

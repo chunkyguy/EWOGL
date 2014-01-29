@@ -31,9 +31,11 @@ bool AppEngine::Init(RenderbufferStorage &renderbufferStorage, const GLKVector2 
   glViewport(0, 0, fboSize_[0], fboSize_[1]);
   screenSize_ = screenSize;
 
-  renderer_.Init(screenSize);
-  renderer_.BindShader(&shaders_[0]);
+  quad_.Init();
+  teapot_.Init();
   
+  renderer_.Init(screenSize);
+
   init_ = true;
   return init_;
 }
@@ -98,9 +100,28 @@ void AppEngine::Update(unsigned int dt)
 {
   glBindFramebuffer(GL_FRAMEBUFFER, fbo_[0]);
 
-  renderer_.DrawFrame();
+  glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+  renderer_.DrawFrame(&shaders_[0], &quad_);
+  renderer_.DrawFrame(&shaders_[0], &teapot_);
   
   /* this should be the final step */
   glBindRenderbuffer(GL_RENDERBUFFER, rbo_[0]);
   assert(glGetError() == GL_NO_ERROR);
+}
+
+void AppEngine::TouchBegan(const GLKVector2 &point)
+{
+  teapot_.TouchBegan(point);
+}
+
+void AppEngine::TouchEnd(const GLKVector2 &point)
+{
+  teapot_.TouchEnd(point);
+}
+
+void AppEngine::TouchMove(const GLKVector2 &point)
+{
+  teapot_.TouchMove(point);
 }

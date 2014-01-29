@@ -10,7 +10,7 @@ varying lowp vec3 vv3e_Normal;
 
 void main()
 {
-  vv3e_Normal = um3k_Normal * av3o_Normal;
-  vv4e_Position = um4k_Modelview * av4o_Position;
+  vv3e_Normal = normalize(um3k_Normal * av3o_Normal);
+  vv4e_Position = normalize(um4k_Modelview * av4o_Position);
   gl_Position = um4k_Modelviewproj * av4o_Position;
 }

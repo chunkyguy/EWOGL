@@ -9,8 +9,15 @@
 #ifndef __ShadowMapping__RenderingEngine__
 #define __ShadowMapping__RenderingEngine__
 #include <GLKit/GLKMath.h>
+#include <OpenGLES/ES2/gl.h>
 
 class ShaderProgram;
+class IGeometry;
+
+struct Renderer {
+  GLKMatrix4 projection;
+  GLuint program;
+};
 
 class RenderingEngine {
 public:
@@ -18,12 +25,11 @@ public:
   
   bool Init(const GLKVector2 &screenSize);
   
-  void BindShader(const ShaderProgram *shader);
-  void DrawFrame();
+  void DrawFrame(const ShaderProgram *shader, const IGeometry *geometry);
   
 private:
-  const ShaderProgram *shader_;
   GLKVector2 screenSize_;
+  Renderer renderer_;
   bool init_;
 };
 #endif /* defined(__ShadowMapping__RenderingEngine__) */

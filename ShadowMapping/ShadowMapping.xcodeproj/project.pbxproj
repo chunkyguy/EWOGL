@@ -22,6 +22,11 @@
 		196C0B2C1897AE3500EB48FF /* he_View.mm in Sources */ = {isa = PBXBuildFile; fileRef = 196C0B2B1897AE3500EB48FF /* he_View.mm */; };
 		196C0B2E1897AEBE00EB48FF /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 196C0B2D1897AEBE00EB48FF /* OpenGLES.framework */; };
 		196C0B301897AEC500EB48FF /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 196C0B2F1897AEC500EB48FF /* GLKit.framework */; };
+		1978CA861898F04700C69A3C /* Teapot.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1978CA841898F04700C69A3C /* Teapot.cpp */; };
+		1978CA8A1898F06B00C69A3C /* teapot.obj in Resources */ = {isa = PBXBuildFile; fileRef = 1978CA871898F06B00C69A3C /* teapot.obj */; };
+		1978CA8B1898F06B00C69A3C /* Trackball.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1978CA881898F06B00C69A3C /* Trackball.cpp */; };
+		1978CA8E1898F12F00C69A3C /* he_Quaternion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1978CA8C1898F12F00C69A3C /* he_Quaternion.cpp */; };
+		1978CA911898F16300C69A3C /* ModelParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1978CA8F1898F16300C69A3C /* ModelParser.cpp */; };
 		19A6819F189827F800F98B05 /* AppEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19A6819D189827F800F98B05 /* AppEngine.cpp */; };
 		19A681A2189836FF00F98B05 /* RenderingEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19A681A0189836FF00F98B05 /* RenderingEngine.cpp */; };
 		19A681A518983A5D00F98B05 /* ShaderProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19A681A318983A5D00F98B05 /* ShaderProgram.cpp */; };
@@ -29,6 +34,7 @@
 		19A681B01898D10400F98B05 /* ColorShader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 19A681AF1898D10400F98B05 /* ColorShader.fsh */; };
 		19A681B31898D56A00F98B05 /* he_File.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19A681B11898D56A00F98B05 /* he_File.cpp */; };
 		19A681B61898D80C00F98B05 /* he_Path.mm in Sources */ = {isa = PBXBuildFile; fileRef = 19A681B51898D80C00F98B05 /* he_Path.mm */; };
+		19A681BA1898E53300F98B05 /* Quad.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19A681B81898E53300F98B05 /* Quad.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +68,15 @@
 		196C0B2B1897AE3500EB48FF /* he_View.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = he_View.mm; sourceTree = "<group>"; };
 		196C0B2D1897AEBE00EB48FF /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		196C0B2F1897AEC500EB48FF /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		1978CA841898F04700C69A3C /* Teapot.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Teapot.cpp; sourceTree = "<group>"; };
+		1978CA851898F04700C69A3C /* Teapot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Teapot.h; sourceTree = "<group>"; };
+		1978CA871898F06B00C69A3C /* teapot.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = teapot.obj; sourceTree = "<group>"; };
+		1978CA881898F06B00C69A3C /* Trackball.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Trackball.cpp; sourceTree = "<group>"; };
+		1978CA891898F06B00C69A3C /* Trackball.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Trackball.h; sourceTree = "<group>"; };
+		1978CA8C1898F12F00C69A3C /* he_Quaternion.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = he_Quaternion.cpp; sourceTree = "<group>"; };
+		1978CA8D1898F12F00C69A3C /* he_Quaternion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = he_Quaternion.h; sourceTree = "<group>"; };
+		1978CA8F1898F16300C69A3C /* ModelParser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ModelParser.cpp; sourceTree = "<group>"; };
+		1978CA901898F16300C69A3C /* ModelParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModelParser.h; sourceTree = "<group>"; };
 		19A6819D189827F800F98B05 /* AppEngine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AppEngine.cpp; sourceTree = "<group>"; };
 		19A6819E189827F800F98B05 /* AppEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppEngine.h; sourceTree = "<group>"; };
 		19A681A0189836FF00F98B05 /* RenderingEngine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RenderingEngine.cpp; sourceTree = "<group>"; };
@@ -75,6 +90,9 @@
 		19A681B21898D56A00F98B05 /* he_File.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = he_File.h; sourceTree = "<group>"; };
 		19A681B41898D80C00F98B05 /* he_Path.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = he_Path.h; sourceTree = "<group>"; };
 		19A681B51898D80C00F98B05 /* he_Path.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = he_Path.mm; sourceTree = "<group>"; };
+		19A681B71898E51E00F98B05 /* IGeometry.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IGeometry.h; sourceTree = "<group>"; };
+		19A681B81898E53300F98B05 /* Quad.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Quad.cpp; sourceTree = "<group>"; };
+		19A681B91898E53300F98B05 /* Quad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Quad.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -153,6 +171,18 @@
 				19A681B21898D56A00F98B05 /* he_File.h */,
 				19A681B41898D80C00F98B05 /* he_Path.h */,
 				19A681B51898D80C00F98B05 /* he_Path.mm */,
+				19A681B71898E51E00F98B05 /* IGeometry.h */,
+				19A681B81898E53300F98B05 /* Quad.cpp */,
+				19A681B91898E53300F98B05 /* Quad.h */,
+				1978CA841898F04700C69A3C /* Teapot.cpp */,
+				1978CA851898F04700C69A3C /* Teapot.h */,
+				1978CA871898F06B00C69A3C /* teapot.obj */,
+				1978CA881898F06B00C69A3C /* Trackball.cpp */,
+				1978CA891898F06B00C69A3C /* Trackball.h */,
+				1978CA8C1898F12F00C69A3C /* he_Quaternion.cpp */,
+				1978CA8D1898F12F00C69A3C /* he_Quaternion.h */,
+				1978CA8F1898F16300C69A3C /* ModelParser.cpp */,
+				1978CA901898F16300C69A3C /* ModelParser.h */,
 				19A681AD1898D0F700F98B05 /* ColorShader.vsh */,
 				19A681AF1898D10400F98B05 /* ColorShader.fsh */,
 				196C0B0D1897AE1800EB48FF /* Images.xcassets */,
@@ -273,6 +303,7 @@
 				19A681AE1898D0F700F98B05 /* ColorShader.vsh in Resources */,
 				196C0B061897AE1800EB48FF /* InfoPlist.strings in Resources */,
 				196C0B0E1897AE1800EB48FF /* Images.xcassets in Resources */,
+				1978CA8A1898F06B00C69A3C /* teapot.obj in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -291,13 +322,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				19A681BA1898E53300F98B05 /* Quad.cpp in Sources */,
 				196C0B081897AE1800EB48FF /* main.m in Sources */,
 				19A681A2189836FF00F98B05 /* RenderingEngine.cpp in Sources */,
 				19A681B61898D80C00F98B05 /* he_Path.mm in Sources */,
+				1978CA8E1898F12F00C69A3C /* he_Quaternion.cpp in Sources */,
+				1978CA8B1898F06B00C69A3C /* Trackball.cpp in Sources */,
 				19A6819F189827F800F98B05 /* AppEngine.cpp in Sources */,
 				19A681B31898D56A00F98B05 /* he_File.cpp in Sources */,
+				1978CA911898F16300C69A3C /* ModelParser.cpp in Sources */,
 				19A681A518983A5D00F98B05 /* ShaderProgram.cpp in Sources */,
 				196C0B2C1897AE3500EB48FF /* he_View.mm in Sources */,
+				1978CA861898F04700C69A3C /* Teapot.cpp in Sources */,
 				196C0B0C1897AE1800EB48FF /* he_AppDelegate.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

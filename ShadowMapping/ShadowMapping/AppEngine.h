@@ -12,6 +12,8 @@
 #include <OpenGLES/ES2/gl.h>
 #include "RenderingEngine.h"
 #include "ShaderProgram.h"
+#include "Quad.h"
+#include "Teapot.h"
 
 /** Functor to allocate the on-screen renderbuffer 
  * Replacement for glRenderbufferStorage call
@@ -39,6 +41,13 @@ public:
   /** Update all subsystems. Prepare the final renderbuffer to be presented on screen */
   void Update(unsigned int dt);
   
+  /** Touch events.
+   * @param point The point in OpenGL coordinate system
+   */
+  void TouchBegan(const GLKVector2 &point);
+  void TouchEnd(const GLKVector2 &point);
+  void TouchMove(const GLKVector2 &point);
+
 private:
 
   bool init_;
@@ -56,5 +65,8 @@ private:
 
   void load_shaders();
   ShaderProgram shaders_[1];
+  
+  Quad quad_;
+  Teapot teapot_;
 };
 #endif /* defined(__ShadowMapping__AppEngine__) */

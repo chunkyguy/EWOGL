@@ -16,6 +16,7 @@ uniform Material material;
 void main()
 {
   lowp vec4 lv4e_LightFromSurface = normalize(light.uv4e_Position - vv4e_Position);
+  //lowp vec4 lv4e_LightFromSurface = normalize(light.uv4e_Position);
 	lowp float lf1k_DiffuseFactor = max(0.0, dot(lv4e_LightFromSurface.xyz, vv3e_Normal));
   
   lowp vec4 lv4e_PositionToEye = vec4(0.0) - vv4e_Position;
