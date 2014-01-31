@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1906CC99189B836E00650144 /* Cube.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1906CC97189B836E00650144 /* Cube.cpp */; };
 		196C0AFC1897AE1800EB48FF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 196C0AFB1897AE1800EB48FF /* Foundation.framework */; };
 		196C0AFE1897AE1800EB48FF /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 196C0AFD1897AE1800EB48FF /* CoreGraphics.framework */; };
 		196C0B001897AE1800EB48FF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 196C0AFF1897AE1800EB48FF /* UIKit.framework */; };
@@ -28,7 +29,6 @@
 		1978CA8E1898F12F00C69A3C /* he_Quaternion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1978CA8C1898F12F00C69A3C /* he_Quaternion.cpp */; };
 		1978CA911898F16300C69A3C /* ModelParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1978CA8F1898F16300C69A3C /* ModelParser.cpp */; };
 		19A6819F189827F800F98B05 /* AppEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19A6819D189827F800F98B05 /* AppEngine.cpp */; };
-		19A681A2189836FF00F98B05 /* RenderingEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19A681A0189836FF00F98B05 /* RenderingEngine.cpp */; };
 		19A681A518983A5D00F98B05 /* ShaderProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19A681A318983A5D00F98B05 /* ShaderProgram.cpp */; };
 		19A681AE1898D0F700F98B05 /* ColorShader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 19A681AD1898D0F700F98B05 /* ColorShader.vsh */; };
 		19A681B01898D10400F98B05 /* ColorShader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 19A681AF1898D10400F98B05 /* ColorShader.fsh */; };
@@ -36,6 +36,13 @@
 		19A681B61898D80C00F98B05 /* he_Path.mm in Sources */ = {isa = PBXBuildFile; fileRef = 19A681B51898D80C00F98B05 /* he_Path.mm */; };
 		19A681BA1898E53300F98B05 /* Quad.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19A681B81898E53300F98B05 /* Quad.cpp */; };
 		19E17CEA189963470000E516 /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19E17CE8189963470000E516 /* Camera.cpp */; };
+		19E17CFB189A43680000E516 /* Renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19E17CF9189A43680000E516 /* Renderer.cpp */; };
+		19E17CFD189A5E680000E516 /* ShadowShader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 19E17CFC189A5E680000E516 /* ShadowShader.vsh */; };
+		19E17CFF189A5E730000E516 /* ShadowShader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 19E17CFE189A5E730000E516 /* ShadowShader.fsh */; };
+		19E17D01189A8F290000E516 /* DropShadowShader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 19E17D00189A8F290000E516 /* DropShadowShader.vsh */; };
+		19E17D03189A8F370000E516 /* DropShadowShader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 19E17D02189A8F370000E516 /* DropShadowShader.fsh */; };
+		19E17D06189AAA0A0000E516 /* Debugger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19E17D04189AAA0A0000E516 /* Debugger.cpp */; };
+		19FDCDE0189BDA8000663ED3 /* Light.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19FDCDDE189BDA8000663ED3 /* Light.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +56,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1906CC97189B836E00650144 /* Cube.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Cube.cpp; sourceTree = "<group>"; };
+		1906CC98189B836E00650144 /* Cube.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cube.h; sourceTree = "<group>"; };
 		196C0AF81897AE1800EB48FF /* ShadowMapping.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShadowMapping.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		196C0AFB1897AE1800EB48FF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		196C0AFD1897AE1800EB48FF /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -80,8 +89,6 @@
 		1978CA901898F16300C69A3C /* ModelParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModelParser.h; sourceTree = "<group>"; };
 		19A6819D189827F800F98B05 /* AppEngine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AppEngine.cpp; sourceTree = "<group>"; };
 		19A6819E189827F800F98B05 /* AppEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppEngine.h; sourceTree = "<group>"; };
-		19A681A0189836FF00F98B05 /* RenderingEngine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RenderingEngine.cpp; sourceTree = "<group>"; };
-		19A681A1189836FF00F98B05 /* RenderingEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RenderingEngine.h; sourceTree = "<group>"; };
 		19A681A318983A5D00F98B05 /* ShaderProgram.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ShaderProgram.cpp; sourceTree = "<group>"; };
 		19A681A418983A5D00F98B05 /* ShaderProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShaderProgram.h; sourceTree = "<group>"; };
 		19A681AC1898C96700F98B05 /* he_BitFlag.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = he_BitFlag.h; sourceTree = "<group>"; };
@@ -96,6 +103,16 @@
 		19A681B91898E53300F98B05 /* Quad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Quad.h; sourceTree = "<group>"; };
 		19E17CE8189963470000E516 /* Camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Camera.cpp; sourceTree = "<group>"; };
 		19E17CE9189963470000E516 /* Camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Camera.h; sourceTree = "<group>"; };
+		19E17CF9189A43680000E516 /* Renderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Renderer.cpp; sourceTree = "<group>"; };
+		19E17CFA189A43680000E516 /* Renderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Renderer.h; sourceTree = "<group>"; };
+		19E17CFC189A5E680000E516 /* ShadowShader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ShadowShader.vsh; sourceTree = "<group>"; };
+		19E17CFE189A5E730000E516 /* ShadowShader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ShadowShader.fsh; sourceTree = "<group>"; };
+		19E17D00189A8F290000E516 /* DropShadowShader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = DropShadowShader.vsh; sourceTree = "<group>"; };
+		19E17D02189A8F370000E516 /* DropShadowShader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = DropShadowShader.fsh; sourceTree = "<group>"; };
+		19E17D04189AAA0A0000E516 /* Debugger.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Debugger.cpp; sourceTree = "<group>"; };
+		19E17D05189AAA0A0000E516 /* Debugger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Debugger.h; sourceTree = "<group>"; };
+		19FDCDDE189BDA8000663ED3 /* Light.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Light.cpp; sourceTree = "<group>"; };
+		19FDCDDF189BDA8000663ED3 /* Light.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Light.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -166,8 +183,8 @@
 				196C0B0B1897AE1800EB48FF /* he_AppDelegate.mm */,
 				196C0B2A1897AE3500EB48FF /* he_View.h */,
 				196C0B2B1897AE3500EB48FF /* he_View.mm */,
-				19A681A0189836FF00F98B05 /* RenderingEngine.cpp */,
-				19A681A1189836FF00F98B05 /* RenderingEngine.h */,
+				19E17CF9189A43680000E516 /* Renderer.cpp */,
+				19E17CFA189A43680000E516 /* Renderer.h */,
 				19A681A318983A5D00F98B05 /* ShaderProgram.cpp */,
 				19A681A418983A5D00F98B05 /* ShaderProgram.h */,
 				19A681B11898D56A00F98B05 /* he_File.cpp */,
@@ -175,6 +192,8 @@
 				19A681B41898D80C00F98B05 /* he_Path.h */,
 				19A681B51898D80C00F98B05 /* he_Path.mm */,
 				19A681B71898E51E00F98B05 /* IGeometry.h */,
+				1906CC97189B836E00650144 /* Cube.cpp */,
+				1906CC98189B836E00650144 /* Cube.h */,
 				19A681B81898E53300F98B05 /* Quad.cpp */,
 				19A681B91898E53300F98B05 /* Quad.h */,
 				1978CA841898F04700C69A3C /* Teapot.cpp */,
@@ -186,10 +205,18 @@
 				1978CA8D1898F12F00C69A3C /* he_Quaternion.h */,
 				1978CA8F1898F16300C69A3C /* ModelParser.cpp */,
 				1978CA901898F16300C69A3C /* ModelParser.h */,
+				19FDCDDE189BDA8000663ED3 /* Light.cpp */,
+				19FDCDDF189BDA8000663ED3 /* Light.h */,
 				19E17CE8189963470000E516 /* Camera.cpp */,
 				19E17CE9189963470000E516 /* Camera.h */,
+				19E17D04189AAA0A0000E516 /* Debugger.cpp */,
+				19E17D05189AAA0A0000E516 /* Debugger.h */,
 				19A681AD1898D0F700F98B05 /* ColorShader.vsh */,
 				19A681AF1898D10400F98B05 /* ColorShader.fsh */,
+				19E17CFC189A5E680000E516 /* ShadowShader.vsh */,
+				19E17CFE189A5E730000E516 /* ShadowShader.fsh */,
+				19E17D00189A8F290000E516 /* DropShadowShader.vsh */,
+				19E17D02189A8F370000E516 /* DropShadowShader.fsh */,
 				196C0B0D1897AE1800EB48FF /* Images.xcassets */,
 				196C0B021897AE1800EB48FF /* Supporting Files */,
 			);
@@ -304,6 +331,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				19E17D01189A8F290000E516 /* DropShadowShader.vsh in Resources */,
+				19E17D03189A8F370000E516 /* DropShadowShader.fsh in Resources */,
+				19E17CFD189A5E680000E516 /* ShadowShader.vsh in Resources */,
+				19E17CFF189A5E730000E516 /* ShadowShader.fsh in Resources */,
 				19A681B01898D10400F98B05 /* ColorShader.fsh in Resources */,
 				19A681AE1898D0F700F98B05 /* ColorShader.vsh in Resources */,
 				196C0B061897AE1800EB48FF /* InfoPlist.strings in Resources */,
@@ -330,16 +361,19 @@
 				19A681BA1898E53300F98B05 /* Quad.cpp in Sources */,
 				196C0B081897AE1800EB48FF /* main.m in Sources */,
 				19E17CEA189963470000E516 /* Camera.cpp in Sources */,
-				19A681A2189836FF00F98B05 /* RenderingEngine.cpp in Sources */,
 				19A681B61898D80C00F98B05 /* he_Path.mm in Sources */,
 				1978CA8E1898F12F00C69A3C /* he_Quaternion.cpp in Sources */,
+				19E17CFB189A43680000E516 /* Renderer.cpp in Sources */,
 				1978CA8B1898F06B00C69A3C /* Trackball.cpp in Sources */,
 				19A6819F189827F800F98B05 /* AppEngine.cpp in Sources */,
+				1906CC99189B836E00650144 /* Cube.cpp in Sources */,
 				19A681B31898D56A00F98B05 /* he_File.cpp in Sources */,
+				19E17D06189AAA0A0000E516 /* Debugger.cpp in Sources */,
 				1978CA911898F16300C69A3C /* ModelParser.cpp in Sources */,
 				19A681A518983A5D00F98B05 /* ShaderProgram.cpp in Sources */,
 				196C0B2C1897AE3500EB48FF /* he_View.mm in Sources */,
 				1978CA861898F04700C69A3C /* Teapot.cpp in Sources */,
+				19FDCDE0189BDA8000663ED3 /* Light.cpp in Sources */,
 				196C0B0C1897AE1800EB48FF /* he_AppDelegate.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -461,11 +495,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ShadowMapping/ShadowMapping-Prefix.pch";
 				INFOPLIST_FILE = "ShadowMapping/ShadowMapping-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -477,11 +513,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ShadowMapping/ShadowMapping-Prefix.pch";
 				INFOPLIST_FILE = "ShadowMapping/ShadowMapping-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

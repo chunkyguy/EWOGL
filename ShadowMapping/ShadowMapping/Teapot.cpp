@@ -72,32 +72,48 @@ void Teapot::Draw(const Renderer *renderer) const
 {
   glBindVertexArrayOES(vao_);
   
-  int um4k_Modelview = glGetUniformLocation(renderer->program, "um4k_Modelview");
-  int um3k_Normal = glGetUniformLocation(renderer->program, "um3k_Normal");
-  int um4k_Modelviewproj = glGetUniformLocation(renderer->program, "um4k_Modelviewproj");
-  int light_uv4e_Position = glGetUniformLocation(renderer->program, "light.uv4e_Position");
-  int material_uv4k_Color = glGetUniformLocation(renderer->program, "material.uv4k_Color");
-  int material_ufk_Gloss = glGetUniformLocation(renderer->program, "material.ufk_Gloss");
-  int light_uv4k_Color = glGetUniformLocation(renderer->program, "light.uv4k_Color");
   
-  //GLKMatrix4 tMat = GLKMatrix4MakeTranslation(0.0f, 0.0f, 0.0f);
   GLKMatrix4 mMat = GLKMatrix4MakeWithQuaternion(trackball_.GetOrientation());
  
   //  GLKMatrix4 mMat = GLKMatrix4Multiply(tMat, rMat);
   GLKMatrix4 mvMat = GLKMatrix4Multiply(renderer->view, mMat);
-  glUniformMatrix4fv(um4k_Modelview, 1, GL_FALSE, mvMat.m);
-  
-  GLKMatrix3 nMat = GLKMatrix3InvertAndTranspose(GLKMatrix4GetMatrix3(mvMat), NULL);
-  glUniformMatrix3fv(um3k_Normal, 1, GL_FALSE, nMat.m);
   
   GLKMatrix4 mvpMat = GLKMatrix4Multiply(renderer->projection, mvMat);
+  int um4k_Modelviewproj = glGetUniformLocation(renderer->program, "um4k_Modelviewproj");
   glUniformMatrix4fv(um4k_Modelviewproj, 1, GL_FALSE, mvpMat.m);
-  
-  glUniform4f(light_uv4e_Position, 0.0f, 1.0f, 0.0f, 1.0f);
-  glUniform4f(light_uv4k_Color, 1.0f, 1.0f, 1.0f, 1.0f);
 
-  glUniform4f(material_uv4k_Color, 0.0f, 0.6f, 0.7f, 1.0f);
-  glUniform1f(material_ufk_Gloss, 30.0f);
+  if (renderer->pass == 1) {
+    
+    GLKMatrix3 nMat = GLKMatrix3InvertAndTranspose(GLKMatrix4GetMatrix3(mvMat), NULL);
+    int um3k_Normal = glGetUniformLocation(renderer->program, "um3k_Normal");
+    glUniformMatrix3fv(um3k_Normal, 1, GL_FALSE, nMat.m);
+    
+    GLKMatrix4 shadowBasis = GLKMatrix4Make(0.5f, 0.0f, 0.0f, 0.0f,
+                                            0.0f, 0.5f, 0.0f, 0.0f,
+                                            0.0f, 0.0f, 0.5f, 0.0f,
+                                            0.5f, 0.5f, 0.5f, 1.0f);
+
+    GLKVector4 t = GLKVector4Make(-1, 0, 1, 1);
+    GLKVector4 t_expect = GLKVector4Make(0, 0.5f, 1, 1);
+    GLKVector4 t_actual = GLKMatrix4MultiplyVector4(shadowBasis, t);
+    assert(GLKVector4AllEqualToVector4(t_expect, t_actual));
+    
+    GLKMatrix4 shadowMat = GLKMatrix4Multiply(shadowBasis,
+                                              GLKMatrix4Multiply(renderer->shadowProjection,
+                                                                 GLKMatrix4Multiply(renderer->shadowView, mMat)));
+    int um4k_Shadow = glGetUniformLocation(renderer->program, "um4k_Shadow");
+    glUniformMatrix4fv(um4k_Shadow, 1, GL_FALSE, shadowMat.m);
+    
+    int um4k_Modelview = glGetUniformLocation(renderer->program, "um4k_Modelview");
+    glUniformMatrix4fv(um4k_Modelview, 1, GL_FALSE, mvMat.m);
+
+    int material_uv4k_Color = glGetUniformLocation(renderer->program, "material.uv4k_Color");
+    glUniform4f(material_uv4k_Color, 0.0f, 0.6f, 0.7f, 1.0f);
+
+    int material_ufk_Gloss = glGetUniformLocation(renderer->program, "material.ufk_Gloss");
+    glUniform1f(material_ufk_Gloss, 30.0f);
+    
+  }
   
   glDrawElements(GL_TRIANGLES, indexCount_, GL_UNSIGNED_SHORT, NULL);
   

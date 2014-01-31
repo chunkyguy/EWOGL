@@ -8,7 +8,7 @@
 
 #ifndef ShadowMapping_IGeometry_h
 #define ShadowMapping_IGeometry_h
-#include "RenderingEngine.h"
+#include "Renderer.h"
 
 struct IGeometry {
   virtual void Update(const unsigned int dt) = 0;

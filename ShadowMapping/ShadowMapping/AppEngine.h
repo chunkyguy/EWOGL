@@ -9,12 +9,13 @@
 #ifndef __ShadowMapping__AppEngine__
 #define __ShadowMapping__AppEngine__
 #include <GLKit/GLKMath.h>
-#include <OpenGLES/ES2/gl.h>
-#include "RenderingEngine.h"
+#include <OpenGLES/ES3/gl.h>
 #include "ShaderProgram.h"
 #include "Quad.h"
 #include "Teapot.h"
+#include "Cube.h"
 #include "Camera.h"
+#include "Light.h"
 
 /** Functor to allocate the on-screen renderbuffer 
  * Replacement for glRenderbufferStorage call
@@ -50,25 +51,31 @@ public:
   void TouchMove(const GLKVector2 &point);
 
 private:
-
-  bool init_;
-  
   /** Create the framebuffer */
   void create_framebuffer(RenderbufferStorage &renderbufferStorage);
   /** Destroy the framebuffer */
   void destroy_framebuffer();
-  GLuint fbo_[1];
-  GLuint rbo_[2];
+
+  void render_pass1();
+  void render_pass2();
+  
+  bool init_;
+  
+  GLuint fbo_[2];
+  GLuint rbo_[3];
   GLint fboSize_[2];
+  GLuint shadowTexture_;
   
   GLKVector2 screenSize_;
-  RenderingEngine renderer_;
 
   void load_shaders();
-  ShaderProgram shaders_[1];
+  ShaderProgram shaders_[2];
   
   Quad quad_;
   Teapot teapot_;
-  Camera camera_;
+//  Cube cube_;
+
+  Light light_;
+  Camera camera_[2];
 };
 #endif /* defined(__ShadowMapping__AppEngine__) */

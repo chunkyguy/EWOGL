@@ -43,7 +43,7 @@ bool RenderbufferStorageCompletion(void *eaglContext, void *layer)
                                 nil];
     
     /* create gl context */
-    self.eaglContext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
+    self.eaglContext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES3];
     assert(self.eaglContext);
     [EAGLContext setCurrentContext:self.eaglContext];
 

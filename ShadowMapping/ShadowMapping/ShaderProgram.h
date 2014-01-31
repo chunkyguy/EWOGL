@@ -11,8 +11,9 @@
 #include <OpenGLES/ES2/gl.h>
 #include "he_BitFlag.h"
 
-#define kAttribPosition 	1
-#define kAttribNormal			2
+#define kAttribPosition 	0
+#define kAttribNormal			1
+#define kAttribTexcoord		2
 
 class ShaderProgram {
 public:
