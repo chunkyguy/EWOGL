@@ -94,7 +94,8 @@ void Teapot::Draw(const Renderer *renderer) const
                                             0.5f, 0.5f, 0.5f, 1.0f);
 
     GLKVector4 t = GLKVector4Make(-1, 0, 1, 1);
-    GLKVector4 t_expect = GLKVector4Make(0, 0.5f, 1, 1);
+    //    GLKVector4 t_expect = GLKVector4Make(1, 0.5f, 0, 1);
+        GLKVector4 t_expect = GLKVector4Make(0, 0.5f, 1, 1);
     GLKVector4 t_actual = GLKMatrix4MultiplyVector4(shadowBasis, t);
     assert(GLKVector4AllEqualToVector4(t_expect, t_actual));
     

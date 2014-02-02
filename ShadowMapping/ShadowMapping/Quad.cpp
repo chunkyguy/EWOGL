@@ -29,8 +29,8 @@ void Quad::Update(const unsigned int dt)
 
 void Quad::Draw(const Renderer *renderer) const
 {
-  GLKMatrix4 mMat = GLKMatrix4MakeTranslation(0.0f, 0.0f, -5.0f);
-  //mMat =  GLKMatrix4Rotate(mMat, GLKMathDegreesToRadians(-85.0f), 1.0f, 0.0f, 0.0f);
+  GLKMatrix4 mMat = GLKMatrix4MakeTranslation(0.0f, 0.0f, -3.0f);
+  mMat =  GLKMatrix4Rotate(mMat, GLKMathDegreesToRadians(-90.0f), 1.0f, 0.0f, 0.0f);
   mMat = GLKMatrix4Scale(mMat, 10.0f, 10.0f, 1.0f);
   
   GLKMatrix4 mvMat = GLKMatrix4Multiply(renderer->view, mMat);

@@ -25,8 +25,8 @@ enum {
 };
 
 enum {
-  Cam_Front = 0,
-  Cam_Top
+  Cam_View = 0,
+  Cam_Light
 };
 
 enum {
@@ -60,16 +60,17 @@ bool AppEngine::Init(RenderbufferStorage &renderbufferStorage, const GLKVector2 
   //  cube_.Init();
 
   /* eye camera */
-  camera_[Cam_Front].SetAspectRatio(screenSize.x/screenSize.y);
-  camera_[Cam_Front].SetPosition(GLKVector3Make(0.0f, 0.0f, 25.0f));
+  camera_[Cam_View].SetAspectRatio(screenSize.x/screenSize.y);
+  camera_[Cam_View].SetPosition(GLKVector3Make(15.0f, 10.0f, 10.0f));
+  camera_[Cam_View].SetFocus(GLKVector3Make(0.0f, 0.0f, -3.5f));
+  //camera_[Cam_Front].SetFar(50.0f);
 
   /* light camera */
-  camera_[Cam_Top].SetAspectRatio(screenSize.x/screenSize.y);
-  camera_[Cam_Top].SetPosition(GLKVector3Make(0.0f, 15.0f, 10.0f));
-  camera_[Cam_Top].SetUp(GLKVector3Make(0.0f, 1.0f, -1.0f));
-
-  /* main light */
-  light_.SetPosition(GLKVector4Make(0.0f, 0.0f, 1.0f, 0.0f));
+  camera_[Cam_Light].SetAspectRatio(screenSize.x/screenSize.y);
+  camera_[Cam_Light].SetPosition(GLKVector3Make(0.0f, 15.0f, 15.0f));
+  camera_[Cam_Light].SetLightDirection(GLKVector3Make(0.0f, 0.0f, 1.0f));
+//  /* main light */
+//  light_.SetPosition(GLKVector4Make(0.0f, 0.0f, 1.0f, 0.0f));
   
   init_ = true;
   return init_;
@@ -112,16 +113,16 @@ void AppEngine::create_framebuffer(RenderbufferStorage &renderbufferStorage)
   /* create shadow framebuffer */
   glBindFramebuffer(GL_FRAMEBUFFER, fbo_[FBO_Shadow]);
   glBindRenderbuffer(GL_RENDERBUFFER, rbo_[RBO_Shadow]);
-  glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT16, fboSize_[0], fboSize_[1]);
+  glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT32F, fboSize_[0], fboSize_[1]);
   glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, rbo_[RBO_Shadow]);
 
   /* create shadow texture*/
   glActiveTexture(GL_TEXTURE0);
 	glGenTextures(1, &shadowTexture_);
   glBindTexture(GL_TEXTURE_2D, shadowTexture_);
-  glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT16, fboSize_[0], fboSize_[1], 0, GL_DEPTH_COMPONENT, GL_UNSIGNED_SHORT, NULL);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+  glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT32F, fboSize_[0], fboSize_[1], 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_COMPARE_REF_TO_TEXTURE);
@@ -165,7 +166,6 @@ void AppEngine::load_shaders()
 void AppEngine::Update(unsigned int dt)
 {
   glEnable(GL_DEPTH_TEST);
-
   /* pass 1: Create shadow map */
   render_pass1();
   
@@ -181,9 +181,11 @@ void AppEngine::render_pass1()
 {
   glBindFramebuffer(GL_FRAMEBUFFER, fbo_[FBO_Shadow]);
   glClear(GL_DEPTH_BUFFER_BIT);
-  
-  glCullFace(GL_FRONT);
+ 
+  //  glDepthRangef(1.0f, 0.0f);
+
   glEnable(GL_CULL_FACE);
+  glCullFace(GL_FRONT);
   
   GLuint program = shaders_[Sh_DropShadow].GetProgram();
   glUseProgram(program);
@@ -191,14 +193,14 @@ void AppEngine::render_pass1()
   Renderer renderer;
   renderer.pass = 0;
   renderer.program = program;
-  renderer.view = camera_[Cam_Front].GetViewMatrix();
-  renderer.projection = camera_[Cam_Front].GetProjectionMatrix();
+  renderer.view = camera_[Cam_Light].ViewMatrix();
+  renderer.projection = camera_[Cam_Light].ProjectionMatrix();
   
   teapot_.Draw(&renderer);
   quad_.Draw(&renderer);
   //  cube_.Draw(&renderer);
 
-    glDisable(GL_CULL_FACE);
+  glDisable(GL_CULL_FACE);
 }
 
 void AppEngine::render_pass2()
@@ -206,6 +208,8 @@ void AppEngine::render_pass2()
   glBindFramebuffer(GL_FRAMEBUFFER, fbo_[FBO_Main]);
   glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+  //  glDepthRangef(0.0f, 1.0f);
 
   glBindTexture(GL_TEXTURE_2D, shadowTexture_);
   
@@ -215,16 +219,16 @@ void AppEngine::render_pass2()
   Renderer renderer;
   renderer.pass = 1;
   renderer.program = program;
-  renderer.view = camera_[Cam_Top].GetViewMatrix();
-  renderer.projection = camera_[Cam_Top].GetProjectionMatrix();
-  renderer.shadowView = camera_[Cam_Front].GetViewMatrix();
-  renderer.shadowProjection = camera_[Cam_Front].GetProjectionMatrix();
+  renderer.view = camera_[Cam_View].ViewMatrix();
+  renderer.projection = camera_[Cam_View].ProjectionMatrix();
+  renderer.shadowView = camera_[Cam_Light].ViewMatrix();
+  renderer.shadowProjection = camera_[Cam_Light].ProjectionMatrix();
   
   int light_uv4e_Position = glGetUniformLocation(program, "light.uv4e_Position");
-  glUniform4fv(light_uv4e_Position, 1, light_.GetPosition().v);
+  glUniform4fv(light_uv4e_Position, 1, GLKVector4MakeWithVector3(camera_[Cam_Light].LightDirection(), 0.0f).v);
   
   int light_uv4k_Color = glGetUniformLocation(program, "light.uv4k_Color");
-  glUniform4fv(light_uv4k_Color, 1, light_.GetColor().v);
+  glUniform4fv(light_uv4k_Color, 1, camera_[Cam_Light].LightColor().v);
   
   int us2s_Tex0 = glGetUniformLocation(program, "us2s_Tex0");
   glUniform1i(us2s_Tex0, 0);

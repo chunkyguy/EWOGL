@@ -75,7 +75,7 @@ private:
   Teapot teapot_;
 //  Cube cube_;
 
-  Light light_;
+  //Light light_;
   Camera camera_[2];
 };
 #endif /* defined(__ShadowMapping__AppEngine__) */

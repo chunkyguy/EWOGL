@@ -5,7 +5,7 @@ layout (location=1) in vec3 av3o_Normal;
 
 out lowp vec4 vv4e_Position;
 out lowp vec3 vv3e_Normal;
-out lowp vec4 vv4s_Texcoord;
+out highp vec4 vv4s_Texcoord;
 
 uniform mat4 um4k_Modelview;
 uniform mat3 um3k_Normal;

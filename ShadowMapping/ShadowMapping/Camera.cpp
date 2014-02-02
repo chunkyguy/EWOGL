@@ -14,7 +14,10 @@ Camera::  Camera(const float fov,
                  const float far,
                  const GLKVector3 &position,
                  const GLKVector3 &focus,
-                 const GLKVector3 &up) :
+                 const GLKVector3 &up,
+                 const GLKVector3 &lightDir,
+                 const GLKVector4 &lightColor
+                 ) :
 fov_(fov),
 aspectRatio_(aspectRatio),
 near_(near),
@@ -22,6 +25,8 @@ far_(far),
 position_(position),
 focus_(focus),
 up_(up),
+lightDirection_(lightDir),
+lightColor_(lightColor),
 viewMatrix_(GLKMatrix4Identity),
 projectionMatrix_(GLKMatrix4Identity)
 {
@@ -60,7 +65,7 @@ void Camera::SetPosition(const GLKVector3 &position)
   update_view();
 }
 
-const GLKVector3 &Camera::GetPosition() const
+const GLKVector3 &Camera::Position() const
 {
   return position_;
 }
@@ -77,6 +82,27 @@ void Camera::SetUp(const GLKVector3 &up)
   update_view();
 }
 
+void Camera::SetLightDirection(const GLKVector3 &lDir)
+{
+  lightDirection_ = lDir;
+}
+
+const GLKVector3 &Camera::LightDirection() const
+{
+  return lightDirection_;
+}
+
+void Camera::SetLightColor(const GLKVector4 &lClr)
+{
+  lightColor_ = lClr;
+}
+
+const GLKVector4 &Camera::LightColor() const
+{
+  return lightColor_;
+}
+
+
 void Camera::update_view()
 {
   viewMatrix_ = GLKMatrix4MakeLookAt(position_.x, position_.y, position_.z,
@@ -89,12 +115,12 @@ void Camera::update_projection()
   projectionMatrix_ = GLKMatrix4MakePerspective(GLKMathDegreesToRadians(fov_), aspectRatio_, near_, far_);
 }
 
-const GLKMatrix4 &Camera::GetViewMatrix() const
+const GLKMatrix4 &Camera::ViewMatrix() const
 {
   return viewMatrix_;
 }
 
-const GLKMatrix4 &Camera::GetProjectionMatrix() const
+const GLKMatrix4 &Camera::ProjectionMatrix() const
 {
   return projectionMatrix_;
 }

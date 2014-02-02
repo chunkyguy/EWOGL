@@ -19,7 +19,10 @@ public:
          const float far = 100.0f,
          const GLKVector3 &position = GLKVector3Make(0.0f, 0.0f, 5.0f),
          const GLKVector3 &focus = GLKVector3Make(0.0f, 0.0f, 0.0f),
-         const GLKVector3 &up = GLKVector3Make(0.0f, 1.0f, 0.0f));
+         const GLKVector3 &up = GLKVector3Make(0.0f, 1.0f, 0.0f),
+         const GLKVector3 &lightDirection = GLKVector3Make(0.0f, 0.0f, 1.0f),
+         const GLKVector4 &lightColor = GLKVector4Make(1.0f, 1.0f, 1.0f, 1.0f)
+         );
 
   /** In degrees */
   void SetFOV(const float fov);
@@ -28,12 +31,18 @@ public:
   void SetFar(const float far);
   
   void SetPosition(const GLKVector3 &position);
-  const GLKVector3 &GetPosition() const;
+  const GLKVector3 &Position() const;
   void SetFocus(const GLKVector3 &focus);
   void SetUp(const GLKVector3 &up);
+
+  void SetLightDirection(const GLKVector3 &lDir);
+  const GLKVector3 &LightDirection() const;
   
-  const GLKMatrix4 &GetViewMatrix() const;
-  const GLKMatrix4 &GetProjectionMatrix() const;
+  void SetLightColor(const GLKVector4 &lClr);
+  const GLKVector4 &LightColor() const;
+  
+  const GLKMatrix4 &ViewMatrix() const;
+  const GLKMatrix4 &ProjectionMatrix() const;
   
 private:
   void update_view();
@@ -47,6 +56,9 @@ private:
   GLKVector3 position_;
   GLKVector3 focus_;
   GLKVector3 up_;
+  
+  GLKVector3 lightDirection_;
+  GLKVector4 lightColor_;
   
   GLKMatrix4 viewMatrix_;
   GLKMatrix4 projectionMatrix_;
