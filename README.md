@@ -64,3 +64,9 @@ Gaussian Blur
 -------------
 Applying blur filter with multiple-pass algorithm.
 ![Blur](http://i.imgur.com/y3uFqhB.png)
+
+Shadow Mapping
+--------------
+Drawing shadows with depth textures.
+![Shadowmap](http://i.imgur.com/AoT7R50.png)
+
