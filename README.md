@@ -70,3 +70,8 @@ Shadow Mapping
 Drawing shadows with depth textures.
 ![Shadowmap](http://i.imgur.com/AoT7R50.png)
 
+Object Picking
+--------------
+Tracing ray collision with objects in the scene.
+![Object picking](http://i.imgur.com/fsHeIhg.png)
+
